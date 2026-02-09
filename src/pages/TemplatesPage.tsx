@@ -38,7 +38,7 @@ export default function TemplatesPage() {
 
       <TemplatePreview
         title="Editor Layout"
-        description="Split-pane: left editor (60%) + resizer (4px) + right preview/playground (40%). Collapses to stacked on mobile."
+        description="Split-pane: left editor (50%) + resizer (4px) + right preview/playground (50%). Collapses to stacked on mobile."
         composedOf="AppShell + PromptEditorPanel + CompiledPreviewPanel"
         responsive="Split-pane collapses to stacked on md and below"
         layout="split-pane"
