@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge, BadgeDot } from "@/components/ui/badge";
-import { Heading, Text, Code, Kbd, Tag } from "@/components/atoms";
+import { Heading, Text, Code, Kbd, Tag, Link } from "@/components/atoms";
 import { Avatar, AvatarImage, AvatarFallback, AvatarStatus } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
@@ -391,6 +391,17 @@ export default function AtomsPage() {
           </div>
         </SubSection>
         <CodeBlock>{`<Progress value={65} variant="default | success | warning | error | info" indeterminate={boolean} />`}</CodeBlock>
+      </Section>
+
+      {/* ── LINK ── */}
+      <Section id="link" title="Link" description="Styled anchor. font-body, text-accent, hover:underline. External variant appends ↗ and opens in new tab.">
+        <SubSection title="Variants">
+          <div className="flex flex-wrap items-center gap-6">
+            <Link href="#">Internal link</Link>
+            <Link href="https://example.com" external>External link</Link>
+          </div>
+        </SubSection>
+        <CodeBlock>{`<Link href="#" external={boolean}>Link text</Link>`}</CodeBlock>
       </Section>
 
       {/* ── LABEL ── */}
