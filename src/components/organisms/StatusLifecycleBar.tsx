@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 import { CheckCircle2 } from "lucide-react";
 
-const statusColorMap: Record<string, { dot: string; line: string; icon: string }> = {
-  draft: { dot: "bg-status-draft", line: "bg-status-draft", icon: "text-status-draft" },
-  testing: { dot: "bg-status-testing", line: "bg-status-testing", icon: "text-status-testing" },
-  production: { dot: "bg-status-production", line: "bg-status-production", icon: "text-status-production" },
-  archived: { dot: "bg-status-archived", line: "bg-status-archived", icon: "text-status-archived" },
+const statusColorMap: Record<string, { dot: string; line: string; icon: string; border: string }> = {
+  draft: { dot: "bg-status-draft", line: "bg-status-draft", icon: "text-status-draft", border: "border-status-draft" },
+  testing: { dot: "bg-status-testing", line: "bg-status-testing", icon: "text-status-testing", border: "border-status-testing" },
+  production: { dot: "bg-status-production", line: "bg-status-production", icon: "text-status-production", border: "border-status-production" },
+  archived: { dot: "bg-status-archived", line: "bg-status-archived", icon: "text-status-archived", border: "border-status-archived" },
 };
 
 interface Step {
@@ -34,7 +34,7 @@ export function StatusLifecycleBar({ steps, className }: StatusLifecycleBarProps
               <span className={cn(
                 "flex h-3.5 w-3.5 items-center justify-center rounded-full",
                 step.completed ? colors.dot : "border-2 border-border bg-transparent",
-                step.active && !step.completed && "border-accent",
+                step.active && !step.completed && colors.border,
               )}>
                 {step.completed && <CheckCircle2 className={cn("h-3.5 w-3.5", colors.icon)} />}
               </span>
