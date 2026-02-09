@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { TopBar } from "@/components/organisms/TopBar";
 import { SidebarNav } from "@/components/organisms/SidebarNav";
 import { DataTable } from "@/components/organisms/DataTable";
@@ -53,6 +53,13 @@ export default function OrganismsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [filterSearch, setFilterSearch] = useState("");
   const [bulkCount, setBulkCount] = useState(3);
+  const [highlightedVar, setHighlightedVar] = useState<string | null>(null);
+
+  const handleVariableClick = useCallback((name: string) => {
+    setHighlightedVar(name);
+    // Auto-clear after 2 seconds
+    setTimeout(() => setHighlightedVar(null), 2000);
+  }, []);
 
   return (
     <div className="space-y-12">
@@ -222,20 +229,21 @@ export default function OrganismsPage() {
       <Section id="compiledpreview" title="Compiled Preview" description="Read-only view of the fully compiled prompt with token usage indicator." composedOf="TokenCounter + font-mono pre block">
         <div className="p-4">
           <CompiledPreview
-            content={"You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nThe customer may ask about:\n- Order status and tracking\n- Returns and refunds\n- Product specifications\n\nRespond in JSON format with fields: response, sentiment, escalate."}
+            content={"You are a helpful customer support agent for {{company_name}}.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nThe customer may ask about:\n- Order status and tracking\n- Returns and refunds\n- Product specifications\n\nSend replies from {{support_email}} using a {{tone}} voice.\n\nRespond in JSON format with fields: response, sentiment, escalate."}
             totalTokens={1842}
             maxTokens={4096}
+            onVariableClick={handleVariableClick}
           />
         </div>
         <CodeBlock>{`<CompiledPreview content="..." totalTokens={1842} maxTokens={4096} />`}</CodeBlock>
       </Section>
 
       {/* ── VARIABLE MANAGER ── */}
-      <Section id="variablemanager" title="Variable Manager" description="Manages template variables like {{company_name}} with name and default value pairs." composedOf="Input + Button + font-mono variable syntax">
+      <Section id="variablemanager" title="Variable Manager" description="Manages template variables like {{company_name}} with name and default value pairs. Click a {{variable}} in the Compiled Preview above to highlight it here." composedOf="Input + Button + font-mono variable syntax">
         <div className="p-4 max-w-lg">
-          <VariableManagerDemo />
+          <VariableManagerDemo highlightedVariable={highlightedVar} />
         </div>
-        <CodeBlock>{`<VariableManager variables={[{ name: "company_name", defaultValue: "Acme Corp" }]} onChange={fn} readOnly={boolean} />`}</CodeBlock>
+        <CodeBlock>{`<VariableManager variables={[{ name: "company_name", defaultValue: "Acme Corp" }]} onChange={fn} highlightedVariable="company_name" />`}</CodeBlock>
       </Section>
 
       {/* ── PROMPT EDITOR PANEL ── */}
@@ -291,11 +299,11 @@ export default function OrganismsPage() {
 }
 
 /** Demo wrapper for VariableManager with local state */
-function VariableManagerDemo() {
+function VariableManagerDemo({ highlightedVariable }: { highlightedVariable?: string | null }) {
   const [vars, setVars] = useState([
     { name: "company_name", defaultValue: "Acme Corp" },
     { name: "support_email", defaultValue: "help@acme.com" },
     { name: "tone", defaultValue: "professional" },
   ]);
-  return <VariableManager variables={vars} onChange={setVars} />;
+  return <VariableManager variables={vars} onChange={setVars} highlightedVariable={highlightedVariable} />;
 }
