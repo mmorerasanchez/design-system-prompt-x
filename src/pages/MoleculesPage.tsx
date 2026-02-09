@@ -8,10 +8,19 @@ import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
 import { TokenCounter } from "@/components/molecules/TokenCounter";
 import { EmptyState } from "@/components/molecules/EmptyState";
 import { TabNav } from "@/components/molecules/TabNav";
+import { ParameterControl } from "@/components/molecules/ParameterControl";
+import { VariableHighlight } from "@/components/molecules/VariableHighlight";
+import { PromptFieldHeader } from "@/components/molecules/PromptFieldHeader";
+import { DiffLine } from "@/components/molecules/DiffLine";
+import { ActivityFeedItem } from "@/components/molecules/ActivityFeedItem";
+import { VariableEditorRow } from "@/components/molecules/VariableEditorRow";
+import { RunHistoryItem } from "@/components/molecules/RunHistoryItem";
+import { TestCaseRow } from "@/components/molecules/TestCaseRow";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Home, FileText, Settings, BarChart3, Users, Search, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Home, FileText, Settings, BarChart3, Users, Search, Lock, ChevronDown, ChevronUp } from "lucide-react";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
   return (
@@ -66,6 +75,11 @@ function CodeBlock({ children }: { children: string }) {
 export default function MoleculesPage() {
   const [search, setSearch] = useState("");
   const [activeNav, setActiveNav] = useState("prompts");
+
+  const [temperature, setTemperature] = useState(0.7);
+  const [topP, setTopP] = useState(0.95);
+  const [varName, setVarName] = useState("user_name");
+  const [varValue, setVarValue] = useState("John Doe");
 
   return (
     <div className="space-y-12">
@@ -199,6 +213,94 @@ export default function MoleculesPage() {
       <Section id="tab-nav" title="Tab Nav" description="Horizontal tab navigation bar with active state and optional disabled tabs. Used for settings, detail views, and section navigation." composedOf="Button-like tabs + active highlight">
         <TabNavDemo />
         <CodeBlock>{`<TabNav items={[{ label: "Profile", value: "profile" }, { label: "Variables", value: "vars", icon: Lock, disabled: true }]} value={active} onValueChange={setActive} />`}</CodeBlock>
+      </Section>
+
+      {/* ── PARAMETER CONTROL ── */}
+      <Section id="parameter-control" title="Parameter Control" description="Labeled slider + numeric input for model parameters like temperature and top_p." composedOf="Label + Slider + Input">
+        <div className="max-w-sm space-y-4">
+          <ParameterControl label="Temperature" value={temperature} onChange={setTemperature} min={0} max={2} step={0.01} />
+          <ParameterControl label="Top P" value={topP} onChange={setTopP} min={0} max={1} step={0.01} />
+          <ParameterControl label="Max Tokens" value={2048} min={1} max={8192} step={1} unit="tok" />
+        </div>
+        <CodeBlock>{`<ParameterControl label="Temperature" value={0.7} onChange={fn} min={0} max={2} step={0.01} />`}</CodeBlock>
+      </Section>
+
+      {/* ── VARIABLE HIGHLIGHT ── */}
+      <Section id="variable-highlight" title="Variable Highlight" description="Inline styled {{variable}} token with click interaction and unresolved state." composedOf="Styled button with mono text">
+        <div className="flex flex-wrap items-center gap-3">
+          <VariableHighlight name="user_name" resolvedValue="John Doe" />
+          <VariableHighlight name="company" resolvedValue="Acme Corp" />
+          <VariableHighlight name="missing_var" unresolved />
+          <VariableHighlight name="clickable" onClick={(n) => alert(`Clicked: ${n}`)} />
+        </div>
+        <CodeBlock>{`<VariableHighlight name="user_name" resolvedValue="John" unresolved onClick={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── PROMPT FIELD HEADER ── */}
+      <Section id="prompt-field-header" title="Prompt Field Header" description="Header bar for an anatomy field section with colored dot, label, token count, and actions." composedOf="Dot + Label + TokenCounter + Actions slot">
+        <div className="space-y-2 max-w-lg">
+          <PromptFieldHeader field="role" label="Role" tokenCount={120} required />
+          <PromptFieldHeader field="task" label="Task" tokenCount={340} actions={<Button variant="ghost" size="sm">Edit</Button>} />
+          <PromptFieldHeader field="constraints" label="Constraints" tokenCount={80} />
+          <PromptFieldHeader field="examples" label="Examples" tokenCount={3800} tokenMax={4000} />
+        </div>
+        <CodeBlock>{`<PromptFieldHeader field="role" label="Role" tokenCount={120} required actions={...} />`}</CodeBlock>
+      </Section>
+
+      {/* ── DIFF LINE ── */}
+      <Section id="diff-line" title="Diff Line" description="A single line in a diff view with line number, +/− prefix, and semantic coloring." composedOf="Line number + prefix + text">
+        <div className="rounded-md border border-border overflow-hidden max-w-lg">
+          <DiffLine lineNumber={1} type="unchanged" text="You are a helpful assistant." />
+          <DiffLine lineNumber={2} type="removed" text="Be concise in your responses." />
+          <DiffLine lineNumber={3} type="added" text="Be thorough and detailed in your responses." />
+          <DiffLine lineNumber={4} type="unchanged" text="Always cite your sources." />
+          <DiffLine lineNumber={5} type="added" text="Use markdown formatting when appropriate." />
+        </div>
+        <CodeBlock>{`<DiffLine lineNumber={1} type="added" text="New line content" />`}</CodeBlock>
+      </Section>
+
+      {/* ── ACTIVITY FEED ITEM ── */}
+      <Section id="activity-feed-item" title="Activity Feed Item" description="A single row in an activity feed showing user, action, target, and timestamp." composedOf="Avatar + User + Badge + Target + Timestamp">
+        <div className="max-w-lg">
+          <ActivityFeedItem user="Mariano" type="created" target="Customer Support Bot" timestamp="2m ago" />
+          <ActivityFeedItem user="Jane" type="updated" target="Code Review v3" timestamp="15m ago" detail="Changed temperature from 0.7 to 0.3" />
+          <ActivityFeedItem user="Alex" type="deployed" target="Translation Helper" timestamp="1h ago" />
+          <ActivityFeedItem user="Sam" type="archived" target="Legacy Prompt" timestamp="3h ago" />
+          <ActivityFeedItem user="Chris" type="commented" target="API Docs Generator" timestamp="5h ago" detail="Looks good, ready for production" />
+        </div>
+        <CodeBlock>{`<ActivityFeedItem user="Mariano" type="created" target="Bot" timestamp="2m ago" detail="..." />`}</CodeBlock>
+      </Section>
+
+      {/* ── VARIABLE EDITOR ROW ── */}
+      <Section id="variable-editor-row" title="Variable Editor Row" description="Name/value input pair with delete button and highlight state for variable management." composedOf="Input (name) + Input (value) + Delete Button">
+        <div className="max-w-lg space-y-1">
+          <VariableEditorRow name={varName} value={varValue} onNameChange={setVarName} onValueChange={setVarValue} />
+          <VariableEditorRow name="company" value="Acme Corp" highlighted />
+          <VariableEditorRow name="role" value="" />
+        </div>
+        <CodeBlock>{`<VariableEditorRow name="user" value="John" highlighted onDelete={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── RUN HISTORY ITEM ── */}
+      <Section id="run-history-item" title="Run History Item" description="A single run entry showing model, status, token usage, latency, and timestamp." composedOf="Run ID + Model + Status Badge + Tokens + Latency + Timestamp">
+        <div className="rounded-md border border-border overflow-hidden max-w-2xl">
+          <RunHistoryItem runId="#1042" model="claude-3.5-sonnet" status="success" tokens={1247} latencyMs={820} timestamp="2m ago" />
+          <RunHistoryItem runId="#1041" model="gpt-4-turbo" status="error" tokens={0} latencyMs={1500} timestamp="5m ago" />
+          <RunHistoryItem runId="#1040" model="claude-3.5-sonnet" status="running" tokens={340} timestamp="8m ago" />
+          <RunHistoryItem runId="#1039" model="gemini-1.5-pro" status="pending" timestamp="12m ago" />
+        </div>
+        <CodeBlock>{`<RunHistoryItem runId="#1042" model="claude-3.5-sonnet" status="success" tokens={1247} latencyMs={820} timestamp="2m ago" />`}</CodeBlock>
+      </Section>
+
+      {/* ── TEST CASE ROW ── */}
+      <Section id="test-case-row" title="Test Case Row" description="A single test case row with checkbox, input preview, expected output, status badge, and score." composedOf="Checkbox + Name + Input + Expected + Status Badge + Score">
+        <div className="rounded-md border border-border overflow-hidden max-w-2xl">
+          <TestCaseRow name="greeting" input="Say hello to the user" expected="Hello! How can I help?" status="pass" score={95} />
+          <TestCaseRow name="refusal" input="Write malicious code" expected="I cannot help with that" status="fail" score={20} />
+          <TestCaseRow name="summary" input="Summarize this article..." status="pending" />
+          <TestCaseRow name="translate" input="Translate to French: Hello" expected="Bonjour" status="skipped" />
+        </div>
+        <CodeBlock>{`<TestCaseRow name="greeting" input="..." expected="..." status="pass" score={95} selected onSelect={fn} />`}</CodeBlock>
       </Section>
     </div>
   );

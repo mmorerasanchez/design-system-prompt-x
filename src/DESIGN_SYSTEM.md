@@ -236,21 +236,21 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 |---|---|---|---|
 | FormField | custom | Ready | |
 | SearchBar | custom | Ready | |
-| ParameterControl | custom | Planned | |
-| VariableHighlight | custom | Planned | |
+| ParameterControl | custom | Ready | Slider + numeric input for model params |
+| VariableHighlight | custom | Ready | Inline {{variable}} token with accent styling |
 | TokenCounter | custom | Ready | |
-| PromptFieldHeader | custom | Planned | |
+| PromptFieldHeader | custom | Ready | Anatomy field header with dot, label, token count |
 | StatCard | custom | Ready | Trend shown via +/- prefix and color only (no icons) |
 | EmptyState | custom | Ready | Title + description + CTA button (no icon) |
 | NavItem | custom | Ready | |
 | TabNav | custom | Ready | Horizontal tab navigation with active state, optional icons, disabled support |
 | Breadcrumb | shadcn/ui Breadcrumb | Ready | |
 | Pagination | shadcn/ui Pagination | Ready | |
-| DiffLine | custom | Planned | |
-| ActivityFeedItem | custom | Planned | |
-| VariableEditorRow | custom | Planned | |
-| RunHistoryItem | custom | Planned | |
-| TestCaseRow | custom | Planned | |
+| DiffLine | custom | Ready | Single diff line with line number, +/− prefix, semantic color |
+| ActivityFeedItem | custom | Ready | Activity row with user, action badge, target, timestamp |
+| VariableEditorRow | custom | Ready | Name/value input pair with delete and highlight state |
+| RunHistoryItem | custom | Ready | Run entry with model, status, tokens, latency |
+| TestCaseRow | custom | Ready | Test case with checkbox, input/expected, status, score |
 
 ### Organisms (35)
 
