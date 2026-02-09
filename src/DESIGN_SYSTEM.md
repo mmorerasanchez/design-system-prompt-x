@@ -283,16 +283,16 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | VersionComparison | custom | Ready |
 | FilterBar | custom | Ready |
 | BulkActionsBar | custom | Ready |
-| EvaluationResults | custom | Planned |
-| TestDatasetManager | custom | Planned |
-| RunHistory | custom | Planned |
-| ImportDialog | custom | Planned |
-| ExportMenu | custom | Planned |
-| UserMenu | custom | Planned |
-| SettingsNav | custom | Planned |
-| APIKeyManager | custom | Planned |
-| IntegrationCard | custom | Planned |
-| OnboardingWizard | custom | Planned |
+| EvaluationResults | custom | Ready | Score dashboard with per-metric breakdowns |
+| TestDatasetManager | custom | Ready | Test case list with bulk select, run, import |
+| RunHistory | custom | Ready | Scrollable run entries with status and metrics |
+| ImportDialog | custom | Ready | Multi-format import with paste and file drop |
+| ExportMenu | custom | Ready | Format picker for JSON, CSV, YAML, Markdown, clipboard |
+| UserMenu | custom | Ready | Profile info, settings, billing, logout |
+| SettingsNav | custom | Ready | Horizontal TabNav wrapper for settings pages |
+| APIKeyManager | custom | Ready | Masked keys with reveal, add, delete |
+| IntegrationCard | custom | Ready | External service card with connect/disconnect |
+| OnboardingWizard | custom | Ready | Step-by-step wizard with progress indicator |
 | DashboardStats | custom | Ready |
 
 ### Templates (8)

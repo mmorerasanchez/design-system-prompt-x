@@ -18,6 +18,16 @@ import { VersionTimeline } from "@/components/organisms/VersionTimeline";
 import { AIGenerationPanel } from "@/components/organisms/AIGenerationPanel";
 import { TemplatePicker } from "@/components/organisms/TemplatePicker";
 import { VersionComparison } from "@/components/organisms/VersionComparison";
+import { EvaluationResults } from "@/components/organisms/EvaluationResults";
+import { TestDatasetManager } from "@/components/organisms/TestDatasetManager";
+import { RunHistory } from "@/components/organisms/RunHistory";
+import { ImportDialog } from "@/components/organisms/ImportDialog";
+import { ExportMenu } from "@/components/organisms/ExportMenu";
+import { UserMenu } from "@/components/organisms/UserMenu";
+import { SettingsNav } from "@/components/organisms/SettingsNav";
+import { APIKeyManager } from "@/components/organisms/APIKeyManager";
+import { IntegrationCard } from "@/components/organisms/IntegrationCard";
+import { OnboardingWizard } from "@/components/organisms/OnboardingWizard";
 import { Badge } from "@/components/ui/badge";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
@@ -340,6 +350,115 @@ export default function OrganismsPage() {
         </div>
         <CodeBlock>{`<VersionComparison versionA={{ label: "v2", status: "archived", content: "...", tokenCount: 687 }} versionB={{ label: "v3", status: "production", content: "...", tokenCount: 742 }} />`}</CodeBlock>
       </Section>
+
+      {/* ── EVALUATION RESULTS ── */}
+      <Section id="evaluationresults" title="Evaluation Results" description="Score dashboard with overall score, pass/fail counts, and per-metric breakdowns." composedOf="Badge + Progress + font-mono scores">
+        <div className="p-4 max-w-xl">
+          <EvaluationResults
+            model="claude-3.5-sonnet"
+            overallScore={84}
+            totalTests={25}
+            passed={21}
+            failed={4}
+            timestamp="10m ago"
+            metrics={[
+              { name: "Accuracy", score: 92, maxScore: 100 },
+              { name: "Relevance", score: 88, maxScore: 100 },
+              { name: "Coherence", score: 79, maxScore: 100 },
+              { name: "Safety", score: 95, maxScore: 100 },
+              { name: "Latency", score: 67, maxScore: 100 },
+            ]}
+          />
+        </div>
+        <CodeBlock>{`<EvaluationResults model="claude-3.5-sonnet" overallScore={84} totalTests={25} passed={21} failed={4} metrics={[...]} />`}</CodeBlock>
+      </Section>
+
+      {/* ── TEST DATASET MANAGER ── */}
+      <Section id="testdatasetmanager" title="Test Dataset Manager" description="Manages test cases with bulk selection, run, and import actions." composedOf="TestCaseRow + Button + Badge">
+        <div className="p-4">
+          <TestDatasetManagerDemo />
+        </div>
+        <CodeBlock>{`<TestDatasetManager testCases={[...]} selectedIds={[]} onSelectChange={fn} onAdd={fn} onRunSelected={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── RUN HISTORY ── */}
+      <Section id="runhistory" title="Run History" description="Scrollable list of playground/evaluation run entries with status and metrics." composedOf="RunHistoryItem + Badge">
+        <div className="p-4 max-w-2xl">
+          <RunHistory
+            runs={[
+              { id: "1", runId: "#1042", model: "claude-3.5-sonnet", status: "success", tokens: 1247, latencyMs: 820, timestamp: "2m ago" },
+              { id: "2", runId: "#1041", model: "gpt-4-turbo", status: "error", tokens: 0, latencyMs: 1500, timestamp: "5m ago" },
+              { id: "3", runId: "#1040", model: "claude-3.5-sonnet", status: "running", tokens: 340, timestamp: "8m ago" },
+              { id: "4", runId: "#1039", model: "gemini-1.5-pro", status: "pending", timestamp: "12m ago" },
+              { id: "5", runId: "#1038", model: "gpt-4-turbo", status: "success", tokens: 890, latencyMs: 650, timestamp: "20m ago" },
+            ]}
+          />
+        </div>
+        <CodeBlock>{`<RunHistory runs={[{ id, runId, model, status, tokens, latencyMs, timestamp }]} onRunClick={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── IMPORT DIALOG ── */}
+      <Section id="importdialog" title="Import Dialog" description="Multi-format import with paste area and file drop zone." composedOf="Textarea + Button + format selector">
+        <div className="p-4 max-w-lg">
+          <ImportDialog />
+        </div>
+        <CodeBlock>{`<ImportDialog onImport={(content, format) => {}} onCancel={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── EXPORT MENU ── */}
+      <Section id="exportmenu" title="Export Menu" description="Format picker for exporting prompts in JSON, CSV, YAML, Markdown, or clipboard." composedOf="Button list + icons + descriptions">
+        <div className="p-4">
+          <ExportMenu promptName="Customer Support Bot" />
+        </div>
+        <CodeBlock>{`<ExportMenu promptName="Customer Support Bot" onExport={(format) => {}} />`}</CodeBlock>
+      </Section>
+
+      {/* ── USER MENU ── */}
+      <Section id="usermenu" title="User Menu" description="Dropdown-like user menu with profile info, navigation, and logout." composedOf="Avatar + Badge + Button list">
+        <div className="p-4">
+          <UserMenu name="Mariano Rivera" email="mariano@promptx.dev" plan="Pro" />
+        </div>
+        <CodeBlock>{`<UserMenu name="Mariano" email="mariano@promptx.dev" plan="Pro" onLogout={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── SETTINGS NAV ── */}
+      <Section id="settingsnav" title="Settings Nav" description="Horizontal tab navigation for settings pages. Wraps TabNav molecule." composedOf="TabNav">
+        <div className="p-4">
+          <SettingsNavDemo />
+        </div>
+        <CodeBlock>{`<SettingsNav sections={[{ label: "General", value: "general" }]} activeSection="general" onSectionChange={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── API KEY MANAGER ── */}
+      <Section id="apikeymanager" title="API Key Manager" description="Manages API keys with masked values, reveal toggle, add form, and delete." composedOf="Input + Button + Badge + eye toggle">
+        <div className="p-4 max-w-xl">
+          <APIKeyManager
+            keys={[
+              { id: "1", name: "openai-prod", provider: "OpenAI", maskedValue: "sk-••••••••••••3kF9", createdAt: "2 weeks ago" },
+              { id: "2", name: "anthropic-dev", provider: "Anthropic", maskedValue: "sk-ant-••••••••Xy2z", createdAt: "3 days ago" },
+            ]}
+          />
+        </div>
+        <CodeBlock>{`<APIKeyManager keys={[{ id, name, provider, maskedValue, createdAt }]} onAdd={fn} onDelete={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── INTEGRATION CARD ── */}
+      <Section id="integrationcard" title="Integration Card" description="External service card with connection status and connect/disconnect actions." composedOf="Badge + Button + avatar">
+        <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
+          <IntegrationCard name="OpenAI API" provider="OpenAI" description="GPT-4, GPT-3.5 Turbo, and DALL·E models for generation and analysis." connected status="active" />
+          <IntegrationCard name="Anthropic API" provider="Anthropic" description="Claude models for safe, helpful AI assistance." connected status="active" />
+          <IntegrationCard name="Google AI" provider="Google" description="Gemini models for multimodal understanding." status="inactive" />
+        </div>
+        <CodeBlock>{`<IntegrationCard name="OpenAI" provider="OpenAI" description="..." connected status="active" onConnect={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── ONBOARDING WIZARD ── */}
+      <Section id="onboardingwizard" title="Onboarding Wizard" description="Step-by-step onboarding flow with progress indicator and navigation." composedOf="Badge + Button + step circles">
+        <div className="p-4 max-w-lg">
+          <OnboardingWizardDemo />
+        </div>
+        <CodeBlock>{`<OnboardingWizard steps={[{ id, title, description, completed }]} currentStep={0} onNext={fn} onSkip={fn} />`}</CodeBlock>
+      </Section>
     </div>
   );
 }
@@ -371,6 +490,57 @@ function TemplatePickerDemo() {
       templates={sampleTemplates}
       selectedId={selectedId}
       onSelect={(t) => setSelectedId(t.id)}
+    />
+  );
+}
+
+/** Demo wrapper for TestDatasetManager with local state */
+function TestDatasetManagerDemo() {
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const testCases = [
+    { id: "1", name: "greeting", input: "Say hello to the user", expected: "Hello! How can I help?", status: "pass" as const, score: 95 },
+    { id: "2", name: "refusal", input: "Write malicious code", expected: "I cannot help with that", status: "fail" as const, score: 20 },
+    { id: "3", name: "summary", input: "Summarize this article about AI safety...", status: "pending" as const },
+    { id: "4", name: "translate", input: "Translate to French: Hello world", expected: "Bonjour le monde", status: "pass" as const, score: 88 },
+    { id: "5", name: "format", input: "Format this data as a table", expected: "| Col1 | Col2 |", status: "skipped" as const },
+  ];
+  return <TestDatasetManager testCases={testCases} selectedIds={selectedIds} onSelectChange={setSelectedIds} />;
+}
+
+/** Demo wrapper for SettingsNav with local state */
+function SettingsNavDemo() {
+  const [active, setActive] = useState("general");
+  return (
+    <SettingsNav
+      sections={[
+        { label: "General", value: "general" },
+        { label: "API Keys", value: "api-keys" },
+        { label: "Integrations", value: "integrations" },
+        { label: "Team", value: "team" },
+        { label: "Billing", value: "billing" },
+        { label: "Advanced", value: "advanced", disabled: true },
+      ]}
+      activeSection={active}
+      onSectionChange={setActive}
+    />
+  );
+}
+
+/** Demo wrapper for OnboardingWizard with local state */
+function OnboardingWizardDemo() {
+  const [step, setStep] = useState(1);
+  const steps = [
+    { id: "connect", title: "Connect an API Key", description: "Add your OpenAI or Anthropic API key to start using AI models.", completed: true },
+    { id: "create", title: "Create Your First Prompt", description: "Use the editor to build a structured prompt with anatomy fields.", completed: false },
+    { id: "test", title: "Run a Test", description: "Send your prompt to a model and evaluate the response quality.", completed: false },
+    { id: "deploy", title: "Deploy to Production", description: "Promote your prompt from testing to production when it's ready.", completed: false },
+  ];
+  return (
+    <OnboardingWizard
+      steps={steps}
+      currentStep={step}
+      onStepClick={setStep}
+      onNext={() => setStep(Math.min(step + 1, steps.length - 1))}
     />
   );
 }
