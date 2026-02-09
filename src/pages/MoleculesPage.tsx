@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/molecules/EmptyState";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Home, FileText, Settings, BarChart3, Users, Inbox, Search } from "lucide-react";
+import { Home, FileText, Settings, BarChart3, Users, Search } from "lucide-react";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
   return (
@@ -167,14 +167,13 @@ export default function MoleculesPage() {
       </Section>
 
       {/* ── EMPTY STATE ── */}
-      <Section id="empty-state" title="Empty State" description="Centered placeholder for empty views with icon, title, description, and CTA." composedOf="Icon + Title + Description + CTA Button">
+      <Section id="empty-state" title="Empty State" description="Centered placeholder for empty views with title, description, and CTA." composedOf="Title + Description + CTA Button">
         <EmptyState
-          icon={Inbox}
           title="No prompts yet"
           description="Create your first prompt to get started with prompt engineering."
           action={{ label: "Create Prompt", onClick: () => {} }}
         />
-        <CodeBlock>{`<EmptyState icon={Inbox} title="..." description="..." action={{ label: "Create", onClick: fn }} />`}</CodeBlock>
+        <CodeBlock>{`<EmptyState title="..." description="..." action={{ label: "Create", onClick: fn }} />`}</CodeBlock>
       </Section>
     </div>
   );
