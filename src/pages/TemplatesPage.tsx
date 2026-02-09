@@ -103,7 +103,7 @@ export default function TemplatesPage() {
         description="Toolbar with version selectors + sync toggle + close button. 2-column VersionComparison below."
         composedOf="Toolbar + VersionComparison (2-col diff)"
         responsive="Stacked columns on mobile"
-        layout="split-pane"
+        layout="comparison"
         zones={[]}
       />
     </div>
