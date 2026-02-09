@@ -1,0 +1,31 @@
+import { useTheme } from "@/hooks/use-theme";
+import { Button } from "@/components/ui/button";
+import { Sun, Moon, Flame } from "lucide-react";
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+
+  const themes = [
+    { value: "dark" as const, icon: Moon, label: "Dark" },
+    { value: "light" as const, icon: Sun, label: "Light" },
+    { value: "warm" as const, icon: Flame, label: "Warm" },
+  ];
+
+  return (
+    <div className="flex items-center gap-1 rounded-md border border-border bg-muted p-0.5">
+      {themes.map(({ value, icon: Icon, label }) => (
+        <Button
+          key={value}
+          variant={theme === value ? "default" : "ghost"}
+          size="sm"
+          className="h-7 px-2 text-xs font-display"
+          onClick={() => setTheme(value)}
+          aria-label={`Switch to ${label} theme`}
+        >
+          <Icon className="mr-1 h-3 w-3" />
+          {label}
+        </Button>
+      ))}
+    </div>
+  );
+}
