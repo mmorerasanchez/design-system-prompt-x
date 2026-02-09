@@ -144,8 +144,8 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | Token | Value | Tailwind Class |
 |---|---|---|
 | Small | `4px` | `rounded-sm` |
-| Medium | `6px` | `rounded-md` |
-| Large | `8px` (`--radius`) | `rounded-lg` |
+| Medium | `8px` | `rounded-md` |
+| Large | `12px` (`--radius`) | `rounded-lg` |
 | Full | `9999px` | `rounded-full` |
 
 ### Z-Index Scale
@@ -164,11 +164,11 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 
 | Interaction | Duration | Easing | CSS Variable |
 |---|---|---|---|
-| Hover | `150ms` | `ease` | `--duration-default` |
+| Hover | `150ms` | `ease` | `--duration-normal` |
 | Press / active | `100ms` | `ease` | `--duration-fast` |
-| Modal enter | `200ms` | `ease-out` | `--duration-moderate` |
-| Modal exit | `150ms` | `ease-in` | `--duration-default` |
-| Accordion | `200ms` | `ease-out` | `--duration-moderate` |
+| Modal enter | `200ms` | `ease-out` | `--duration-medium` |
+| Modal exit | `150ms` | `ease-in` | `--duration-normal` |
+| Accordion | `200ms` | `ease-out` | `--duration-medium` |
 | Toast | `300ms` | `ease-out` | `--duration-slow` |
 | Skeleton pulse | `1.5s` | `ease-in-out` | — |
 | Toggle | `200ms` | `spring` | `--ease-spring` |
