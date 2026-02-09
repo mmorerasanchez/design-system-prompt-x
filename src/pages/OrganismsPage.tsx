@@ -9,6 +9,7 @@ import { BulkActionsBar } from "@/components/organisms/BulkActionsBar";
 import { FilterBar } from "@/components/organisms/FilterBar";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
+import { AnatomyFieldCard } from "@/components/organisms/AnatomyFieldCard";
 import { Badge } from "@/components/ui/badge";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
@@ -170,6 +171,46 @@ export default function OrganismsPage() {
           />
         </div>
         <CodeBlock>{`<BulkActionsBar selectedCount={3} onDismiss={fn} onMove={fn} onTag={fn} onArchive={fn} onDelete={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── ANATOMY FIELD CARD ── */}
+      <Section id="anatomyfieldcard" title="Anatomy Field Card" description="Prompt anatomy field with color dot, title, content snippet, and token count. 4 variants: atomic, compact, expanded, inactive." composedOf="Color dot + font-display label + font-mono content + token count">
+        <div className="p-4 space-y-4">
+          <h3 className="font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">Variants</h3>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <AnatomyFieldCard
+              field="role"
+              variant="atomic"
+              tokenCount={0}
+            />
+            <AnatomyFieldCard
+              field="task"
+              variant="compact"
+              content="Analyze the provided code and return a structured review covering correctness, performance, and readability."
+              tokenCount={245}
+            />
+            <AnatomyFieldCard
+              field="context"
+              variant="expanded"
+              content={"You are operating within a CI/CD pipeline.\nThe user is a senior engineer.\nCode is primarily TypeScript + React."}
+              tokenCount={412}
+            />
+            <AnatomyFieldCard
+              field="output"
+              variant="inactive"
+              content="Return a JSON object with fields: summary, issues[], suggestions[]."
+              tokenCount={87}
+            />
+          </div>
+
+          <h3 className="font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground mt-6">All Fields</h3>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+            {(["role", "tone", "context", "task", "reasoning", "examples", "output", "constraints", "tools"] as const).map((field) => (
+              <AnatomyFieldCard key={field} field={field} variant="atomic" />
+            ))}
+          </div>
+        </div>
+        <CodeBlock>{`<AnatomyFieldCard field="role | tone | context | task | reasoning | examples | output | constraints | tools" variant="atomic | compact | expanded | inactive" content="..." tokenCount={245} />`}</CodeBlock>
       </Section>
     </div>
   );
