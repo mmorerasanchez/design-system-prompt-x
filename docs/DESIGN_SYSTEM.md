@@ -1,4 +1,4 @@
-# prompt-x Design System v2.0
+# promptx Design System v2.0
 
 > Single Source of Truth · Last updated: 2026-02-09
 
@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary
 
-prompt-x is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 87 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 84 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -194,7 +194,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | RadioGroup | shadcn/ui RadioGroup | Ready |
 | Switch | shadcn/ui Switch | Ready |
 | Slider | shadcn/ui Slider | Ready |
-| Badge | shadcn/ui Badge + CVA | Ready |
+| Badge | shadcn/ui Badge + CVA | Ready | Status, semantic, count variants (no platform variants) |
 | Tag | custom | Ready |
 | Avatar | shadcn/ui Avatar | Ready |
 | Heading | custom | Ready |
@@ -209,7 +209,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | Progress | shadcn/ui Progress | Ready |
 | Kbd | custom | Ready |
 
-### Molecules (17)
+### Molecules (16)
 
 | Name | Base | Status |
 |---|---|---|
@@ -219,8 +219,8 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | VariableHighlight | custom | Planned |
 | TokenCounter | custom | Ready |
 | PromptFieldHeader | custom | Planned |
-| StatCard | custom | Ready |
-| EmptyState | custom | Ready |
+| StatCard | custom | Ready | Trend shown via +/- prefix and color only (no icons) |
+| EmptyState | custom | Ready | Title + description + CTA button (no icon) |
 | NavItem | custom | Ready |
 | Breadcrumb | shadcn/ui Breadcrumb | Ready |
 | Pagination | shadcn/ui Pagination | Ready |
@@ -330,7 +330,6 @@ Three themes applied via class on `<html>`:
 | sm | `14px` | `size-3.5` | Inline, badges |
 | md | `18px` | `size-4` | Buttons (default), nav |
 | lg | `24px` | `size-5` | Large buttons, section headers |
-| xl | `48px` | `size-12` | Empty states only |
 
 **Color:** `currentColor` always — never hardcode icon colors.
 
@@ -338,9 +337,11 @@ Three themes applied via class on `<html>`:
 |---|---|
 | Buttons | Page titles |
 | Nav items | Section headers |
-| Empty states | KPI labels |
-| Status indicators | Card titles |
-| Table actions | Table row content |
+| Status indicators | KPI labels |
+| Table actions | Card titles |
+| — | Table row content |
+| — | Empty states |
+| — | KPI trend indicators |
 
 ---
 
@@ -350,10 +351,10 @@ Three themes applied via class on `<html>`:
 2. **Build atoms** — Button → Input/Textarea → Badge → Tag → Checkbox/Radio/Switch/Slider → Skeleton → Spinner → Tooltip → Progress → Kbd
 3. **Build molecules** — FormField → SearchBar → ParameterControl → VariableHighlight → TokenCounter → StatCard → EmptyState → NavItem
 4. **Build organisms** — Card → AppShell → Sidebar + TopBar → Tabs → Accordion → Modal → Sheet → Toast → Dropdown → Popover → CommandPalette → DataTable
-5. **Build prompt-x patterns** — AnatomyFieldCard → PromptEditorPanel → CompiledPreview → PlaygroundPanel → VariableManager → StatusLifecycle → VersionTimeline
+5. **Build promptx patterns** — AnatomyFieldCard → PromptEditorPanel → CompiledPreview → PlaygroundPanel → VariableManager → StatusLifecycle → VersionTimeline
 6. **Build templates** — EditorLayout → LibraryLayout → DashboardLayout → DetailLayout → SettingsLayout → AuthLayout
 7. **Assemble pages** — Dashboard → Library → Prompt Detail/Editor → Settings → Auth
 
 ---
 
-*87 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
+*84 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
