@@ -15,6 +15,9 @@ import { VariableManager } from "@/components/organisms/VariableManager";
 import { PromptEditorPanel } from "@/components/organisms/PromptEditorPanel";
 import { PlaygroundPanel } from "@/components/organisms/PlaygroundPanel";
 import { VersionTimeline } from "@/components/organisms/VersionTimeline";
+import { AIGenerationPanel } from "@/components/organisms/AIGenerationPanel";
+import { TemplatePicker } from "@/components/organisms/TemplatePicker";
+import { VersionComparison } from "@/components/organisms/VersionComparison";
 import { Badge } from "@/components/ui/badge";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
@@ -294,6 +297,49 @@ export default function OrganismsPage() {
         </div>
         <CodeBlock>{`<VersionTimeline versions={[{ id: "v3", label: "v3", status: "production", timestamp: "3 days ago", author: "Mariano", tokenDelta: -89, active: true }]} onSelect={fn} />`}</CodeBlock>
       </Section>
+
+      {/* ── AI GENERATION PANEL ── */}
+      <Section id="aigenerationpanel" title="AI Generation Panel" description="AI-assisted prompt generation with instruction input, generate button, and output area." composedOf="Textarea + Button + Badge + AI pulse animation">
+        <div className="p-4 max-w-xl">
+          <AIGenerationPanel
+            instruction="Write a system prompt for a friendly customer support agent that handles returns"
+            generatedOutput={"You are a friendly and empathetic customer support agent specializing in returns and refunds.\n\nAlways greet the customer warmly and acknowledge their concern before proceeding.\n\nFollow the company return policy strictly but present options in a positive light.\n\nIf the return window has passed, offer alternatives such as store credit or exchanges."}
+            targetField="role"
+            onGenerate={() => {}}
+            onAccept={() => {}}
+          />
+        </div>
+        <CodeBlock>{`<AIGenerationPanel instruction="..." generatedOutput="..." targetField="role" isGenerating={boolean} onGenerate={fn} onAccept={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── TEMPLATE PICKER ── */}
+      <Section id="templatepicker" title="Template Picker" description="Grid picker for selecting prompt templates with category badges and metadata." composedOf="Badge + Button + Card-like buttons">
+        <div className="p-4">
+          <TemplatePickerDemo />
+        </div>
+        <CodeBlock>{`<TemplatePicker templates={[{ id, name, description, category, tokenEstimate, fields }]} selectedId="..." onSelect={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── VERSION COMPARISON ── */}
+      <Section id="versioncomparison" title="Version Comparison" description="Side-by-side diff view comparing two prompt versions with line-level highlighting." composedOf="Badge + DiffLine + font-mono pre">
+        <div className="p-4">
+          <VersionComparison
+            versionA={{
+              label: "v2",
+              status: "archived",
+              tokenCount: 687,
+              content: "You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional.\n\nHelp the customer with their issue.\n\nRespond in plain text format.",
+            }}
+            versionB={{
+              label: "v3",
+              status: "production",
+              tokenCount: 742,
+              content: "You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nHelp the customer resolve their issue. Ask clarifying questions if needed.\n\nRespond in JSON format with fields: response, sentiment, escalate.",
+            }}
+          />
+        </div>
+        <CodeBlock>{`<VersionComparison versionA={{ label: "v2", status: "archived", content: "...", tokenCount: 687 }} versionB={{ label: "v3", status: "production", content: "...", tokenCount: 742 }} />`}</CodeBlock>
+      </Section>
     </div>
   );
 }
@@ -306,4 +352,25 @@ function VariableManagerDemo({ highlightedVariable }: { highlightedVariable?: st
     { name: "tone", defaultValue: "professional" },
   ]);
   return <VariableManager variables={vars} onChange={setVars} highlightedVariable={highlightedVariable} />;
+}
+
+const sampleTemplates = [
+  { id: "support", name: "Customer Support", description: "Friendly support agent that handles inquiries, complaints, and returns with empathy.", category: "Support", tokenEstimate: 850, fields: ["role", "tone", "task", "output"] },
+  { id: "code-review", name: "Code Reviewer", description: "Thorough code reviewer focusing on correctness, performance, and maintainability.", category: "Engineering", tokenEstimate: 1200, fields: ["role", "context", "task", "constraints", "output"] },
+  { id: "copywriter", name: "Marketing Copywriter", description: "Creative copywriter for product descriptions, landing pages, and ad copy.", category: "Marketing", tokenEstimate: 680, fields: ["role", "tone", "examples", "output"] },
+  { id: "analyst", name: "Data Analyst", description: "Analytical assistant that interprets data, generates insights, and creates summaries.", category: "Analytics", tokenEstimate: 950, fields: ["role", "context", "task", "reasoning", "output"] },
+  { id: "tutor", name: "Learning Tutor", description: "Patient tutor that explains concepts step by step with examples and practice exercises.", category: "Education", tokenEstimate: 1100, fields: ["role", "tone", "reasoning", "examples", "output"] },
+  { id: "email", name: "Email Composer", description: "Professional email writer adapting tone for internal, client, and executive audiences.", category: "Communication", tokenEstimate: 520, fields: ["role", "tone", "task"] },
+];
+
+/** Demo wrapper for TemplatePicker with local state */
+function TemplatePickerDemo() {
+  const [selectedId, setSelectedId] = useState<string | null>("code-review");
+  return (
+    <TemplatePicker
+      templates={sampleTemplates}
+      selectedId={selectedId}
+      onSelect={(t) => setSelectedId(t.id)}
+    />
+  );
 }
