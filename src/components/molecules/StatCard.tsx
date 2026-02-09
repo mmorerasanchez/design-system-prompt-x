@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 interface StatCardProps {
   label: string;
@@ -20,9 +19,6 @@ export function StatCard({ label, value, trend, className }: StatCardProps) {
           trend.direction === "down" && "text-error",
           trend.direction === "neutral" && "text-muted-foreground",
         )}>
-          {trend.direction === "up" && <TrendingUp className="h-3 w-3" />}
-          {trend.direction === "down" && <TrendingDown className="h-3 w-3" />}
-          {trend.direction === "neutral" && <Minus className="h-3 w-3" />}
           {trend.value}
         </p>
       )}
