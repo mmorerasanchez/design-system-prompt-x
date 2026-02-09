@@ -31,7 +31,7 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "library"
       <div className={cn("flex h-header items-center border-b border-border px-3", collapsed ? "justify-center" : "justify-between")}>
         {!collapsed && (
           <span className="font-display text-md font-semibold tracking-tight">
-            prompt<span className="text-accent">-x</span>
+            prompt<span className="text-accent">x</span>
           </span>
         )}
         <Button variant="ghost" size="icon" onClick={onToggle} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} className="h-7 w-7">
