@@ -277,10 +277,10 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | StatusLifecycle | custom | Ready |
 | PlaygroundPanel | custom | Ready |
 | VariableManager | custom | Ready |
-| AIGenerationPanel | custom | Planned |
-| TemplatePicker | custom | Planned |
+| AIGenerationPanel | custom | Ready |
+| TemplatePicker | custom | Ready |
 | VersionTimeline | custom | Ready |
-| VersionComparison | custom | Planned |
+| VersionComparison | custom | Ready |
 | FilterBar | custom | Ready |
 | BulkActionsBar | custom | Ready |
 | EvaluationResults | custom | Planned |

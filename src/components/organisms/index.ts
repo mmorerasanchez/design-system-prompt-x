@@ -14,3 +14,6 @@ export { VariableManager } from "./VariableManager";
 export { PromptEditorPanel } from "./PromptEditorPanel";
 export { PlaygroundPanel } from "./PlaygroundPanel";
 export { VersionTimeline } from "./VersionTimeline";
+export { AIGenerationPanel } from "./AIGenerationPanel";
+export { TemplatePicker } from "./TemplatePicker";
+export { VersionComparison } from "./VersionComparison";
