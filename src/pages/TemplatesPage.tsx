@@ -1,4 +1,29 @@
 import { TemplatePreview } from "@/components/templates/TemplatePreview";
+import { EditorLayout } from "@/components/templates/EditorLayout";
+import { LibraryLayout } from "@/components/templates/LibraryLayout";
+import { DetailLayout } from "@/components/templates/DetailLayout";
+import { ComparisonLayout } from "@/components/templates/ComparisonLayout";
+import { Badge } from "@/components/ui/badge";
+
+function LiveDemo({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-4 rounded-md border border-border overflow-hidden">
+      <div className="flex items-center gap-2 border-b border-border bg-surface px-3 py-1.5">
+        <Badge variant="outline" size="sm"><span className="font-mono">live</span></Badge>
+        <span className="font-mono text-2xs text-muted-foreground">{title}</span>
+      </div>
+      <div className="h-[280px]">{children}</div>
+    </div>
+  );
+}
+
+function Placeholder({ label }: { label: string }) {
+  return (
+    <div className="flex h-full items-center justify-center font-mono text-xs text-muted-foreground p-4">
+      {label}
+    </div>
+  );
+}
 
 export default function TemplatesPage() {
   return (
@@ -44,6 +69,13 @@ export default function TemplatesPage() {
         layout="split-pane"
         zones={[]}
       />
+      <LiveDemo title="EditorLayout">
+        <EditorLayout
+          header={<Placeholder label="Header" />}
+          editor={<Placeholder label="Editor Pane" />}
+          preview={<Placeholder label="Preview Pane" />}
+        />
+      </LiveDemo>
 
       <TemplatePreview
         title="Library Layout"
@@ -57,6 +89,16 @@ export default function TemplatesPage() {
           { label: "Card Grid + Pagination" },
         ]}
       />
+      <LiveDemo title="LibraryLayout">
+        <LibraryLayout
+          filters={<Placeholder label="FilterBar" />}
+          pagination={<Placeholder label="Pagination" />}
+        >
+          <Placeholder label="Card 1" />
+          <Placeholder label="Card 2" />
+          <Placeholder label="Card 3" />
+        </LibraryLayout>
+      </LiveDemo>
 
       <TemplatePreview
         title="Detail View Layout"
@@ -70,6 +112,16 @@ export default function TemplatesPage() {
           { label: "Tabs + Tab Content" },
         ]}
       />
+      <LiveDemo title="DetailLayout">
+        <DetailLayout
+          breadcrumb={<Placeholder label="Breadcrumb" />}
+          titleBar={<Placeholder label="Title + Actions" />}
+          statusBar={<Placeholder label="Status Lifecycle" />}
+          tabs={<Placeholder label="Tabs Nav" />}
+        >
+          <Placeholder label="Tab Content Area" />
+        </DetailLayout>
+      </LiveDemo>
 
       <TemplatePreview
         title="Settings Layout"
@@ -106,6 +158,13 @@ export default function TemplatesPage() {
         layout="comparison"
         zones={[]}
       />
+      <LiveDemo title="ComparisonLayout">
+        <ComparisonLayout
+          toolbar={<Placeholder label="Toolbar: Version A ↔ Version B" />}
+          panelA={<Placeholder label="Version A" />}
+          panelB={<Placeholder label="Version B" />}
+        />
+      </LiveDemo>
     </div>
   );
 }

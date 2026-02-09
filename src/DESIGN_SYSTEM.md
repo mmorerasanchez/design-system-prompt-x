@@ -299,11 +299,11 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 
 | Name | Description | Status |
 |---|---|---|
-| EditorLayout | Split-pane: 50/50 editor + preview with resizer | Planned |
-| LibraryLayout | Sidebar + filterable card grid | Planned |
+| EditorLayout | Split-pane: 50/50 editor + preview with resizer | Ready |
+| LibraryLayout | Sidebar + filterable card grid | Ready |
 | DashboardLayout | Sidebar + header + scrollable main + optional right panel | Ready |
-| DetailLayout | Sidebar + full-width detail view with tabs | Planned |
-| ComparisonLayout | Side-by-side Version A / Version B (50/50) diff panels | Planned |
+| DetailLayout | Sidebar + full-width detail view with tabs | Ready |
+| ComparisonLayout | Side-by-side Version A / Version B (50/50) diff panels | Ready |
 | SettingsLayout | Horizontal tab navigation below header + content area | Ready |
 | AuthLayout | Centered card on full-height background | Ready |
 | ModalLayout | Centered modal (60–80% viewport) over dimmed overlay | Ready |
