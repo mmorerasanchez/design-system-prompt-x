@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heading, Text, Code } from "@/components/atoms/Typography";
+import { Heading, Text, Code } from "@/components/atoms";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { ArrowRight, Palette, Box, Layers, LayoutGrid, Layout, FileText } from "lucide-react";

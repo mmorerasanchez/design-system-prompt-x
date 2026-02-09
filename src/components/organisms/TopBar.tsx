@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
 import { Button } from "@/components/ui/button";
-import { Kbd } from "@/components/atoms/Typography";
+import { Kbd } from "@/components/atoms";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Search, Bell, Menu } from "lucide-react";
 
