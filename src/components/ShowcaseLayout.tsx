@@ -2,10 +2,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Outlet } from "react-router-dom";
-
 export function ShowcaseLayout() {
-  return (
-    <SidebarProvider>
+  return <SidebarProvider>
       <div className="flex min-h-screen w-full">
         <AppSidebar />
         <div className="flex flex-1 flex-col">
@@ -13,7 +11,7 @@ export function ShowcaseLayout() {
             <div className="flex items-center gap-3">
               <SidebarTrigger className="lg:hidden" />
               <h1 className="font-display text-lg font-semibold tracking-tight">
-                prompt<span className="text-accent">-x</span>
+                prompt<span className="text-accent">x</span>
               </h1>
               <span className="font-mono text-2xs text-muted-foreground">v2.0.0</span>
             </div>
@@ -26,6 +24,5 @@ export function ShowcaseLayout() {
           </main>
         </div>
       </div>
-    </SidebarProvider>
-  );
+    </SidebarProvider>;
 }
