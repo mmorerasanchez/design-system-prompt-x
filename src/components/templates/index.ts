@@ -1,1 +1,1 @@
-// Templates barrel export
+export { TemplatePreview } from "./TemplatePreview";
