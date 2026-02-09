@@ -10,6 +10,11 @@ import { FilterBar } from "@/components/organisms/FilterBar";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
 import { AnatomyFieldCard } from "@/components/organisms/AnatomyFieldCard";
+import { CompiledPreview } from "@/components/organisms/CompiledPreview";
+import { VariableManager } from "@/components/organisms/VariableManager";
+import { PromptEditorPanel } from "@/components/organisms/PromptEditorPanel";
+import { PlaygroundPanel } from "@/components/organisms/PlaygroundPanel";
+import { VersionTimeline } from "@/components/organisms/VersionTimeline";
 import { Badge } from "@/components/ui/badge";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
@@ -212,6 +217,85 @@ export default function OrganismsPage() {
         </div>
         <CodeBlock>{`<AnatomyFieldCard field="role | tone | context | task | reasoning | examples | output | constraints | tools" variant="atomic | compact | expanded | inactive" content="..." tokenCount={245} />`}</CodeBlock>
       </Section>
+
+      {/* ── COMPILED PREVIEW ── */}
+      <Section id="compiledpreview" title="Compiled Preview" description="Read-only view of the fully compiled prompt with token usage indicator." composedOf="TokenCounter + font-mono pre block">
+        <div className="p-4">
+          <CompiledPreview
+            content={"You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nThe customer may ask about:\n- Order status and tracking\n- Returns and refunds\n- Product specifications\n\nRespond in JSON format with fields: response, sentiment, escalate."}
+            totalTokens={1842}
+            maxTokens={4096}
+          />
+        </div>
+        <CodeBlock>{`<CompiledPreview content="..." totalTokens={1842} maxTokens={4096} />`}</CodeBlock>
+      </Section>
+
+      {/* ── VARIABLE MANAGER ── */}
+      <Section id="variablemanager" title="Variable Manager" description="Manages template variables like {{company_name}} with name and default value pairs." composedOf="Input + Button + font-mono variable syntax">
+        <div className="p-4 max-w-lg">
+          <VariableManagerDemo />
+        </div>
+        <CodeBlock>{`<VariableManager variables={[{ name: "company_name", defaultValue: "Acme Corp" }]} onChange={fn} readOnly={boolean} />`}</CodeBlock>
+      </Section>
+
+      {/* ── PROMPT EDITOR PANEL ── */}
+      <Section id="prompteditorpanel" title="Prompt Editor Panel" description="Split panel with anatomy field cards on the left and compiled preview on the right." composedOf="AnatomyFieldCard[] + CompiledPreview">
+        <div className="p-4">
+          <PromptEditorPanel
+            fields={[
+              { field: "role", content: "You are a helpful customer support agent for {{company_name}}.", tokenCount: 312 },
+              { field: "tone", content: "Always be polite and professional. Use a friendly but concise tone.", tokenCount: 145 },
+              { field: "task", content: "Help the customer resolve their issue. Ask clarifying questions if needed.", tokenCount: 198 },
+              { field: "output", content: "Respond in JSON format with fields: response, sentiment, escalate.", tokenCount: 87 },
+            ]}
+            compiledOutput={"You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nHelp the customer resolve their issue. Ask clarifying questions if needed.\n\nRespond in JSON format with fields: response, sentiment, escalate."}
+            totalTokens={742}
+            maxTokens={4096}
+          />
+        </div>
+        <CodeBlock>{`<PromptEditorPanel fields={[{ field: "role", content: "...", tokenCount: 312 }]} compiledOutput="..." totalTokens={742} />`}</CodeBlock>
+      </Section>
+
+      {/* ── PLAYGROUND PANEL ── */}
+      <Section id="playgroundpanel" title="Playground Panel" description="Test prompts against a model. Shows system prompt, user input, and model response." composedOf="Badge + TokenCounter + Textarea + Button + ThinkingDots">
+        <div className="p-4">
+          <PlaygroundPanel
+            compiledPrompt={"You are a helpful customer support agent for Acme Corp.\nAlways be polite and professional."}
+            response={"Thank you for reaching out! I'd be happy to help you with your order. Could you please provide me with your order number so I can look into this for you?"}
+            model="claude-3.5-sonnet"
+            tokenCount={2134}
+            maxTokens={4096}
+            userInput="I need help with my order"
+          />
+        </div>
+        <CodeBlock>{`<PlaygroundPanel compiledPrompt="..." response="..." model="claude-3.5-sonnet" tokenCount={2134} isRunning={boolean} onRun={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── VERSION TIMELINE ── */}
+      <Section id="versiontimeline" title="Version Timeline" description="Vertical timeline showing prompt version history with status badges and token deltas." composedOf="Badge + font-mono labels + timeline dots">
+        <div className="p-4 max-w-md">
+          <VersionTimeline
+            versions={[
+              { id: "v4", label: "v4", status: "draft", timestamp: "2 hours ago", author: "Mariano", tokenDelta: 145, active: true },
+              { id: "v3", label: "v3", status: "production", timestamp: "3 days ago", author: "Mariano", tokenDelta: -89 },
+              { id: "v2", label: "v2", status: "archived", timestamp: "1 week ago", author: "Jane", tokenDelta: 312 },
+              { id: "v1", label: "v1", status: "archived", timestamp: "2 weeks ago", author: "Mariano" },
+            ]}
+            onSelect={() => {}}
+          />
+        </div>
+        <CodeBlock>{`<VersionTimeline versions={[{ id: "v3", label: "v3", status: "production", timestamp: "3 days ago", author: "Mariano", tokenDelta: -89, active: true }]} onSelect={fn} />`}</CodeBlock>
+      </Section>
     </div>
   );
+}
+
+/** Demo wrapper for VariableManager with local state */
+function VariableManagerDemo() {
+  const [vars, setVars] = useState([
+    { name: "company_name", defaultValue: "Acme Corp" },
+    { name: "support_email", defaultValue: "help@acme.com" },
+    { name: "tone", defaultValue: "professional" },
+  ]);
+  return <VariableManager variables={vars} onChange={setVars} />;
 }
