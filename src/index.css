@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* prompt-x Design System — All colors in HSL */
+/* promptx Design System — All colors in HSL */
 
 @layer base {
   /* Dark theme (DEFAULT) */
