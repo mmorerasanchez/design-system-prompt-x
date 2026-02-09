@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 84 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 86 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -209,21 +209,22 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | Progress | shadcn/ui Progress | Ready |
 | Kbd | custom | Ready |
 
-### Molecules (16)
+### Molecules (17)
 
-| Name | Base | Status |
-|---|---|---|
-| FormField | custom | Ready |
-| SearchBar | custom | Ready |
-| ParameterControl | custom | Planned |
-| VariableHighlight | custom | Planned |
-| TokenCounter | custom | Ready |
-| PromptFieldHeader | custom | Planned |
+| Name | Base | Status | Notes |
+|---|---|---|---|
+| FormField | custom | Ready | |
+| SearchBar | custom | Ready | |
+| ParameterControl | custom | Planned | |
+| VariableHighlight | custom | Planned | |
+| TokenCounter | custom | Ready | |
+| PromptFieldHeader | custom | Planned | |
 | StatCard | custom | Ready | Trend shown via +/- prefix and color only (no icons) |
 | EmptyState | custom | Ready | Title + description + CTA button (no icon) |
-| NavItem | custom | Ready |
-| Breadcrumb | shadcn/ui Breadcrumb | Ready |
-| Pagination | shadcn/ui Pagination | Ready |
+| NavItem | custom | Ready | |
+| TabNav | custom | Ready | Horizontal tab navigation with active state, optional icons, disabled support |
+| Breadcrumb | shadcn/ui Breadcrumb | Ready | |
+| Pagination | shadcn/ui Pagination | Ready | |
 
 | DiffLine | custom | Planned |
 | ActivityFeedItem | custom | Planned |
@@ -277,17 +278,18 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | OnboardingWizard | custom | Planned |
 | DashboardStats | custom | Ready |
 
-### Templates (7)
+### Templates (8)
 
 | Name | Description | Status |
 |---|---|---|
-| EditorLayout | Split-pane: sidebar + editor + compiled preview | Planned |
+| EditorLayout | Split-pane: 50/50 editor + preview with resizer | Planned |
 | LibraryLayout | Sidebar + filterable card grid | Planned |
 | DashboardLayout | Sidebar + header + scrollable main + optional right panel | Ready |
 | DetailLayout | Sidebar + full-width detail view with tabs | Planned |
-| ComparisonLayout | Side-by-side diff panels | Planned |
-| SettingsLayout | Left tab navigation + content area | Ready |
+| ComparisonLayout | Side-by-side Version A / Version B (50/50) diff panels | Planned |
+| SettingsLayout | Horizontal tab navigation below header + content area | Ready |
 | AuthLayout | Centered card on full-height background | Ready |
+| ModalLayout | Centered modal (60–80% viewport) over dimmed overlay | Ready |
 
 ---
 
@@ -349,12 +351,12 @@ Three themes applied via class on `<html>`:
 
 1. **Verify tokens** — check font imports load, feedback opacity syntax works
 2. **Build atoms** — Button → Input/Textarea → Badge → Tag → Checkbox/Radio/Switch/Slider → Skeleton → Spinner → Tooltip → Progress → Kbd
-3. **Build molecules** — FormField → SearchBar → ParameterControl → VariableHighlight → TokenCounter → StatCard → EmptyState → NavItem
+3. **Build molecules** — FormField → SearchBar → ParameterControl → VariableHighlight → TokenCounter → StatCard → EmptyState → NavItem → TabNav
 4. **Build organisms** — Card → AppShell → Sidebar + TopBar → Tabs → Accordion → Modal → Sheet → Toast → Dropdown → Popover → CommandPalette → DataTable
 5. **Build promptx patterns** — AnatomyFieldCard → PromptEditorPanel → CompiledPreview → PlaygroundPanel → VariableManager → StatusLifecycle → VersionTimeline
-6. **Build templates** — EditorLayout → LibraryLayout → DashboardLayout → DetailLayout → SettingsLayout → AuthLayout
+6. **Build templates** — EditorLayout → LibraryLayout → DashboardLayout → DetailLayout → SettingsLayout → AuthLayout → ModalLayout
 7. **Assemble pages** — Dashboard → Library → Prompt Detail/Editor → Settings → Auth
 
 ---
 
-*84 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
+*86 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
