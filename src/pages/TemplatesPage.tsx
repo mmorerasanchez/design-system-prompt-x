@@ -90,6 +90,15 @@ export default function TemplatesPage() {
       />
 
       <TemplatePreview
+        title="Modal Layout"
+        description="Centered modal covering 60–80% of the viewport over a dimmed overlay. Used for dialogs, wizards, and detail views."
+        composedOf="Dialog + overlay backdrop + content area"
+        responsive="Full-screen on mobile, 80% on tablet, 60% on desktop"
+        layout="modal-overlay"
+        zones={[{ label: "Modal Content (60–80%)" }]}
+      />
+
+      <TemplatePreview
         title="Comparison Layout"
         description="Toolbar with version selectors + sync toggle + close button. 2-column VersionComparison below."
         composedOf="Toolbar + VersionComparison (2-col diff)"

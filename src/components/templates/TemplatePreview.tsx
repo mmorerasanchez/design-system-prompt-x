@@ -11,7 +11,7 @@ interface TemplatePreviewProps {
   responsive: string;
   composedOf: string;
   zones: ContentZone[];
-  layout: "sidebar-main" | "centered" | "full-width" | "sidebar-settings" | "split-pane" | "sidebar-main-panel";
+  layout: "sidebar-main" | "centered" | "full-width" | "sidebar-settings" | "split-pane" | "sidebar-main-panel" | "modal-overlay";
   className?: string;
 }
 
@@ -70,6 +70,14 @@ export function TemplatePreview({ title, description, responsive, composedOf, zo
         return (
           <div className="flex h-[320px] items-center justify-center rounded-md border border-border bg-muted/30">
             <Zone label={zones[0]?.label || "Auth Card"} className="w-[200px] h-[180px]" />
+          </div>
+        );
+      case "modal-overlay":
+        return (
+          <div className="relative flex h-[320px] items-center justify-center rounded-md border border-border bg-background/80">
+            {/* Overlay backdrop */}
+            <div className="absolute inset-0 rounded-md bg-foreground/5" />
+            <Zone label={zones[0]?.label || "Modal Content"} className="relative z-10 w-[70%] h-[70%]" />
           </div>
         );
       case "full-width":
