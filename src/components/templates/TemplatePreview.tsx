@@ -11,7 +11,7 @@ interface TemplatePreviewProps {
   responsive: string;
   composedOf: string;
   zones: ContentZone[];
-  layout: "sidebar-main" | "centered" | "full-width" | "sidebar-settings" | "split-pane" | "sidebar-main-panel" | "modal-overlay";
+  layout: "sidebar-main" | "centered" | "full-width" | "sidebar-settings" | "split-pane" | "sidebar-main-panel" | "modal-overlay" | "comparison";
   className?: string;
 }
 
@@ -62,6 +62,20 @@ export function TemplatePreview({ title, description, responsive, composedOf, zo
                 <Zone label="Editor (50%)" className="flex-1 rounded-none border-0" />
                 <div className="w-1 bg-border cursor-col-resize shrink-0" />
                 <Zone label="Preview (50%)" className="flex-1 rounded-none border-0" />
+              </div>
+            </div>
+          </div>
+        );
+      case "comparison":
+        return (
+          <div className="flex h-[320px] rounded-md border border-border overflow-hidden">
+            <Zone label="Sidebar" className="w-[60px] rounded-none border-0 border-r-2 shrink-0" />
+            <div className="flex-1 flex flex-col">
+              <Zone label="Header" className="h-10 rounded-none border-0 border-b-2 shrink-0" />
+              <div className="flex flex-1">
+                <Zone label="Version A (50%)" className="flex-1 rounded-none border-0" />
+                <div className="w-1 bg-border shrink-0" />
+                <Zone label="Version B (50%)" className="flex-1 rounded-none border-0" />
               </div>
             </div>
           </div>
