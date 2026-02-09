@@ -162,6 +162,27 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 
 ## 6. Motion & Animation
 
+### Duration Tokens
+
+| Token | CSS Variable | Value |
+|---|---|---|
+| Instant | `--duration-instant` | `50ms` |
+| Fast | `--duration-fast` | `100ms` |
+| Normal | `--duration-normal` | `150ms` |
+| Medium | `--duration-medium` | `200ms` |
+| Slow | `--duration-slow` | `300ms` |
+
+### Easing Tokens
+
+| Token | CSS Variable | Value |
+|---|---|---|
+| Default | `--ease-default` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+| Out | `--ease-out` | `cubic-bezier(0, 0, 0.2, 1)` |
+| In | `--ease-in` | `cubic-bezier(0.4, 0, 1, 1)` |
+| Spring | `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` |
+
+### Usage Guide
+
 | Interaction | Duration | Easing | CSS Variable |
 |---|---|---|---|
 | Hover | `150ms` | `ease` | `--duration-normal` |
@@ -313,7 +334,7 @@ Three themes applied via class on `<html>`:
 
 | Theme | Class | Description |
 |---|---|---|
-| Dark | `:root` (default, no class) | Warm dark grays, light text |
+| Dark | `.dark` (default) | Warm dark grays, light text |
 | Light | `.light` | Cool light grays, dark text |
 | Warm | `.warm` | Sepia-toned, paper-like warmth |
 
