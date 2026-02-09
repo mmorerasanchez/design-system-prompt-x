@@ -38,7 +38,7 @@
     --input: 12 6% 15%;
     --ring: 18 65% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     /* Custom surface tokens */
     --surface: 24 10% 10%;
@@ -92,9 +92,10 @@
     --z-toast: 400;
 
     /* Motion */
+    --duration-instant: 50ms;
     --duration-fast: 100ms;
-    --duration-default: 150ms;
-    --duration-moderate: 200ms;
+    --duration-normal: 150ms;
+    --duration-medium: 200ms;
     --duration-slow: 300ms;
     --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
