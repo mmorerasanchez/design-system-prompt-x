@@ -146,7 +146,7 @@ export default function OverviewPage() {
         <Heading level="h2" className="mb-4">Getting Started</Heading>
         <div className="rounded-lg border border-border bg-card p-6 space-y-4">
           <Text variant="muted" size="sm">
-            This design system serves as the visual reference for all prompt-x projects.
+            This design system serves as the visual reference for all promptx projects.
             Other Lovable projects (Customer App, Admin Panel) should reference this project by:
           </Text>
           <ol className="space-y-3 list-decimal list-inside font-body text-sm text-foreground">

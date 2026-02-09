@@ -165,7 +165,7 @@ export default function MoleculesPage() {
           <BreadcrumbNav items={[
             { label: "Home", href: "#" },
             { label: "Projects", href: "#" },
-            { label: "prompt-x", href: "#" },
+            { label: "promptx", href: "#" },
             { label: "Library", href: "#" },
             { label: "Customer Support", href: "#" },
             { label: "Editor" },

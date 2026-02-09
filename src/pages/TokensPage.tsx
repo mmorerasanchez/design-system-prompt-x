@@ -91,7 +91,7 @@ export default function TokensPage() {
       <div>
         <h1 className="font-display text-xl font-semibold tracking-tight">Design Tokens</h1>
         <p className="mt-1 font-body text-base text-muted-foreground">
-          The complete token reference for the prompt-x design system.
+          The complete token reference for the promptx design system.
         </p>
       </div>
 
@@ -213,7 +213,7 @@ export default function TokensPage() {
           <div className="space-y-2">
             <h3 className="font-display text-md font-medium text-muted-foreground">Readability Sample</h3>
             <p className="max-w-prose font-body text-base leading-relaxed text-foreground">
-              The prompt-x design system treats prompts as code — every piece of user-editable content
+              The promptx design system treats prompts as code — every piece of user-editable content
               is monospaced, reinforcing that prompts are precise, engineered artifacts. The visual
               language uses 95% warm stone grays, 4% terracotta orange accent, and 1% semantic colors.
               This creates a professional, IDE-like workspace optimized for prompt engineering workflows.

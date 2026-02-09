@@ -64,12 +64,12 @@ export default function AtomsPage() {
       <div>
         <h1 className="font-display text-xl font-semibold tracking-tight">Atoms</h1>
         <p className="mt-1 font-body text-base text-muted-foreground">
-          Base-level components — the building blocks of the prompt-x design system.
+          Base-level components — the building blocks of the promptx design system.
         </p>
       </div>
 
       {/* ── BUTTONS ── */}
-      <Section id="button" title="Button" description="Primary interactive element. Extends shadcn/ui Button with prompt-x token styling, loading state, and theme-inverted primary.">
+      <Section id="button" title="Button" description="Primary interactive element. Extends shadcn/ui Button with promptx token styling, loading state, and theme-inverted primary.">
         <SubSection title="Variants">
           <div className="flex flex-wrap items-center gap-3">
             <Button>Primary</Button>
@@ -190,7 +190,7 @@ export default function AtomsPage() {
       </Section>
 
       {/* ── TYPOGRAPHY ── */}
-      <Section id="typography" title="Typography" description="Reusable Heading, Text, Code, and Kbd components enforcing the prompt-x type scale.">
+      <Section id="typography" title="Typography" description="Reusable Heading, Text, Code, and Kbd components enforcing the promptx type scale.">
         <SubSection title="Heading Levels">
           <div className="space-y-2">
             <Heading level="h1">H1 — Page Title</Heading>
