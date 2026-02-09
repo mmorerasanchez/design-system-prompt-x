@@ -59,9 +59,9 @@ export function TemplatePreview({ title, description, responsive, composedOf, zo
             <div className="flex-1 flex flex-col">
               <Zone label="Header" className="h-10 rounded-none border-0 border-b-2 shrink-0" />
               <div className="flex flex-1">
-                <Zone label="Editor (60%)" className="flex-[6] rounded-none border-0" />
+                <Zone label="Editor (50%)" className="flex-1 rounded-none border-0" />
                 <div className="w-1 bg-border cursor-col-resize shrink-0" />
-                <Zone label="Preview (40%)" className="flex-[4] rounded-none border-0" />
+                <Zone label="Preview (50%)" className="flex-1 rounded-none border-0" />
               </div>
             </div>
           </div>
