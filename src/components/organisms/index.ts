@@ -8,3 +8,4 @@ export { BulkActionsBar } from "./BulkActionsBar";
 export { FilterBar } from "./FilterBar";
 export { DashboardStats } from "./DashboardStats";
 export { ActivityFeed } from "./ActivityFeed";
+export { AnatomyFieldCard } from "./AnatomyFieldCard";
