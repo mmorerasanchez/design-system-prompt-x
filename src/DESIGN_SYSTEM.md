@@ -271,15 +271,15 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | TopBar | custom | Ready |
 | AppShell | custom | Partial |
 | PromptCard | custom | Ready |
-| AnatomyFieldCard | custom | Planned | 4 variants: atomic, compact, expanded, inactive |
-| PromptEditorPanel | custom | Planned |
-| CompiledPreview | custom | Planned |
+| AnatomyFieldCard | custom | Ready | 4 variants: atomic, compact, expanded, inactive |
+| PromptEditorPanel | custom | Ready |
+| CompiledPreview | custom | Ready |
 | StatusLifecycle | custom | Ready |
-| PlaygroundPanel | custom | Planned |
-| VariableManager | custom | Planned |
+| PlaygroundPanel | custom | Ready |
+| VariableManager | custom | Ready |
 | AIGenerationPanel | custom | Planned |
 | TemplatePicker | custom | Planned |
-| VersionTimeline | custom | Planned |
+| VersionTimeline | custom | Ready |
 | VersionComparison | custom | Planned |
 | FilterBar | custom | Ready |
 | BulkActionsBar | custom | Ready |
