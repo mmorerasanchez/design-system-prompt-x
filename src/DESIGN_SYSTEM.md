@@ -269,7 +269,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | CommandPalette | shadcn/ui Command | Ready |
 | Sidebar | shadcn/ui Sidebar | Ready |
 | TopBar | custom | Ready |
-| AppShell | custom | Partial |
+| AppShell | custom | Ready |
 | PromptCard | custom | Ready |
 | AnatomyFieldCard | custom | Ready | 4 variants: atomic, compact, expanded, inactive |
 | PromptEditorPanel | custom | Ready |
@@ -366,12 +366,12 @@ Three themes applied via class on `<html>`:
 
 ## 11. Build Sequence
 
-1. **Verify tokens** — check font imports load, feedback opacity syntax works
-2. **Build atoms** — Button → Input/Textarea → Badge → Tag → Checkbox/Radio/Switch/Slider → Skeleton → Spinner → Tooltip → Progress → Kbd
-3. **Build molecules** — FormField → SearchBar → ParameterControl → VariableHighlight → TokenCounter → StatCard → EmptyState → NavItem → TabNav
-4. **Build organisms** — Card → AppShell → Sidebar + TopBar → Tabs → Accordion → Modal → Sheet → Toast → Dropdown → Popover → CommandPalette → DataTable
-5. **Build promptx patterns** — AnatomyFieldCard → PromptEditorPanel → CompiledPreview → PlaygroundPanel → VariableManager → StatusLifecycle → VersionTimeline
-6. **Build templates** — EditorLayout → LibraryLayout → DashboardLayout → DetailLayout → SettingsLayout → AuthLayout → ModalLayout
+1. ~~**Verify tokens**~~ ✅ Font imports, feedback opacity, duration tokens
+2. ~~**Build atoms**~~ ✅ All 22 atoms built and showcased
+3. ~~**Build molecules**~~ ✅ All 17 molecules built and showcased
+4. ~~**Build organisms**~~ ✅ All 35 organisms built and showcased
+5. ~~**Build promptx patterns**~~ ✅ All pattern organisms built and showcased
+6. ~~**Build templates**~~ ✅ All 8 templates built and showcased
 7. **Assemble pages** — Dashboard → Library → Prompt Detail/Editor → Settings → Auth
 
 ---
