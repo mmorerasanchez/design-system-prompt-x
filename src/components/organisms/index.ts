@@ -9,3 +9,8 @@ export { FilterBar } from "./FilterBar";
 export { DashboardStats } from "./DashboardStats";
 export { ActivityFeed } from "./ActivityFeed";
 export { AnatomyFieldCard } from "./AnatomyFieldCard";
+export { CompiledPreview } from "./CompiledPreview";
+export { VariableManager } from "./VariableManager";
+export { PromptEditorPanel } from "./PromptEditorPanel";
+export { PlaygroundPanel } from "./PlaygroundPanel";
+export { VersionTimeline } from "./VersionTimeline";
