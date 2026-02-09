@@ -13,6 +13,7 @@ import OrganismsPage from "@/pages/OrganismsPage";
 import TemplatesPage from "@/pages/TemplatesPage";
 import PagesPage from "@/pages/PagesPage";
 import NotFound from "@/pages/NotFound";
+import TokenSmokeTest from "@/pages/TokenSmokeTest";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/templates" element={<TemplatesPage />} />
               <Route path="/pages" element={<PagesPage />} />
             </Route>
+            <Route path="/test/tokens" element={<TokenSmokeTest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
