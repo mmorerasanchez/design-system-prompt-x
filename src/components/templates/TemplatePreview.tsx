@@ -94,10 +94,8 @@ export function TemplatePreview({ title, description, responsive, composedOf, zo
             <Zone label="Sidebar" className="w-[60px] rounded-none border-0 border-r-2 shrink-0" />
             <div className="flex-1 flex flex-col">
               <Zone label="Header" className="h-10 rounded-none border-0 border-b-2 shrink-0" />
-              <div className="flex flex-1">
-                <Zone label="Settings Nav" className="w-[80px] rounded-none border-0 border-r-2 shrink-0" />
-                <Zone label="Settings Content" className="flex-1 rounded-none border-0 max-w-[300px]" />
-              </div>
+              <Zone label="Settings Nav" className="h-10 rounded-none border-0 border-b-2 shrink-0" />
+              <Zone label="Settings Content" className="flex-1 rounded-none border-0" />
             </div>
           </div>
         );
