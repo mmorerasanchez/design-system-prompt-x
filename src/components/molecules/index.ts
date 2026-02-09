@@ -6,3 +6,4 @@ export { AvatarGroup } from "./AvatarGroup";
 export { BreadcrumbNav } from "./BreadcrumbNav";
 export { TokenCounter } from "./TokenCounter";
 export { EmptyState } from "./EmptyState";
+export { TabNav } from "./TabNav";

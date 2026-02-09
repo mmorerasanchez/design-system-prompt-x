@@ -7,10 +7,11 @@ import { AvatarGroup } from "@/components/molecules/AvatarGroup";
 import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
 import { TokenCounter } from "@/components/molecules/TokenCounter";
 import { EmptyState } from "@/components/molecules/EmptyState";
+import { TabNav } from "@/components/molecules/TabNav";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Home, FileText, Settings, BarChart3, Users, Search } from "lucide-react";
+import { Home, FileText, Settings, BarChart3, Users, Search, Lock } from "lucide-react";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
   return (
@@ -24,6 +25,24 @@ function Section({ id, title, description, composedOf, children }: { id: string;
       </div>
       <div className="rounded-lg border border-border bg-card p-6 space-y-6">{children}</div>
     </section>
+  );
+}
+
+function TabNavDemo() {
+  const [active, setActive] = useState("profile");
+  return (
+    <TabNav
+      items={[
+        { label: "Profile", value: "profile" },
+        { label: "Presets", value: "presets" },
+        { label: "Defaults", value: "defaults" },
+        { label: "Variables", value: "variables", icon: Lock, disabled: true },
+        { label: "Organization", value: "org" },
+        { label: "Data", value: "data" },
+      ]}
+      value={active}
+      onValueChange={setActive}
+    />
   );
 }
 
@@ -174,6 +193,12 @@ export default function MoleculesPage() {
           action={{ label: "Create Prompt", onClick: () => {} }}
         />
         <CodeBlock>{`<EmptyState title="..." description="..." action={{ label: "Create", onClick: fn }} />`}</CodeBlock>
+      </Section>
+
+      {/* ── TAB NAV ── */}
+      <Section id="tab-nav" title="Tab Nav" description="Horizontal tab navigation bar with active state and optional disabled tabs. Used for settings, detail views, and section navigation." composedOf="Button-like tabs + active highlight">
+        <TabNavDemo />
+        <CodeBlock>{`<TabNav items={[{ label: "Profile", value: "profile" }, { label: "Variables", value: "vars", icon: Lock, disabled: true }]} value={active} onValueChange={setActive} />`}</CodeBlock>
       </Section>
     </div>
   );
