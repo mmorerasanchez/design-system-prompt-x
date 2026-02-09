@@ -26,7 +26,7 @@ export function AuthForm({ mode = "login", onSubmit, className }: AuthFormProps)
     <div className={cn("w-full max-w-[400px] rounded-lg border border-border bg-card p-6 space-y-6", className)}>
       <div className="text-center space-y-1">
         <Heading level="h2" className="font-display text-lg font-semibold">
-          prompt<span className="text-accent">-x</span>
+          prompt<span className="text-accent">x</span>
         </Heading>
         <Text variant="muted" size="sm">
           {mode === "login" ? "Sign in to your account" : "Create a new account"}
