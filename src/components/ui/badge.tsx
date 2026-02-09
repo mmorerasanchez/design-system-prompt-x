@@ -16,11 +16,6 @@ const badgeVariants = cva(
         testing: "border-transparent bg-status-testing/10 text-status-testing",
         production: "border-transparent bg-status-production/10 text-status-production",
         archived: "border-transparent bg-status-archived/10 text-status-archived",
-        // Platform variants
-        claude: "border-transparent bg-platform-claude/10 text-platform-claude",
-        gpt: "border-transparent bg-platform-gpt/10 text-platform-gpt",
-        gemini: "border-transparent bg-platform-gemini/10 text-platform-gemini",
-        lovable: "border-transparent bg-platform-lovable/10 text-platform-lovable",
         // Semantic variants
         success: "border-transparent bg-success-bg text-success",
         warning: "border-transparent bg-warning-bg text-warning",

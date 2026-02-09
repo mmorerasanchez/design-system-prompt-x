@@ -70,11 +70,6 @@
     --anatomy-constraints: 0 70% 55%;
     --anatomy-tools: 48 85% 48%;
 
-    /* Platform colors */
-    --platform-claude: 262 50% 55%;
-    --platform-gpt: 142 60% 45%;
-    --platform-gemini: 217 80% 55%;
-    --platform-lovable: 340 75% 55%;
 
     /* Status colors */
     --status-draft: 45 93% 47%;

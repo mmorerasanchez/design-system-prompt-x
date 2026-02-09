@@ -5,7 +5,6 @@ import { Text } from "@/components/atoms/Typography";
 interface PromptCardProps {
   title: string;
   status: "draft" | "testing" | "production" | "archived";
-  platforms: ("claude" | "gpt" | "gemini" | "lovable")[];
   preview: string;
   version: string;
   updatedAgo: string;
@@ -15,7 +14,7 @@ interface PromptCardProps {
   className?: string;
 }
 
-export function PromptCard({ title, status, platforms, preview, version, updatedAgo, tokens, selected, onClick, className }: PromptCardProps) {
+export function PromptCard({ title, status, preview, version, updatedAgo, tokens, selected, onClick, className }: PromptCardProps) {
   return (
     <div
       onClick={onClick}
@@ -29,11 +28,6 @@ export function PromptCard({ title, status, platforms, preview, version, updated
       <div className="flex items-start justify-between gap-2">
         <h3 className="font-display text-md font-medium text-foreground truncate">{title}</h3>
         <Badge variant={status} size="sm">{status}</Badge>
-      </div>
-      <div className="mt-1 flex items-center gap-1.5">
-        {platforms.map((p) => (
-          <Badge key={p} variant={p} size="sm">{p}</Badge>
-        ))}
       </div>
       <p className="mt-2 line-clamp-2 font-mono text-sm text-muted-foreground">{preview}</p>
       <div className="mt-3 flex items-center gap-2">

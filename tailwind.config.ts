@@ -119,12 +119,6 @@ export default {
           constraints: "hsl(var(--anatomy-constraints))",
           tools: "hsl(var(--anatomy-tools))",
         },
-        platform: {
-          claude: "hsl(var(--platform-claude))",
-          gpt: "hsl(var(--platform-gpt))",
-          gemini: "hsl(var(--platform-gemini))",
-          lovable: "hsl(var(--platform-lovable))",
-        },
         status: {
           draft: "hsl(var(--status-draft))",
           testing: "hsl(var(--status-testing))",

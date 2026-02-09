@@ -29,11 +29,11 @@ function CodeBlock({ children }: { children: string }) {
 }
 
 const sampleTableData = [
-  { name: "Customer Support Bot", status: "production", platform: "claude", tokens: 2847, updated: "2h ago" },
-  { name: "Code Review Assistant", status: "testing", platform: "gpt", tokens: 1523, updated: "5h ago" },
-  { name: "Marketing Copy Writer", status: "draft", platform: "gemini", tokens: 890, updated: "1d ago" },
-  { name: "Data Analysis Helper", status: "production", platform: "claude", tokens: 3201, updated: "3d ago" },
-  { name: "Email Template Generator", status: "archived", platform: "gpt", tokens: 1100, updated: "1w ago" },
+  { name: "Customer Support Bot", status: "production", tokens: 2847, updated: "2h ago" },
+  { name: "Code Review Assistant", status: "testing", tokens: 1523, updated: "5h ago" },
+  { name: "Marketing Copy Writer", status: "draft", tokens: 890, updated: "1d ago" },
+  { name: "Data Analysis Helper", status: "production", tokens: 3201, updated: "3d ago" },
+  { name: "Email Template Generator", status: "archived", tokens: 1100, updated: "1w ago" },
 ];
 
 const activityItems = [
@@ -93,7 +93,6 @@ export default function OrganismsPage() {
             columns={[
               { key: "name", header: "Name", sortable: true },
               { key: "status", header: "Status", sortable: true, render: (row) => <Badge variant={row.status as "draft" | "testing" | "production" | "archived"} size="sm">{String(row.status)}</Badge> },
-              { key: "platform", header: "Platform", render: (row) => <Badge variant={row.platform as "claude" | "gpt" | "gemini"} size="sm">{String(row.platform)}</Badge> },
               { key: "tokens", header: "Tokens", sortable: true },
               { key: "updated", header: "Updated" },
             ]}
@@ -115,13 +114,13 @@ export default function OrganismsPage() {
       </Section>
 
       {/* ── PROMPT CARD ── */}
-      <Section id="promptcard" title="Prompt Card" description="Interactive card with hover lift, status/platform badges, preview, and metadata." composedOf="Card + Badge + Text (mono)">
+      <Section id="promptcard" title="Prompt Card" description="Interactive card with hover lift, status badge, preview, and metadata." composedOf="Card + Badge + Text (mono)">
         <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-          <PromptCard title="Customer Support Bot" status="production" platforms={["claude"]} preview="You are a helpful customer support agent for {{company_name}}. Always be polite and professional." version="v3" updatedAgo="2h ago" tokens={2847} />
-          <PromptCard title="Code Review Assistant" status="testing" platforms={["gpt", "claude"]} preview="Analyze the following code and provide constructive feedback on quality, performance, and maintainability." version="v1" updatedAgo="5h ago" tokens={1523} />
-          <PromptCard title="Marketing Copy Writer" status="draft" platforms={["gemini"]} preview="Generate compelling marketing copy for {{product_name}} targeting {{audience}}." version="v2" updatedAgo="1d ago" tokens={890} selected />
+          <PromptCard title="Customer Support Bot" status="production" preview="You are a helpful customer support agent for {{company_name}}. Always be polite and professional." version="v3" updatedAgo="2h ago" tokens={2847} />
+          <PromptCard title="Code Review Assistant" status="testing" preview="Analyze the following code and provide constructive feedback on quality, performance, and maintainability." version="v1" updatedAgo="5h ago" tokens={1523} />
+          <PromptCard title="Marketing Copy Writer" status="draft" preview="Generate compelling marketing copy for {{product_name}} targeting {{audience}}." version="v2" updatedAgo="1d ago" tokens={890} selected />
         </div>
-        <CodeBlock>{`<PromptCard title="..." status="draft" platforms={["claude"]} preview="..." version="v3" updatedAgo="2h" tokens={2847} selected />`}</CodeBlock>
+        <CodeBlock>{`<PromptCard title="..." status="draft" preview="..." version="v3" updatedAgo="2h" tokens={2847} selected />`}</CodeBlock>
       </Section>
 
       {/* ── STATUS LIFECYCLE ── */}

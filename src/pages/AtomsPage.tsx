@@ -132,7 +132,7 @@ export default function AtomsPage() {
       </Section>
 
       {/* ── BADGE ── */}
-      <Section id="badge" title="Badge" description="Pill-shaped labels using font-mono. Status, platform, semantic, and count variants.">
+      <Section id="badge" title="Badge" description="Pill-shaped labels using font-mono. Status, semantic, and count variants.">
         <SubSection title="Default Variants">
           <div className="flex flex-wrap items-center gap-2">
             <Badge>Default</Badge>
@@ -147,14 +147,6 @@ export default function AtomsPage() {
             <Badge variant="testing">Testing</Badge>
             <Badge variant="production">Production</Badge>
             <Badge variant="archived">Archived</Badge>
-          </div>
-        </SubSection>
-        <SubSection title="Platform">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="claude">Claude</Badge>
-            <Badge variant="gpt">GPT-4</Badge>
-            <Badge variant="gemini">Gemini</Badge>
-            <Badge variant="lovable">Lovable</Badge>
           </div>
         </SubSection>
         <SubSection title="Semantic">

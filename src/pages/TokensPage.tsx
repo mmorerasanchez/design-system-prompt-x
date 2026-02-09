@@ -154,15 +154,6 @@ export default function TokensPage() {
           ]}
         />
         <ColorGroup
-          title="Platform"
-          tokens={[
-            { token: "--platform-claude", label: "platform-claude" },
-            { token: "--platform-gpt", label: "platform-gpt" },
-            { token: "--platform-gemini", label: "platform-gemini" },
-            { token: "--platform-lovable", label: "platform-lovable" },
-          ]}
-        />
-        <ColorGroup
           title="Status"
           tokens={[
             { token: "--status-draft", label: "status-draft" },

@@ -113,15 +113,6 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | Constraints | `--anatomy-constraints` | `0 70% 55%` | `text-anatomy-constraints` |
 | Tools | `--anatomy-tools` | `48 85% 48%` | `text-anatomy-tools` |
 
-### Platform Colors
-
-| Platform | CSS Variable | HSL | Tailwind Class |
-|---|---|---|---|
-| Claude | `--platform-claude` | `262 50% 55%` | `text-platform-claude` / `bg-platform-claude/10` |
-| GPT | `--platform-gpt` | `142 60% 45%` | `text-platform-gpt` / `bg-platform-gpt/10` |
-| Gemini | `--platform-gemini` | `217 80% 55%` | `text-platform-gemini` / `bg-platform-gemini/10` |
-| Lovable | `--platform-lovable` | `340 75% 55%` | `text-platform-lovable` / `bg-platform-lovable/10` |
-
 ### Status Colors
 
 | Status | CSS Variable | HSL | Tailwind Class |
@@ -233,7 +224,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | NavItem | custom | Ready |
 | Breadcrumb | shadcn/ui Breadcrumb | Ready |
 | Pagination | shadcn/ui Pagination | Ready |
-| PlatformSelector | custom | Planned |
+
 | DiffLine | custom | Planned |
 | ActivityFeedItem | custom | Planned |
 | VariableEditorRow | custom | Planned |
@@ -326,7 +317,7 @@ Three themes applied via class on `<html>`:
 
 - **Primary button** inverts per theme (light-on-dark in dark, dark-on-light in light)
 - **Accent** stays terracotta orange (`hue 18°`) across all themes
-- All semantic, anatomy, platform, and status colors are theme-invariant
+- All semantic, anatomy, and status colors are theme-invariant
 
 ---
 
@@ -357,7 +348,7 @@ Three themes applied via class on `<html>`:
 
 1. **Verify tokens** — check font imports load, feedback opacity syntax works
 2. **Build atoms** — Button → Input/Textarea → Badge → Tag → Checkbox/Radio/Switch/Slider → Skeleton → Spinner → Tooltip → Progress → Kbd
-3. **Build molecules** — FormField → SearchBar → ParameterControl → VariableHighlight → TokenCounter → StatCard → EmptyState → NavItem → PlatformSelector
+3. **Build molecules** — FormField → SearchBar → ParameterControl → VariableHighlight → TokenCounter → StatCard → EmptyState → NavItem
 4. **Build organisms** — Card → AppShell → Sidebar + TopBar → Tabs → Accordion → Modal → Sheet → Toast → Dropdown → Popover → CommandPalette → DataTable
 5. **Build prompt-x patterns** — AnatomyFieldCard → PromptEditorPanel → CompiledPreview → PlaygroundPanel → VariableManager → StatusLifecycle → VersionTimeline
 6. **Build templates** — EditorLayout → LibraryLayout → DashboardLayout → DetailLayout → SettingsLayout → AuthLayout
