@@ -9,9 +9,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Palette, Box, Layers, LayoutGrid, Layout, FileText } from "lucide-react";
+import { Home, Palette, Box, Layers, LayoutGrid, Layout, FileText } from "lucide-react";
 
 const navItems = [
+  { title: "Overview", url: "/", icon: Home },
   { title: "Tokens", url: "/tokens", icon: Palette },
   { title: "Atoms", url: "/atoms", icon: Box },
   { title: "Molecules", url: "/molecules", icon: Layers },
