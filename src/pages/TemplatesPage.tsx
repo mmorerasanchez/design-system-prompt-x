@@ -73,9 +73,9 @@ export default function TemplatesPage() {
 
       <TemplatePreview
         title="Settings Layout"
-        description="Flex: SettingsNav (200px) + content (max 600px). Text-only nav with active state."
-        composedOf="AppShell + SettingsNav + Form content"
-        responsive="Nav becomes top tabs on mobile"
+        description="Horizontal SettingsNav tabs below header + content area below. Text-only nav with active state."
+        composedOf="AppShell + SettingsNav (horizontal tabs) + Form content"
+        responsive="Tabs scroll horizontally on mobile"
         layout="sidebar-settings"
         zones={[]}
       />
