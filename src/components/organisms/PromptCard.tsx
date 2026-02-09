@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Text } from "@/components/atoms/Typography";
+import { Text } from "@/components/atoms";
 
 interface PromptCardProps {
   title: string;

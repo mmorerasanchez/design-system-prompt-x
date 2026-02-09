@@ -1,31 +1,46 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+type AnatomyColor = "role" | "tone" | "context" | "task" | "reasoning" | "examples" | "output" | "constraints" | "tools";
+
+const anatomyColorMap: Record<AnatomyColor, string> = {
+  role: "bg-anatomy-role/10 text-anatomy-role border-anatomy-role/30",
+  tone: "bg-anatomy-tone/10 text-anatomy-tone border-anatomy-tone/30",
+  context: "bg-anatomy-context/10 text-anatomy-context border-anatomy-context/30",
+  task: "bg-anatomy-task/10 text-anatomy-task border-anatomy-task/30",
+  reasoning: "bg-anatomy-reasoning/10 text-anatomy-reasoning border-anatomy-reasoning/30",
+  examples: "bg-anatomy-examples/10 text-anatomy-examples border-anatomy-examples/30",
+  output: "bg-anatomy-output/10 text-anatomy-output border-anatomy-output/30",
+  constraints: "bg-anatomy-constraints/10 text-anatomy-constraints border-anatomy-constraints/30",
+  tools: "bg-anatomy-tools/10 text-anatomy-tools border-anatomy-tools/30",
+};
+
 interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: "default" | "colored";
-  removable?: boolean;
-  onRemove?: () => void;
-  selectable?: boolean;
+  variant?: "default" | "removable" | "selectable";
   selected?: boolean;
+  onRemove?: () => void;
+  color?: AnatomyColor;
 }
 
 const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
-  ({ className, variant = "default", removable, onRemove, selectable, selected, children, ...props }, ref) => {
+  ({ className, variant = "default", selected, onRemove, color, children, ...props }, ref) => {
     return (
       <span
         ref={ref}
         className={cn(
           "inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 font-mono text-xs transition-colors",
-          variant === "default" && "border-border text-foreground",
-          variant === "colored" && "border-accent/30 bg-accent/5 text-accent",
-          selectable && "cursor-pointer hover:bg-muted",
-          selected && "border-accent bg-accent/10 text-accent",
+          color
+            ? anatomyColorMap[color]
+            : selected
+              ? "border-accent bg-card text-accent"
+              : "border-border bg-muted text-foreground",
+          variant === "selectable" && "cursor-pointer hover:bg-card",
           className,
         )}
         {...props}
       >
         {children}
-        {removable && (
+        {variant === "removable" && (
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); onRemove?.(); }}
@@ -42,3 +57,4 @@ const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
 Tag.displayName = "Tag";
 
 export { Tag };
+export type { TagProps, AnatomyColor };

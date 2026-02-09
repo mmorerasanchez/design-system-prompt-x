@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge, BadgeDot } from "@/components/ui/badge";
-import { Heading, Text, Code, Kbd } from "@/components/atoms/Typography";
-import { Tag } from "@/components/atoms/Tag";
+import { Heading, Text, Code, Kbd, Tag } from "@/components/atoms";
 import { Avatar, AvatarImage, AvatarFallback, AvatarStatus } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
@@ -12,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Spinner, ThinkingDots } from "@/components/atoms/Spinner";
+import { Spinner, ThinkingDots } from "@/components/atoms";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import {
@@ -180,13 +179,13 @@ export default function AtomsPage() {
         <SubSection title="Variants">
           <div className="flex flex-wrap items-center gap-2">
             <Tag>default</Tag>
-            <Tag variant="colored">colored</Tag>
-            <Tag removable onRemove={() => {}}>removable</Tag>
-            <Tag selectable>selectable</Tag>
-            <Tag selectable selected>selected</Tag>
+            <Tag color="role">colored</Tag>
+            <Tag variant="removable" onRemove={() => {}}>removable</Tag>
+            <Tag variant="selectable">selectable</Tag>
+            <Tag variant="selectable" selected>selected</Tag>
           </div>
         </SubSection>
-        <CodeBlock>{`<Tag variant="default | colored" removable selectable selected />`}</CodeBlock>
+        <CodeBlock>{`<Tag variant="default | removable | selectable" color="role" selected />`}</CodeBlock>
       </Section>
 
       {/* ── TYPOGRAPHY ── */}

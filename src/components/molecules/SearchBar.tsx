@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, X } from "lucide-react";
-import { Kbd } from "@/components/atoms/Typography";
+import { Kbd } from "@/components/atoms";
 
 interface SearchBarProps {
   value?: string;

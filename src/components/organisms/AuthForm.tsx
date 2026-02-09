@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormField } from "@/components/molecules/FormField";
 import { Separator } from "@/components/ui/separator";
-import { Heading, Text } from "@/components/atoms/Typography";
+import { Heading, Text } from "@/components/atoms";
 import { useState } from "react";
 
 interface AuthFormProps {

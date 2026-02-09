@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 86 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 82 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -246,14 +246,13 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | TabNav | custom | Ready | Horizontal tab navigation with active state, optional icons, disabled support |
 | Breadcrumb | shadcn/ui Breadcrumb | Ready | |
 | Pagination | shadcn/ui Pagination | Ready | |
+| DiffLine | custom | Planned | |
+| ActivityFeedItem | custom | Planned | |
+| VariableEditorRow | custom | Planned | |
+| RunHistoryItem | custom | Planned | |
+| TestCaseRow | custom | Planned | |
 
-| DiffLine | custom | Planned |
-| ActivityFeedItem | custom | Planned |
-| VariableEditorRow | custom | Planned |
-| RunHistoryItem | custom | Planned |
-| TestCaseRow | custom | Planned |
-
-### Organisms (38)
+### Organisms (35)
 
 | Name | Base | Status |
 |---|---|---|
@@ -272,10 +271,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | TopBar | custom | Ready |
 | AppShell | custom | Partial |
 | PromptCard | custom | Ready |
-| AnatomyFieldCard — atomic | custom | Planned |
-| AnatomyFieldCard — compact | custom | Planned |
-| AnatomyFieldCard — expanded | custom | Planned |
-| AnatomyFieldCard — inactive | custom | Planned |
+| AnatomyFieldCard | custom | Planned | 4 variants: atomic, compact, expanded, inactive |
 | PromptEditorPanel | custom | Planned |
 | CompiledPreview | custom | Planned |
 | StatusLifecycle | custom | Ready |
@@ -380,4 +376,6 @@ Three themes applied via class on `<html>`:
 
 ---
 
-*86 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
+*82 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
+
+<!-- CHECKSUM: Atoms(22) + Molecules(17) + Organisms(35) + Templates(8) = 82 -->

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Text, Code } from "@/components/atoms/Typography";
+import { Text, Code } from "@/components/atoms";
 
 interface FeedItem {
   actor: string;
