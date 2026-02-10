@@ -286,16 +286,15 @@ export function PromptConfigFields({
           </div>
           {Sliders}
           {AdvancedSection}
+        </CollapsibleContent>
+      </Collapsible>
 
-          {/* Anatomy fields nested collapsible */}
-          <Collapsible open={anatomyOpen} onOpenChange={setAnatomyOpen}>
-            <CollapsibleTrigger className="w-full">
-              <CollapsibleHeader label="Anatomy Fields" open={anatomyOpen} count={config.anatomyFields.length} />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pt-1">
-              {AnatomySection}
-            </CollapsibleContent>
-          </Collapsible>
+      <Collapsible open={anatomyOpen} onOpenChange={setAnatomyOpen}>
+        <CollapsibleTrigger className="w-full">
+          <CollapsibleHeader label="Anatomy Fields" open={anatomyOpen} count={config.anatomyFields.length} />
+        </CollapsibleTrigger>
+        <CollapsibleContent className="pt-1">
+          {AnatomySection}
         </CollapsibleContent>
       </Collapsible>
     </div>
