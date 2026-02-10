@@ -9,11 +9,12 @@ interface NavItemProps {
   disabled?: boolean;
   collapsed?: boolean;
   count?: number;
+  badge?: string;
   onClick?: () => void;
   className?: string;
 }
 
-export function NavItem({ icon: Icon, label, active, disabled, collapsed, count, onClick, className }: NavItemProps) {
+export function NavItem({ icon: Icon, label, active, disabled, collapsed, count, badge, onClick, className }: NavItemProps) {
   return (
     <button
       onClick={onClick}
@@ -32,6 +33,7 @@ export function NavItem({ icon: Icon, label, active, disabled, collapsed, count,
         <>
           <span className="flex-1 text-left truncate">{label}</span>
           {count !== undefined && <Badge variant="count" size="sm">{count}</Badge>}
+          {badge && <Badge variant="outline" size="sm" className="text-2xs">{badge}</Badge>}
         </>
       )}
     </button>

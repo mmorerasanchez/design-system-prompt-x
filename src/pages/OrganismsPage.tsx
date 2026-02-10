@@ -84,15 +84,9 @@ export default function OrganismsPage() {
       </div>
 
       {/* ── TOP BAR ── */}
-      <Section id="topbar" title="Top Bar / Header" description="56px sticky header with breadcrumb, search, and user menu." composedOf="BreadcrumbNav + SearchBar + Avatar + Button">
-        <TopBar
-          breadcrumbs={[
-            { label: "Library", href: "#" },
-            { label: "Customer Support Bot", href: "#" },
-            { label: "Editor" },
-          ]}
-        />
-        <CodeBlock>{`<TopBar breadcrumbs={[...]} onMenuClick={fn} actions={<Button />} />`}</CodeBlock>
+      <Section id="topbar" title="Top Bar / Header" description="56px sticky header with search command button." composedOf="SearchBar + Kbd">
+        <TopBar />
+        <CodeBlock>{`<TopBar onMenuClick={fn} actions={<Button />} />`}</CodeBlock>
       </Section>
 
       {/* ── SIDEBAR ── */}
