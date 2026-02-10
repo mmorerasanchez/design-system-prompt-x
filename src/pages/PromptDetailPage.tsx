@@ -17,7 +17,7 @@ import { Heading, Text } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Save, Play, Plus, Copy, GitBranch } from "lucide-react";
+import { Play, Plus, Copy, GitBranch, Pencil } from "lucide-react";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 
 // --- Mock data ---
@@ -146,8 +146,8 @@ export default function PromptDetailPage() {
               Run
             </Button>
             <Button size="sm">
-              <Save className="h-3.5 w-3.5" />
-              Save
+              <Pencil className="h-3.5 w-3.5" />
+              Edit
             </Button>
           </div>
         </div>
@@ -167,8 +167,8 @@ export default function PromptDetailPage() {
           </div>
 
           {/* Anatomy Fields + Compiled Preview — 60/40 */}
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-            <div className="space-y-3 lg:col-span-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-display text-sm font-medium text-foreground">Anatomy Fields</span>
                 <span className="font-mono text-2xs text-muted-foreground">{initialFields.length} fields · {totalTokens} tokens</span>
@@ -183,7 +183,7 @@ export default function PromptDetailPage() {
                 />
               ))}
             </div>
-            <div className="space-y-4 lg:col-span-2">
+            <div className="space-y-4">
               <CompiledPreview
                 content={compiledOutput}
                 totalTokens={totalTokens}
