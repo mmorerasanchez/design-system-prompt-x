@@ -29,3 +29,5 @@ export { IntegrationCard } from "./IntegrationCard";
 export { OnboardingWizard } from "./OnboardingWizard";
 export { PromptConfigFields, defaultPromptConfig } from "./PromptConfigFields";
 export type { PromptConfigState } from "./PromptConfigFields";
+export { CreatePromptDialog } from "./CreatePromptDialog";
+export type { CreatePromptFormData } from "./CreatePromptDialog";

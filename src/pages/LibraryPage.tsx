@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { FilterBar } from "@/components/organisms/FilterBar";
 import { PromptCard } from "@/components/organisms/PromptCard";
 import { BulkActionsBar } from "@/components/organisms/BulkActionsBar";
+import { CreatePromptDialog } from "@/components/organisms/CreatePromptDialog";
 import { StatCard } from "@/components/molecules/StatCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ export default function LibraryPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [createOpen, setCreateOpen] = useState(false);
 
   const toggleSelect = (id: string) => {
     setSelected((prev) => {
@@ -51,7 +53,7 @@ export default function LibraryPage() {
             <Heading level="h1">Prompt Store</Heading>
             <Text variant="muted" className="mt-1">Browse, search, and manage your prompts.</Text>
           </div>
-          <Button size="sm">
+          <Button size="sm" onClick={() => setCreateOpen(true)}>
             <Plus className="mr-1.5 h-3.5 w-3.5" />
             New Prompt
           </Button>
@@ -131,6 +133,7 @@ export default function LibraryPage() {
             onDismiss={() => setSelected(new Set())}
           />
         )}
+        <CreatePromptDialog open={createOpen} onOpenChange={setCreateOpen} />
       </div>
     </div>
   );
