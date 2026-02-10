@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { DashboardLayout } from "@/components/templates/DashboardLayout";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
@@ -10,6 +10,7 @@ import { Heading, Text } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
 const feedItems = [
   { actor: "Sarah K.", initials: "SK", action: "deployed", resource: "onboarding-flow-v3", time: "2 min ago" },
@@ -37,51 +38,10 @@ const aiDesignerTabs = [
   { label: "Evaluator", value: "evaluator" },
 ];
 
-const TYPING_TEXT = "Generate an onboarding assistant that guides new users through setup…";
-
-function useTypingAnimation() {
-  const [text, setText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
-  const indexRef = useRef(0);
-  const directionRef = useRef<"typing" | "deleting" | "paused">("typing");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (directionRef.current === "typing") {
-        indexRef.current += 1;
-        setText(TYPING_TEXT.slice(0, indexRef.current));
-        if (indexRef.current >= TYPING_TEXT.length) {
-          directionRef.current = "paused";
-          setIsTyping(false);
-          setTimeout(() => {
-            directionRef.current = "deleting";
-            setIsTyping(true);
-          }, 2000);
-        }
-      } else if (directionRef.current === "deleting") {
-        indexRef.current -= 1;
-        setText(TYPING_TEXT.slice(0, indexRef.current));
-        if (indexRef.current <= 0) {
-          directionRef.current = "paused";
-          setIsTyping(false);
-          setTimeout(() => {
-            directionRef.current = "typing";
-            setIsTyping(true);
-          }, 800);
-        }
-      }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return { text, isTyping };
-}
-
 export default function DashboardPage() {
   const [aiTab, setAiTab] = useState("generator");
   const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
-  const { text: typingText } = useTypingAnimation();
+  const typingText = useTypingAnimation();
 
   return (
     <DashboardLayout

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTypingAnimation } from "@/hooks/use-typing-animation";
 import { Heading, Text } from "@/components/atoms";
 import { StatCard } from "@/components/molecules/StatCard";
 import { TabNav } from "@/components/molecules/TabNav";
@@ -51,6 +52,7 @@ export default function AIDesignerPage() {
   const [activeTab, setActiveTab] = useState("generator");
   const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const [selectedTestIds, setSelectedTestIds] = useState<string[]>([]);
+  const typingText = useTypingAnimation();
 
   return (
     <div className="flex-1 overflow-auto p-4 md:p-6 lg:p-8">
@@ -90,7 +92,7 @@ export default function AIDesignerPage() {
                 <span className="font-display text-sm font-medium text-foreground">Configuration</span>
               </div>
               <div className="space-y-4 p-4">
-                <PromptConfigFields config={config} onChange={setConfig} mode="full" />
+                <PromptConfigFields config={config} onChange={setConfig} mode="full" instructionOverride={typingText} />
                 <Button className="w-full" disabled={!config.instruction.trim()}>
                   <Sparkles className="h-3.5 w-3.5" />
                   Generate
