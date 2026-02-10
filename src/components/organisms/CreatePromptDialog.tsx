@@ -114,7 +114,7 @@ export function CreatePromptDialog({ open, onOpenChange, onSubmit }: CreatePromp
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="font-display text-lg font-semibold">Create New Prompt</DialogTitle>
           <DialogDescription className="font-body text-sm text-muted-foreground">
