@@ -27,3 +27,5 @@ export { SettingsNav } from "./SettingsNav";
 export { APIKeyManager } from "./APIKeyManager";
 export { IntegrationCard } from "./IntegrationCard";
 export { OnboardingWizard } from "./OnboardingWizard";
+export { PromptConfigFields, defaultPromptConfig } from "./PromptConfigFields";
+export type { PromptConfigState } from "./PromptConfigFields";

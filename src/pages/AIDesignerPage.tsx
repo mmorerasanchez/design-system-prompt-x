@@ -2,14 +2,12 @@ import { useState } from "react";
 import { Heading, Text } from "@/components/atoms";
 import { StatCard } from "@/components/molecules/StatCard";
 import { TabNav } from "@/components/molecules/TabNav";
-import { ParameterControl } from "@/components/molecules/ParameterControl";
-import { AIGenerationPanel } from "@/components/organisms/AIGenerationPanel";
 import { EvaluationResults } from "@/components/organisms/EvaluationResults";
 import { RunHistory } from "@/components/organisms/RunHistory";
 import { TestDatasetManager } from "@/components/organisms/TestDatasetManager";
-import { Textarea } from "@/components/ui/textarea";
+import { PromptConfigFields, defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
+import type { PromptConfigState } from "@/components/organisms/PromptConfigFields";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sparkles, ArrowRight } from "lucide-react";
 
 const tabs = [
@@ -51,10 +49,7 @@ const runs = [
 
 export default function AIDesignerPage() {
   const [activeTab, setActiveTab] = useState("generator");
-  const [temperature, setTemperature] = useState(0.7);
-  const [maxTokens, setMaxTokens] = useState(2048);
-  const [topP, setTopP] = useState(0.9);
-  const [instruction, setInstruction] = useState("");
+  const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const [selectedTestIds, setSelectedTestIds] = useState<string[]>([]);
 
   return (
@@ -95,47 +90,8 @@ export default function AIDesignerPage() {
                 <span className="font-display text-sm font-medium text-foreground">Configuration</span>
               </div>
               <div className="space-y-4 p-4">
-                {/* Anatomy field select */}
-                <div className="space-y-1.5">
-                  <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Target Field</span>
-                  <Select defaultValue="task">
-                    <SelectTrigger className="h-9 font-mono text-sm">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-popover border-border">
-                      <SelectItem value="role">Role</SelectItem>
-                      <SelectItem value="tone">Tone</SelectItem>
-                      <SelectItem value="context">Context</SelectItem>
-                      <SelectItem value="task">Task</SelectItem>
-                      <SelectItem value="reasoning">Reasoning</SelectItem>
-                      <SelectItem value="examples">Examples</SelectItem>
-                      <SelectItem value="output">Output</SelectItem>
-                      <SelectItem value="constraints">Constraints</SelectItem>
-                      <SelectItem value="tools">Tools</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Parameters */}
-                <div className="space-y-3">
-                  <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Parameters</span>
-                  <ParameterControl label="Temperature" value={temperature} onChange={setTemperature} min={0} max={2} step={0.1} />
-                  <ParameterControl label="Max Tokens" value={maxTokens} onChange={setMaxTokens} min={1} max={8192} step={1} />
-                  <ParameterControl label="Top P" value={topP} onChange={setTopP} min={0} max={1} step={0.05} />
-                </div>
-
-                {/* Instruction */}
-                <div className="space-y-1.5">
-                  <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Instruction</span>
-                  <Textarea
-                    value={instruction}
-                    onChange={(e) => setInstruction(e.target.value)}
-                    placeholder="Describe what you want the AI to generate…"
-                    className="min-h-[80px] font-mono text-sm"
-                  />
-                </div>
-
-                <Button className="w-full" disabled={!instruction.trim()}>
+                <PromptConfigFields config={config} onChange={setConfig} mode="full" />
+                <Button className="w-full" disabled={!config.instruction.trim()}>
                   <Sparkles className="h-3.5 w-3.5" />
                   Generate
                 </Button>
