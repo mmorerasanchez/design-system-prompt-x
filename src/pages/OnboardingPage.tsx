@@ -352,10 +352,6 @@ export default function OnboardingPage() {
           {/* ====== STEP 4: Generation Animation ====== */}
           {currentStep === 3 && (
             <div className="flex flex-col items-center justify-center py-8 space-y-6">
-              {/* Pulsing icon */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 animate-ai-pulse">
-                <Sparkles className="h-7 w-7 text-accent" />
-              </div>
 
               {/* Phase indicators */}
               <div className="space-y-2 w-full max-w-xs">
