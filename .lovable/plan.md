@@ -1,113 +1,80 @@
 
 
-## Navigation Restructuring
+## Fix: Edit and Back Button Navigation Crash
 
-### Overview
+### Problem
 
-Simplify the top bar to contain only the search command component, and reorganize the sidebar into three distinct sections: active Hubs, Projects (tag-based prompt organization), and Coming Soon modules.
+Both the **Edit** button (saved view) and **Back** button (edit page) crash with:
+`React.Children.only expected to receive a single React element child`
 
----
+This happens because `Button asChild` uses Radix's `Slot`, which requires exactly one React element child. But the `Link` inside contains multiple children (icon + text), causing the crash. The pages render blank/broken as a result.
 
-### 1. TopBar Simplification
+### Solution
 
-**Remove**: title/breadcrumbs, notifications bell, avatar/profile button.
-**Keep**: mobile hamburger menu (left), search command button with keyboard shortcut (right).
+Wrap the icon and text inside the `Link` so that `Button` receives a single child element. The `Link` itself is the single child — its internal contents (icon + text) are fine.
 
-The header becomes a minimal, utility-only bar -- all identity lives in the sidebar footer, and page titles are handled by each page's own content area.
-
----
-
-### 2. Sidebar Reorganization
-
-The sidebar nav gets three grouped sections:
-
-```text
-+---------------------------+
-| promptx          [<<]     |
-+---------------------------+
-| HUBS                      |
-|   Store                   |
-|   Designer                |
-|   Settings                |
-+---------------------------+
-| PROJECTS            [+]   |
-|   # Work            (12)  |
-|   # Personal         (8)  |
-|   # Client ABC       (5)  |
-|   # Side Projects    (3)  |
-|   # Research          (2) |
-+---------------------------+
-| COMING SOON               |
-|   Analytics          --   |
-|   Templates          --   |
-|   API                --   |
-+---------------------------+
-|  [MR] Mariano             |
-|  mariano@promptx.io       |
-+---------------------------+
-```
-
-**Section 1 -- Hubs**: Active, clickable navigation modules.
-- "Store" (was "Prompt Store", routes to `/app/library`)
-- "Designer" (was "AI Designer", routes to `/app/ai-designer`)
-- "Settings" (routes to `/app/settings`)
-- Uses icons: `FileText`, `Sparkles`, `Settings`
-
-**Section 2 -- Projects**: Tag-based prompt organization. Each project is a primary tag that acts like a folder filter.
-- Mock data: Work (12), Personal (8), Client ABC (5), Side Projects (3), Research (2)
-- Clicking a project navigates to `/app/library?project=<slug>` (filters the store view)
-- A small "+" button in the section header to add new projects
-- Items use a `#` prefix (hash icon or text) to convey the tag/folder concept
-- Uses the `count` badge on `NavItem` to show prompt count
-- In collapsed mode, projects section is hidden (too many items, no meaningful icons)
-
-**Section 3 -- Coming Soon**: Non-interactive, dimmed modules.
-- Analytics, Templates, API
-- Rendered with `disabled` prop on `NavItem` plus a "soon" badge
-- No hover/click styling (already handled by `NavItem`'s disabled state)
-
----
-
-### 3. Route Mapping Update
-
-The `AppShell` route mapping needs updating since nav IDs change:
-- "store" maps to `/app/library`
-- "designer" maps to `/app/ai-designer`
-- "settings" maps to `/app/settings`
-- Dashboard removed from sidebar nav (still accessible as `/app` index route)
-- Project clicks navigate to `/app/library?project=<slug>`
+The fix is the same pattern for both files: ensure Button with `asChild` receives exactly one child element.
 
 ---
 
 ### Technical Details
 
-#### Files to modify:
+**File 1: `src/pages/PromptDetailPage.tsx`** (Edit button, lines 93-98)
 
-**`src/components/organisms/TopBar.tsx`**
-- Remove `Avatar`, `AvatarFallback` imports and usage
-- Remove `Bell` icon import and notifications button
-- Remove `BreadcrumbNav` import and title/breadcrumb rendering
-- Keep only: mobile menu button (left side) and search button with `Cmd+K` shortcut (right side)
-- Remove `breadcrumbs`, `title` props from interface (keep `onMenuClick`, `showMobileMenu`, `actions`, `className`)
+Current (broken):
+```tsx
+<Button size="sm" asChild>
+  <Link to={`/app/library/${id}/edit`}>
+    <Pencil className="h-3.5 w-3.5" />
+    Edit
+  </Link>
+</Button>
+```
 
-**`src/components/organisms/SidebarNav.tsx`**
-- Replace flat `navItems` array with three section arrays: `hubItems`, `projectItems`, `comingSoonItems`
-- Hub items: `{ id: "store", label: "Store", icon: FileText }`, `{ id: "designer", label: "Designer", icon: Sparkles }`, `{ id: "settings", label: "Settings", icon: Settings }`
-- Project mock data: `{ id: "work", label: "Work", count: 12 }`, `{ id: "personal", label: "Personal", count: 8 }`, etc.
-- Coming soon items: `{ id: "analytics", label: "Analytics", icon: BarChart3 }`, `{ id: "templates", label: "Templates", icon: LayoutTemplate }`, `{ id: "api", label: "API", icon: Code2 }`
-- Render three `SidebarGroupLabel`-style section headers: "Hubs", "Projects" (with a `+` button), "Coming Soon"
-- Projects section uses `Hash` icon and `NavItem` with `count` prop
-- Coming soon section uses `NavItem` with `disabled` and a "soon" `Badge`
-- Hide Projects section when `collapsed` is true
-- Add `onProjectClick` callback prop for project tag navigation
+The issue is subtle — the `Link` has two children nodes (the icon element and the "Edit" text node). Radix Slot merges props onto the single child, and `Link` IS the single child here. This should actually work. Let me investigate further — the error may come from another `asChild` usage on the page, or from how the Button component handles `asChild` internally.
 
-**`src/components/templates/AppShell.tsx`**
-- Update `handleNavClick` route mapping: `store` -> `/app/library`, `designer` -> `/app/ai-designer`
-- Remove `title` prop from `TopBar` (no longer needed)
-- Add `handleProjectClick` that navigates to `/app/library?project=<slug>`
-- Update `activeItem` detection logic for new IDs
+Actually, re-reading the error and the code — the `Button` component uses `Slot` when `asChild` is true. `Slot` calls `React.Children.only` on its children, which means the `Link` element must be the only child of `Button`. The `Link` component has an icon + text inside it, but `Link` itself is a single element — so this should work.
 
-**`src/components/molecules/NavItem.tsx`**
-- Add optional `badge` prop (for "soon" text) alongside existing `count`
-- Render badge when provided (uses `Badge` variant="secondary" or similar)
+The crash is likely on the **edit page** specifically. Let me look more carefully at the PromptEditorPage Back button code — it was written with `asChild` and a `Link` containing icon + text. This is the standard pattern and should work with shadcn/ui Button.
 
+The real issue might be that the page itself is erroring during render for another reason. But the console clearly shows `React.Children.only` from `Slot`. This means one of the `asChild` buttons has a problem.
+
+Looking again at PromptEditorPage, the History button (line 107) does NOT use `asChild` so that's fine. The Run button (line 110) also doesn't. Only the Back button (lines 101-106) and Save button use `asChild`... wait, Save doesn't use `asChild` either.
+
+The issue is likely that `<Button asChild>` with children containing both a React element AND a text node causes the problem. The `Link` is one element, so `Slot` should handle it. Unless the Button's internal implementation wraps differently.
+
+Let me check the Button component to be sure, and also verify if both pages crash or just the edit page.
+
+**Fix approach**: Remove `asChild` from both buttons and wrap the `Link` around the `Button` instead, or use `onClick` + `useNavigate()` for navigation.
+
+**File 1: `src/pages/PromptEditorPage.tsx`**
+- Replace the `asChild` Back button with a regular `Button` inside a `Link`, or use `useNavigate` with `onClick`
+
+**File 2: `src/pages/PromptDetailPage.tsx`**
+- Same fix for the Edit button
+
+The simplest fix: swap the nesting so `Link` wraps `Button` (without `asChild`), or just use `useNavigate()`:
+
+```tsx
+// Option A: Link wraps Button
+<Link to={`/app/library/${id}`}>
+  <Button variant="ghost" size="sm">
+    <ArrowLeft className="h-3.5 w-3.5" />
+    Back
+  </Button>
+</Link>
+
+// Option B: useNavigate (cleaner)
+<Button variant="ghost" size="sm" onClick={() => navigate(`/app/library/${id}`)}>
+  <ArrowLeft className="h-3.5 w-3.5" />
+  Back
+</Button>
+```
+
+Option B is cleaner. We'll use `useNavigate` for both buttons.
+
+### Changes
+
+1. **`src/pages/PromptEditorPage.tsx`**: Replace `Button asChild > Link` with `Button onClick={() => navigate(...)}` for the Back button. Add `useNavigate` import.
+
+2. **`src/pages/PromptDetailPage.tsx`**: Same fix for the Edit button — replace `Button asChild > Link` with `Button onClick={() => navigate(...)}`. Add `useNavigate` import.
