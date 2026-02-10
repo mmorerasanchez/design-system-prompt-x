@@ -1,12 +1,12 @@
-# promptx Design System v2.0
+# promptx Design System v2.1
 
-> Single Source of Truth · Last updated: 2026-02-09
+> Single Source of Truth · Last updated: 2026-02-10
 
 ---
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 82 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 83 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -99,19 +99,19 @@ promptx is a prompt engineering platform built on the principle that **Prompts A
 
 ### Anatomy Field Colors (9 fields)
 
-Each field uses a 3px left border + 5% opacity gradient background on field cards.
+Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds with standard `border-border`.
 
 | Field | CSS Variable | HSL | Tailwind Class |
 |---|---|---|---|
-| Role | `--anatomy-role` | `185 55% 42%` | `text-anatomy-role` / `border-l-anatomy-role` |
-| Tone | `--anatomy-tone` | `38 80% 50%` | `text-anatomy-tone` |
-| Context | `--anatomy-context` | `152 55% 40%` | `text-anatomy-context` |
-| Task | `--anatomy-task` | `25 85% 52%` | `text-anatomy-task` |
-| Reasoning | `--anatomy-reasoning` | `262 55% 55%` | `text-anatomy-reasoning` |
-| Examples | `--anatomy-examples` | `340 65% 55%` | `text-anatomy-examples` |
-| Output | `--anatomy-output` | `230 60% 58%` | `text-anatomy-output` |
-| Constraints | `--anatomy-constraints` | `0 70% 55%` | `text-anatomy-constraints` |
-| Tools | `--anatomy-tools` | `48 85% 48%` | `text-anatomy-tools` |
+| Role | `--anatomy-role` | `185 55% 42%` | `text-anatomy-role` / `bg-anatomy-role` |
+| Tone | `--anatomy-tone` | `38 80% 50%` | `text-anatomy-tone` / `bg-anatomy-tone` |
+| Context | `--anatomy-context` | `152 55% 40%` | `text-anatomy-context` / `bg-anatomy-context` |
+| Task | `--anatomy-task` | `25 85% 52%` | `text-anatomy-task` / `bg-anatomy-task` |
+| Reasoning | `--anatomy-reasoning` | `262 55% 55%` | `text-anatomy-reasoning` / `bg-anatomy-reasoning` |
+| Examples | `--anatomy-examples` | `340 65% 55%` | `text-anatomy-examples` / `bg-anatomy-examples` |
+| Output | `--anatomy-output` | `230 60% 58%` | `text-anatomy-output` / `bg-anatomy-output` |
+| Constraints | `--anatomy-constraints` | `0 70% 55%` | `text-anatomy-constraints` / `bg-anatomy-constraints` |
+| Tools | `--anatomy-tools` | `48 85% 48%` | `text-anatomy-tools` / `bg-anatomy-tools` |
 
 ### Status Colors
 
@@ -196,6 +196,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | AI thinking dots | `1.4s` | `ease-in-out` | `ai-pulse` keyframe |
 | AI cursor blink | `1s` | `step-end` | `ai-cursor` keyframe |
 | Spinner | `1s` | `linear` | — |
+| Typing animation | variable | `step-end` | `useTypingAnimation` hook |
 
 > **Motion philosophy:** Restrained and functional. Max 300ms for UI transitions. Respect `prefers-reduced-motion` always.
 
@@ -215,7 +216,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | RadioGroup | shadcn/ui RadioGroup | Ready |
 | Switch | shadcn/ui Switch | Ready |
 | Slider | shadcn/ui Slider | Ready |
-| Badge | shadcn/ui Badge + CVA | Ready | Status, semantic, count variants (no platform variants) |
+| Badge | shadcn/ui Badge + CVA | Ready |
 | Tag | custom | Ready |
 | Avatar | shadcn/ui Avatar | Ready |
 | Heading | custom | Ready |
@@ -242,7 +243,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | PromptFieldHeader | custom | Ready | Anatomy field header with dot, label, token count |
 | StatCard | custom | Ready | Trend shown via +/- prefix and color only (no icons) |
 | EmptyState | custom | Ready | Title + description + CTA button (no icon) |
-| NavItem | custom | Ready | |
+| NavItem | custom | Ready | Supports collapsed mode with count badge overlay |
 | TabNav | custom | Ready | Horizontal tab navigation with active state, optional icons, disabled support |
 | Breadcrumb | shadcn/ui Breadcrumb | Ready | |
 | Pagination | shadcn/ui Pagination | Ready | |
@@ -251,8 +252,9 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | VariableEditorRow | custom | Ready | Name/value input pair with delete and highlight state |
 | RunHistoryItem | custom | Ready | Run entry with model, status, tokens, latency |
 | TestCaseRow | custom | Ready | Test case with checkbox, input/expected, status, score |
+| ScoreBreakdown | custom | Ready | Score badge that opens a centered modal with weighted rubric |
 
-### Organisms (35)
+### Organisms (36)
 
 | Name | Base | Status |
 |---|---|---|
@@ -271,7 +273,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | TopBar | custom | Ready |
 | AppShell | custom | Ready |
 | PromptCard | custom | Ready |
-| AnatomyFieldCard | custom | Ready | 4 variants: atomic, compact, expanded, inactive |
+| AnatomyFieldCard | custom | Ready |
 | PromptEditorPanel | custom | Ready |
 | CompiledPreview | custom | Ready |
 | StatusLifecycle | custom | Ready |
@@ -283,17 +285,20 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 | VersionComparison | custom | Ready |
 | FilterBar | custom | Ready |
 | BulkActionsBar | custom | Ready |
-| EvaluationResults | custom | Ready | Score dashboard with per-metric breakdowns |
-| TestDatasetManager | custom | Ready | Test case list with bulk select, run, import |
-| RunHistory | custom | Ready | Scrollable run entries with status and metrics |
-| ImportDialog | custom | Ready | Multi-format import with paste and file drop |
-| ExportMenu | custom | Ready | Format picker for JSON, CSV, YAML, Markdown, clipboard |
-| UserMenu | custom | Ready | Profile info, settings, billing, logout |
-| SettingsNav | custom | Ready | Horizontal TabNav wrapper for settings pages |
-| APIKeyManager | custom | Ready | Masked keys with reveal, add, delete |
-| IntegrationCard | custom | Ready | External service card with connect/disconnect |
-| OnboardingWizard | custom | Ready | Step-by-step wizard with progress indicator |
+| EvaluationResults | custom | Ready |
+| TestDatasetManager | custom | Ready |
+| RunHistory | custom | Ready |
+| ImportDialog | custom | Ready |
+| ExportMenu | custom | Ready |
+| UserMenu | custom | Ready |
+| SettingsNav | custom | Ready |
+| APIKeyManager | custom | Ready |
+| IntegrationCard | custom | Ready |
+| OnboardingWizard | custom | Ready |
 | DashboardStats | custom | Ready |
+| CreatePromptDialog | custom | Ready |
+| PromptConfigFields | custom | Ready |
+| SidebarNav | custom | Ready |
 
 ### Templates (8)
 
@@ -310,7 +315,135 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 
 ---
 
-## 8. Accessibility Requirements
+## 8. Application Pages
+
+### 8.1 Dashboard (`/app`)
+
+**Template:** DashboardLayout  
+**Key organisms:** DashboardStats, TabNav, PromptConfigFields, EvaluationResults, ActivityFeed
+
+| Section | Width | Content |
+|---|---|---|
+| PageHeader | full | H1 "Dashboard" + muted subtitle |
+| KPI Row | full | 4× StatCard (Total Prompts, Production, Avg Score, Active Users) |
+| AI Designer | full | TabNav (Generator / Evaluator) + "Open designer" link |
+| Generator tab | full | Compact PromptConfigFields with typing animation + Generate button |
+| Evaluator tab | full | EvaluationResults summary |
+| Activity Feed | full | Recent activity list |
+
+### 8.2 Prompt Store (`/app/library`)
+
+**Template:** DashboardLayout  
+**Key organisms:** StatCard, FilterBar, PromptCard, BulkActionsBar, CreatePromptDialog
+
+| Section | Width | Content |
+|---|---|---|
+| PageHeader | full | H1 "Prompt Store" + "New Prompt" button |
+| KPI Row | full | 4× StatCard (Total, Production, Avg Tokens, This Week) |
+| Toolbar | full | FilterBar with search, status chips, sort, grid/list toggle |
+| Content | full | Grid (1/2/3-col responsive) or list table view |
+| Bulk Actions | sticky bottom | Conditional bar when items selected |
+
+**Grid/list toggle:** `viewMode` state switches between card grid and data table.
+
+### 8.3 AI Designer (`/app/ai-designer`)
+
+**Template:** DashboardLayout  
+**Key organisms:** StatCard, TabNav, PromptConfigFields, EvaluationResults, RunHistory, TestDatasetManager
+
+| Tab | Layout | Content |
+|---|---|---|
+| Generator | 50/50 split (lg) | Left: Full PromptConfigFields + Generate button. Right: Output area |
+| Evaluator | stacked | EvaluationResults + 2/3 TestDatasetManager + 1/3 RunHistory |
+
+### 8.4 Prompt Detail — Saved View (`/app/library/:id`)
+
+**Template:** DetailLayout  
+**Key organisms:** BreadcrumbNav, StatusLifecycleBar, StatCard, AnatomyFieldCard, CompiledPreview
+
+| Section | Width | Content |
+|---|---|---|
+| Breadcrumb | full | Library → Prompt Name |
+| Title bar | full | H1 + version badge + History/Run/Edit buttons |
+| Status bar | full | StatusLifecycleBar (Draft → Testing → Production → Archived) |
+| KPI Row | full | 4× StatCard |
+| Content | 50/50 split | Left: Fields (compact cards), Settings grid, Variables list. Right: Sticky CompiledPreview |
+
+**Navigation:** Edit button uses `useNavigate()` (not `asChild`) to avoid React `Slot` crash.
+
+### 8.5 Prompt Editor (`/app/library/:id/edit`)
+
+**Template:** EditorLayout (split-pane)  
+**Key organisms:** BreadcrumbNav, TabNav, AnatomyFieldCard, CompiledPreview, VariableManager, VersionTimeline, VersionComparison, PromptConfigFields
+
+| Tab | Content |
+|---|---|
+| Fields | 9 AnatomyFieldCards (expanded variant) with token counts |
+| Settings | PromptConfigFields in `settings` mode (flat, no anatomy) |
+| Variables | VariableManager with add/edit/delete |
+| Versions | 1/3 VersionTimeline + 2/3 VersionComparison side-by-side |
+| Variations | Disabled, "soon" badge |
+
+**Navigation:** Back button uses `useNavigate()`.
+
+### 8.6 Settings (`/app/settings`)
+
+**Template:** DashboardLayout  
+**Key organisms:** SettingsNav, APIKeyManager, IntegrationCard, StatCard
+
+| Section | Content |
+|---|---|
+| Profile | Name, email, role, timezone form + Danger Zone |
+| Billing | Plan card with usage meters + credit usage bar chart + billing history |
+| API Keys | APIKeyManager with masked values and add/delete |
+| Integrations | Grid of IntegrationCards with connect/disconnect |
+| Preferences | Toggle switches for editor defaults |
+| Team | Coming soon placeholder |
+
+### 8.7 Onboarding (`/app/welcome`)
+
+**Template:** Centered (no app shell)  
+**Key organisms:** OnboardingWizard, PromptConfigFields, ScoreBreakdown, TokenCounter
+
+5-step guided wizard:
+
+| Step | Title | Content | Interaction |
+|---|---|---|---|
+| 1 | Select Model & Platform | Model dropdown (grouped by provider) + Platform dropdown | Manual advance |
+| 2 | Configure Parameters | Reasoning framework, Complexity buttons, Temperature/MaxTokens sliders | Manual advance |
+| 3 | Provide Instructions | Toggle: Plain Text (textarea) / Anatomy Fields (borderless cards with textareas) | Manual advance |
+| 4 | Generating Your Prompt | Phase indicators with ai-pulse animation (no icon) | Auto-advance after ~3.2s |
+| 5 | Your Improved Prompt | Compiled output preview + TokenCounter + ScoreBreakdown (modal) + Save/Edit buttons | Save → Dashboard |
+
+**Key details:**
+- Step 3 anatomy field cards have NO borders (plain `bg-card` with rounded corners only)
+- Step 4 has NO icon above the phase indicators
+- ScoreBreakdown opens as a centered Dialog (not a Popover) with close button
+
+---
+
+## 9. Sidebar Navigation
+
+### SidebarNav Component
+
+3-section sidebar with equal `space-y-6` vertical spacing between sections:
+
+| Section | Expanded | Collapsed |
+|---|---|---|
+| **Hubs** | Icon + label (Store, Designer, Settings) | Icon only |
+| **Projects** | Hash icon + label + count badge + "Add" button | Hash icon + small count badge overlay (positioned `-top-1.5 -right-1.5`) |
+| **Coming Soon** | Icon + label + "soon" badge (disabled) | Icon only (disabled) |
+
+**Key behaviors:**
+- Collapsed width: `64px` (`w-sidebar-collapsed`)
+- Expanded width: `240px` (`w-sidebar-w`)
+- Projects section remains visible when collapsed (count badges shown as small overlays on hash icons)
+- User footer with avatar, name, and email
+- Mobile: sidebar becomes overlay drawer triggered by hamburger menu
+
+---
+
+## 10. Accessibility Requirements
 
 | Requirement | Standard |
 |---|---|
@@ -324,7 +457,7 @@ Each field uses a 3px left border + 5% opacity gradient background on field card
 
 ---
 
-## 9. Theme System
+## 11. Theme System
 
 Three themes applied via class on `<html>`:
 
@@ -340,7 +473,7 @@ Three themes applied via class on `<html>`:
 
 ---
 
-## 10. Icon Rules
+## 12. Icon Rules
 
 **Library:** Lucide React
 
@@ -364,18 +497,76 @@ Three themes applied via class on `<html>`:
 
 ---
 
-## 11. Build Sequence
+## 13. Page Content Architecture
 
-1. ~~**Verify tokens**~~ ✅ Font imports, feedback opacity, duration tokens
-2. ~~**Build atoms**~~ ✅ All 22 atoms built and showcased
-3. ~~**Build molecules**~~ ✅ All 17 molecules built and showcased
-4. ~~**Build organisms**~~ ✅ All 35 organisms built and showcased
-5. ~~**Build promptx patterns**~~ ✅ All pattern organisms built and showcased
-6. ~~**Build templates**~~ ✅ All 8 templates built and showcased
-7. **Assemble pages** — Dashboard → Library → Prompt Detail/Editor → Settings → Auth
+All pages follow a standardized information architecture:
+
+1. **PageHeader:** H1 (`font-display text-xl font-semibold`) + muted subtitle (`Text variant="muted"`)
+2. **KPI Row:** 4× `StatCard` in a `grid-cols-2 lg:grid-cols-4` grid
+3. **Content Blocks:** Bordered card containers (`rounded-md border border-border bg-card`)
+4. **Vertical Spacing:** Major sections separated by `space-y-6`
+5. **Split Panes:** 50/50 ratio using `lg:flex-row` or `lg:grid-cols-2`
+
+### Card Section Pattern
+
+```
+<div className="rounded-md border border-border bg-card">
+  <div className="border-b border-border px-3 py-2">
+    <span className="font-display text-sm font-medium text-foreground">Section Title</span>
+  </div>
+  <div className="p-4">{content}</div>
+</div>
+```
+
+### Navigation Patterns
+
+- **Edit/Back buttons:** Use `useNavigate()` with `onClick` handler. Never use `Button asChild > Link` to avoid `React.Children.only` crash.
+- **External links:** Append `↗` suffix with `target="_blank"` and `rel="noopener noreferrer"`.
+- **Tab navigation:** `font-mono text-sm font-medium` with `border-b-2 border-accent` active underline.
 
 ---
 
-*82 components · 3 themes · 9 anatomy fields · WCAG 2.1 AA*
+## 14. Form Component Standards
 
-<!-- CHECKSUM: Atoms(22) + Molecules(17) + Organisms(35) + Templates(8) = 82 -->
+| Property | Value |
+|---|---|
+| Background | `bg-card` |
+| Height | `h-9` (36px) |
+| Corners | `rounded-md` |
+| Font | `font-mono text-sm` |
+| Focus ring | `ring-accent` |
+
+All form components (Input, Textarea, SelectTrigger) must align visually with standard buttons.
+
+---
+
+## 15. Build Sequence
+
+1. ~~**Verify tokens**~~ ✅ Font imports, feedback opacity, duration tokens
+2. ~~**Build atoms**~~ ✅ All 22 atoms built and showcased
+3. ~~**Build molecules**~~ ✅ All 17 molecules + ScoreBreakdown built and showcased
+4. ~~**Build organisms**~~ ✅ All 36+ organisms built and showcased
+5. ~~**Build promptx patterns**~~ ✅ All pattern organisms built and showcased
+6. ~~**Build templates**~~ ✅ All 8 templates built and showcased
+7. ~~**Assemble pages**~~ ✅ Dashboard, Library, AI Designer, Detail, Editor, Settings, Onboarding
+
+---
+
+## 16. Recent Changes Log
+
+| Date | Change | Files Affected |
+|---|---|---|
+| 2026-02-10 | ScoreBreakdown: Converted from Popover to centered Dialog (modal) | `ScoreBreakdown.tsx` |
+| 2026-02-10 | Onboarding step 3: Removed borders from anatomy field cards | `OnboardingPage.tsx` |
+| 2026-02-10 | Onboarding step 4: Removed Sparkles icon above generation phases | `OnboardingPage.tsx` |
+| 2026-02-10 | SidebarNav: Equal `space-y-6` spacing between all 3 sections | `SidebarNav.tsx` |
+| 2026-02-10 | SidebarNav: Projects visible in collapsed mode with count badge overlays | `SidebarNav.tsx`, `NavItem.tsx` |
+| 2026-02-10 | NavItem: Added collapsed count badge (positioned `-top-1.5 -right-1.5`) | `NavItem.tsx` |
+| 2026-02-10 | Edit/Back buttons: Switched from `asChild > Link` to `useNavigate()` onClick | `PromptDetailPage.tsx`, `PromptEditorPage.tsx` |
+| 2026-02-10 | PagesPage: Updated to reflect all 7 current app pages with accurate descriptions | `PagesPage.tsx` |
+
+---
+
+*83+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
+
+<!-- CHECKSUM: Atoms(22) + Molecules(17+1) + Organisms(36+) + Templates(8) = 83+ -->
