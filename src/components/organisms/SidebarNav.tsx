@@ -57,9 +57,9 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
         </Button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto">
+      <nav className="flex-1 overflow-y-auto space-y-6 p-2 pt-4">
         {/* Hubs */}
-        <div className="p-2">
+        <div>
           {!collapsed && (
             <span className="mb-1 block px-3 py-1 font-mono text-2xs uppercase tracking-widest text-muted-foreground">
               Hubs
@@ -81,7 +81,7 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
 
         {/* Projects */}
         {!collapsed && (
-          <div className="p-2 pt-0">
+          <div>
             <div className="mb-1 flex items-center justify-between px-3 py-1">
               <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">
                 Projects
@@ -107,7 +107,7 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
         )}
 
         {/* Coming Soon */}
-        <div className="p-2 pt-0">
+        <div>
           {!collapsed && (
             <span className="mb-1 block px-3 py-1 font-mono text-2xs uppercase tracking-widest text-muted-foreground">
               Coming Soon
