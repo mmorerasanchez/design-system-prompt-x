@@ -80,7 +80,7 @@ const variations = [
 // --- Tabs ---
 
 const tabs = [
-  { label: "Editor", value: "editor" },
+  { label: "Fields", value: "editor" },
   { label: "Settings", value: "config" },
   { label: "Variables", value: "variables" },
   { label: "Versions", value: "versions" },
@@ -189,10 +189,6 @@ export default function PromptDetailPage() {
                 totalTokens={totalTokens}
                 maxTokens={4096}
               />
-              <VariableManager
-                variables={variables}
-                onChange={setVariables}
-              />
             </div>
           </div>
         </div>
@@ -206,7 +202,7 @@ export default function PromptDetailPage() {
               <span className="font-display text-sm font-medium text-foreground">Prompt Configuration</span>
             </div>
             <div className="space-y-4 p-4">
-              <PromptConfigFields config={config} onChange={setConfig} mode="full" />
+              <PromptConfigFields config={config} onChange={setConfig} mode="settings" />
             </div>
           </div>
         </div>

@@ -66,8 +66,8 @@ export const defaultPromptConfig: PromptConfigState = {
 interface PromptConfigFieldsProps {
   config: PromptConfigState;
   onChange: (config: PromptConfigState) => void;
-  /** "full" = AI Designer (all visible), "compact" = Dashboard (instruction visible, rest collapsible) */
-  mode: "full" | "compact";
+  /** "full" = AI Designer (all visible), "compact" = Dashboard (instruction visible, rest collapsible), "settings" = Detail settings (no anatomy, no advanced wrapper) */
+  mode: "full" | "compact" | "settings";
   /** Override instruction value externally (e.g. typing animation) */
   instructionOverride?: string;
   className?: string;
@@ -245,11 +245,57 @@ export function PromptConfigFields({
     </div>
   );
 
+  // ======= SETTINGS MODE (Detail page — no anatomy, no advanced wrapper) =======
+  if (mode === "settings") {
+    return (
+      <div className={cn("space-y-4", className)}>
+        <div className="grid grid-cols-2 gap-4">
+          {ModelSelect}
+          {PlatformSelect}
+        </div>
+        {InstructionBox}
+        {Sliders}
+        {/* Reasoning Framework — flat, always visible */}
+        <div className="space-y-1.5">
+          <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Complexity</span>
+          <div className="flex gap-2">
+            {COMPLEXITY_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => update("complexity", opt.value)}
+                className={cn(
+                  "flex-1 rounded-md border px-3 py-1.5 font-display text-sm font-medium transition-colors",
+                  config.complexity === opt.value
+                    ? "border-accent bg-accent/10 text-accent"
+                    : "border-border bg-card text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-1.5">
+          <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Reasoning Framework</span>
+          <Select value={config.reasoning} onValueChange={(v) => update("reasoning", v)}>
+            <SelectTrigger className="h-9 font-mono text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-popover border-border">
+              {REASONING_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value} className="font-mono text-sm">{opt.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    );
+  }
+
   // ======= FULL MODE (AI Designer) =======
   if (mode === "full") {
     return (
       <div className={cn("space-y-4", className)}>
-        {/* Model + Platform side by side */}
         <div className="grid grid-cols-2 gap-4">
           {ModelSelect}
           {PlatformSelect}
