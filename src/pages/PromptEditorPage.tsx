@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { EditorLayout } from "@/components/templates/EditorLayout";
 import { TabNav } from "@/components/molecules/TabNav";
 import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
@@ -66,6 +66,7 @@ const tabs = [
 ];
 
 export default function PromptEditorPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("fields");
   const [variables, setVariables] = useState(initialVariables);
@@ -101,11 +102,9 @@ export default function PromptEditorPage() {
               <Badge variant="production" size="sm">v3.2</Badge>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <Button variant="ghost" size="sm" asChild>
-                <Link to={`/app/library/${id}`}>
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                  Back
-                </Link>
+              <Button variant="ghost" size="sm" onClick={() => navigate(`/app/library/${id}`)}>
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Back
               </Button>
               <Button variant="ghost" size="sm">
                 <History className="h-3.5 w-3.5" />

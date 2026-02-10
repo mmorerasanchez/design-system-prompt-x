@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
 import { StatCard } from "@/components/molecules/StatCard";
 import { StatusLifecycleBar } from "@/components/organisms/StatusLifecycleBar";
@@ -51,6 +51,7 @@ const configSummary = {
 const hasVersions = true;
 
 export default function PromptDetailPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const compiledOutput = useMemo(
@@ -90,11 +91,9 @@ export default function PromptDetailPage() {
                 <Play className="h-3.5 w-3.5" />
                 Run
               </Button>
-              <Button size="sm" asChild>
-                <Link to={`/app/library/${id}/edit`}>
-                  <Pencil className="h-3.5 w-3.5" />
-                  Edit
-                </Link>
+              <Button size="sm" onClick={() => navigate(`/app/library/${id}/edit`)}>
+                <Pencil className="h-3.5 w-3.5" />
+                Edit
               </Button>
             </div>
           </div>
