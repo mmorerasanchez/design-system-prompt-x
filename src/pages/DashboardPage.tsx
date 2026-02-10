@@ -92,17 +92,14 @@ export default function DashboardPage() {
       {/* AI Designer — full width with external title + tabs */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="font-display text-sm font-medium text-foreground">AI Designer</span>
-          <div className="flex items-center gap-3">
-            <TabNav items={aiDesignerTabs} value={aiTab} onValueChange={setAiTab} />
-            <a
-              href="/app/ai-designer"
-              className="inline-flex items-center gap-1 font-display text-sm font-medium text-accent hover:underline"
-            >
-              Open
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
+          <TabNav items={aiDesignerTabs} value={aiTab} onValueChange={setAiTab} />
+          <a
+            href="/app/ai-designer"
+            className="inline-flex items-center gap-1 font-display text-sm font-medium text-accent hover:underline"
+          >
+            Open designer
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
 
         {aiTab === "generator" ? (
