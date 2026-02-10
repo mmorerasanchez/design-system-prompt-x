@@ -18,6 +18,7 @@ import LibraryPage from "@/pages/LibraryPage";
 import SettingsPage from "@/pages/SettingsPage";
 import AIDesignerPage from "@/pages/AIDesignerPage";
 import PromptEditorPage from "@/pages/PromptEditorPage";
+import PromptDetailPage from "@/pages/PromptDetailPage";
 import OnboardingPage from "@/pages/OnboardingPage";
 import NotFound from "@/pages/NotFound";
 import TokenSmokeTest from "@/pages/TokenSmokeTest";
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/app" element={<AppShell />}>
               <Route index element={<DashboardPage />} />
               <Route path="library" element={<LibraryPage />} />
+              <Route path="library/:id" element={<PromptDetailPage />} />
               <Route path="library/:id/edit" element={<PromptEditorPage />} />
               <Route path="ai-designer" element={<AIDesignerPage />} />
               <Route path="settings" element={<SettingsPage />} />
