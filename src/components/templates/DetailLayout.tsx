@@ -23,7 +23,7 @@ export function DetailLayout({ breadcrumb, titleBar, statusBar, tabs, children, 
   return (
     <div className={cn("flex h-full flex-col overflow-hidden", className)}>
       {/* Header section */}
-      <div className="shrink-0 space-y-0 border-b border-border">
+      <div className="shrink-0 space-y-0">
         {breadcrumb && (
           <div className="px-4 pt-3 md:px-6">{breadcrumb}</div>
         )}
