@@ -238,7 +238,6 @@ export function PromptConfigFields({
   const CollapsibleHeader = ({ label, open, count }: { label: string; open: boolean; count?: number }) => (
     <div className="flex items-center gap-2 py-2">
       <span className="font-display text-sm font-medium text-foreground">{label}</span>
-      <span className="font-display text-sm font-medium text-foreground">{label}</span>
       {count !== undefined && (
         <Badge variant="secondary" size="sm"><span className="font-mono">{count}</span></Badge>
       )}
