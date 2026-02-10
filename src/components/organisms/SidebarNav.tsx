@@ -80,8 +80,8 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
         </div>
 
         {/* Projects */}
-        {!collapsed && (
-          <div>
+        <div>
+          {!collapsed && (
             <div className="mb-1 flex items-center justify-between px-3 py-1">
               <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">
                 Projects
@@ -90,21 +90,21 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
                 <Plus className="h-3 w-3" />
               </Button>
             </div>
-            <div className="space-y-0.5">
-              {projectItems.map((item) => (
-                <NavItem
-                  key={item.id}
-                  icon={Hash}
-                  label={item.label}
-                  count={item.count}
-                  active={activeProject === item.id}
-                  collapsed={false}
-                  onClick={() => onProjectClick?.(item.id)}
-                />
-              ))}
-            </div>
+          )}
+          <div className="space-y-0.5">
+            {projectItems.map((item) => (
+              <NavItem
+                key={item.id}
+                icon={Hash}
+                label={item.label}
+                count={item.count}
+                active={activeProject === item.id}
+                collapsed={collapsed}
+                onClick={() => onProjectClick?.(item.id)}
+              />
+            ))}
           </div>
-        )}
+        </div>
 
         {/* Coming Soon */}
         <div>
