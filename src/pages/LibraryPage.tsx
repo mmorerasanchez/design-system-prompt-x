@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { FilterBar } from "@/components/organisms/FilterBar";
 import { PromptCard } from "@/components/organisms/PromptCard";
 import { BulkActionsBar } from "@/components/organisms/BulkActionsBar";
 import { StatCard } from "@/components/molecules/StatCard";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Heading, Text } from "@/components/atoms";
@@ -22,6 +24,7 @@ const prompts = [
 export default function LibraryPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const toggleSelect = (id: string) => {
     setSelected((prev) => {
@@ -63,24 +66,63 @@ export default function LibraryPage() {
         </div>
 
         {/* Toolbar */}
-        <FilterBar search={search} onSearchChange={setSearch} />
+        <FilterBar search={search} onSearchChange={setSearch} viewMode={viewMode} onViewModeChange={setViewMode} />
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((prompt) => (
-            <PromptCard
-              key={prompt.id}
-              title={prompt.title}
-              status={prompt.status}
-              preview={prompt.preview}
-              version={prompt.version}
-              updatedAgo={prompt.updatedAgo}
-              tokens={prompt.tokens}
-              selected={selected.has(prompt.id)}
-              onClick={() => toggleSelect(prompt.id)}
-            />
-          ))}
-        </div>
+        {/* Content Grid / List */}
+        {viewMode === "grid" ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((prompt) => (
+              <PromptCard
+                key={prompt.id}
+                title={prompt.title}
+                status={prompt.status}
+                preview={prompt.preview}
+                version={prompt.version}
+                updatedAgo={prompt.updatedAgo}
+                tokens={prompt.tokens}
+                selected={selected.has(prompt.id)}
+                onClick={() => toggleSelect(prompt.id)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-md border border-border bg-card overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border bg-surface">
+                  <th className="px-4 py-2.5 text-left font-mono text-2xs uppercase tracking-widest text-muted-foreground">Name</th>
+                  <th className="px-4 py-2.5 text-left font-mono text-2xs uppercase tracking-widest text-muted-foreground">Status</th>
+                  <th className="px-4 py-2.5 text-left font-mono text-2xs uppercase tracking-widest text-muted-foreground">Version</th>
+                  <th className="px-4 py-2.5 text-right font-mono text-2xs uppercase tracking-widest text-muted-foreground">Tokens</th>
+                  <th className="px-4 py-2.5 text-right font-mono text-2xs uppercase tracking-widest text-muted-foreground">Updated</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {filtered.map((prompt) => (
+                  <tr
+                    key={prompt.id}
+                    className={cn(
+                      "cursor-pointer transition-colors hover:bg-surface",
+                      selected.has(prompt.id) && "bg-accent/5"
+                    )}
+                    onClick={() => toggleSelect(prompt.id)}
+                  >
+                    <td className="px-4 py-3">
+                      <span className="font-display text-sm font-medium text-foreground">{prompt.title}</span>
+                      <p className="mt-0.5 font-body text-xs text-muted-foreground line-clamp-1">{prompt.preview}</p>
+                    </td>
+                    <td className="px-4 py-3">
+                      <Badge variant={prompt.status}>{prompt.status}</Badge>
+                    </td>
+                    <td className="px-4 py-3 font-mono text-xs text-muted-foreground">{prompt.version}</td>
+                    <td className="px-4 py-3 text-right font-mono text-xs text-muted-foreground">{prompt.tokens.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-right font-mono text-xs text-muted-foreground">{prompt.updatedAgo}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* Bulk Actions */}
         {selected.size > 0 && (
