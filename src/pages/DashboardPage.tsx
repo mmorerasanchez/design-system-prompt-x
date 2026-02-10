@@ -2,11 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { DashboardLayout } from "@/components/templates/DashboardLayout";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
-import { AIGenerationPanel } from "@/components/organisms/AIGenerationPanel";
 import { EvaluationResults } from "@/components/organisms/EvaluationResults";
+import { PromptConfigFields, defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
+import type { PromptConfigState } from "@/components/organisms/PromptConfigFields";
 import { TabNav } from "@/components/molecules/TabNav";
 import { Heading, Text } from "@/components/atoms";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 const feedItems = [
   { actor: "Sarah K.", initials: "SK", action: "deployed", resource: "onboarding-flow-v3", time: "2 min ago" },
@@ -77,6 +80,7 @@ function useTypingAnimation() {
 
 export default function DashboardPage() {
   const [aiTab, setAiTab] = useState("generator");
+  const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const { text: typingText } = useTypingAnimation();
 
   return (
@@ -103,12 +107,30 @@ export default function DashboardPage() {
         </div>
 
         {aiTab === "generator" ? (
-          <AIGenerationPanel
-            instruction={typingText}
-            onInstructionChange={() => {}}
-            generatedOutput={undefined}
-            className=""
-          />
+          <div className="rounded-md border border-border bg-card">
+            <div className="flex items-center justify-between border-b border-border px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="font-display text-sm font-medium text-foreground">AI Generate</span>
+              </div>
+              <Badge variant="secondary" size="sm">
+                <span className="font-mono">ai-assist</span>
+              </Badge>
+            </div>
+            <div className="p-4 space-y-3">
+              <PromptConfigFields
+                config={config}
+                onChange={setConfig}
+                mode="compact"
+                instructionOverride={typingText}
+              />
+              <div className="flex justify-end">
+                <Button size="sm" disabled={!config.instruction.trim() && !typingText}>
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Generate
+                </Button>
+              </div>
+            </div>
+          </div>
         ) : (
           <EvaluationResults {...miniEvalData} />
         )}
