@@ -32,7 +32,7 @@ All design system components have been implemented and verified.
 | Evaluations | `/app/evaluations` | ✅ Done | EvaluationResults, TestDatasetManager, RunHistory |
 | Settings | `/app/settings` | ✅ Done | SettingsNav, APIKeyManager, IntegrationCard |
 | Auth (Login/Signup) | `/app/login`, `/app/signup` | ⬜ Pending | AuthForm |
-| Onboarding | `/app/welcome` | ⬜ Pending | OnboardingWizard |
+| Onboarding | `/app/welcome` | ✅ Done | OnboardingWizard, IntegrationCard |
 
 ### Infrastructure
 
@@ -46,7 +46,7 @@ All design system components have been implemented and verified.
 ### Next Steps
 
 - [ ] Build Auth pages (Login/Signup) with AuthForm
-- [ ] Build Onboarding wizard page
+- [x] Build Onboarding wizard page
 - [ ] Add backend (Lovable Cloud) for persistence and auth
 - [ ] Connect real data to replace mock data
 
