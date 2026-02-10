@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGr
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, Settings2 } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const MODELS = {
@@ -225,7 +225,7 @@ export function PromptConfigFields({
   // --- Collapsible trigger style ---
   const CollapsibleHeader = ({ label, open, count }: { label: string; open: boolean; count?: number }) => (
     <div className="flex items-center gap-2 py-2">
-      <Settings2 className="h-3.5 w-3.5 text-muted-foreground" />
+      <span className="font-display text-sm font-medium text-foreground">{label}</span>
       <span className="font-display text-sm font-medium text-foreground">{label}</span>
       {count !== undefined && (
         <Badge variant="secondary" size="sm"><span className="font-mono">{count}</span></Badge>
