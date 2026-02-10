@@ -81,10 +81,10 @@ const variations = [
 
 const tabs = [
   { label: "Editor", value: "editor" },
-  { label: "Configuration", value: "config" },
-  { label: "Preview", value: "preview" },
+  { label: "Settings", value: "config" },
+  { label: "Variables", value: "variables" },
   { label: "Versions", value: "versions" },
-  { label: "Variations", value: "variations" },
+  { label: "Variations", value: "variations", disabled: true, badge: "soon" },
 ];
 
 // --- Component ---
@@ -198,44 +198,27 @@ export default function PromptDetailPage() {
         </div>
       )}
 
-      {/* ===== CONFIGURATION TAB ===== */}
+      {/* ===== SETTINGS TAB ===== */}
       {activeTab === "config" && (
         <div className="space-y-6">
-          <div className="mx-auto max-w-2xl">
-            <div className="rounded-md border border-border bg-card">
-              <div className="border-b border-border px-3 py-2">
-                <span className="font-display text-sm font-medium text-foreground">Prompt Configuration</span>
-              </div>
-              <div className="space-y-4 p-4">
-                <PromptConfigFields config={config} onChange={setConfig} mode="full" />
-              </div>
+          <div className="rounded-md border border-border bg-card">
+            <div className="border-b border-border px-3 py-2">
+              <span className="font-display text-sm font-medium text-foreground">Prompt Configuration</span>
+            </div>
+            <div className="space-y-4 p-4">
+              <PromptConfigFields config={config} onChange={setConfig} mode="full" />
             </div>
           </div>
         </div>
       )}
 
-      {/* ===== PREVIEW TAB ===== */}
-      {activeTab === "preview" && (
+      {/* ===== VARIABLES TAB ===== */}
+      {activeTab === "variables" && (
         <div className="space-y-6">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {/* Compiled Output */}
-            <CompiledPreview
-              content={compiledOutput}
-              totalTokens={totalTokens}
-              maxTokens={4096}
-            />
-            {/* Playground */}
-            <PlaygroundPanel
-              compiledPrompt={compiledOutput}
-              response={response}
-              tokenCount={totalTokens}
-              maxTokens={4096}
-              isRunning={isRunning}
-              onRun={handleRun}
-              userInput={userInput}
-              onUserInputChange={setUserInput}
-            />
-          </div>
+          <VariableManager
+            variables={variables}
+            onChange={setVariables}
+          />
         </div>
       )}
 
