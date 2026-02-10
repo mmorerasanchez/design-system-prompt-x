@@ -330,10 +330,7 @@ export default function OnboardingPage() {
                   {ANATOMY_FIELDS.map((field) => (
                     <div
                       key={field.value}
-                      className={cn(
-                        "rounded-md border border-border bg-card overflow-hidden border-l-2",
-                        field.borderColor,
-                      )}
+                      className="rounded-md bg-card overflow-hidden"
                     >
                       <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
                         <span className={cn("h-2 w-2 rounded-full", field.color)} />
