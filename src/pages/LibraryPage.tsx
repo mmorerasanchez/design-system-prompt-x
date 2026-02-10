@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { LibraryLayout } from "@/components/templates/LibraryLayout";
 import { FilterBar } from "@/components/organisms/FilterBar";
 import { PromptCard } from "@/components/organisms/PromptCard";
 import { BulkActionsBar } from "@/components/organisms/BulkActionsBar";
+import { StatCard } from "@/components/molecules/StatCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Heading, Text } from "@/components/atoms";
@@ -36,43 +36,60 @@ export default function LibraryPage() {
     p.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const productionCount = prompts.filter((p) => p.status === "production").length;
+  const avgTokens = Math.round(prompts.reduce((sum, p) => sum + p.tokens, 0) / prompts.length);
+
   return (
-    <LibraryLayout
-      filters={
-        <div className="space-y-3 px-4 py-3 md:px-6">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <Heading level="h1">Prompt Library</Heading>
-              <Text variant="muted" size="sm" className="mt-0.5">{prompts.length} prompts</Text>
-            </div>
-            <Button size="sm">
-              <Plus className="mr-1.5 h-3.5 w-3.5" />
-              New Prompt
-            </Button>
+    <div className="flex-1 overflow-auto p-4 md:p-6 lg:p-8">
+      <div className="mx-auto max-w-6xl space-y-6">
+        {/* PageHeader */}
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <Heading level="h1">Prompt Store</Heading>
+            <Text variant="muted" className="mt-1">Browse, search, and manage your prompts.</Text>
           </div>
-          <FilterBar search={search} onSearchChange={setSearch} />
+          <Button size="sm">
+            <Plus className="mr-1.5 h-3.5 w-3.5" />
+            New Prompt
+          </Button>
         </div>
-      }
-      bulkActions={
-        <BulkActionsBar
-          selectedCount={selected.size}
-          onDismiss={() => setSelected(new Set())}
-        />
-      }
-    >
-      {filtered.map((prompt) => (
-        <PromptCard
-          key={prompt.id}
-          title={prompt.title}
-          status={prompt.status}
-          preview={prompt.preview}
-          version={prompt.version}
-          updatedAgo={prompt.updatedAgo}
-          tokens={prompt.tokens}
-          selected={selected.has(prompt.id)}
-          onClick={() => toggleSelect(prompt.id)}
-        />
-      ))}
-    </LibraryLayout>
+
+        {/* KPI Row */}
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <StatCard label="Total Prompts" value={prompts.length} trend={{ direction: "up", value: "+3 this week" }} />
+          <StatCard label="Production" value={productionCount} trend={{ direction: "up", value: "+1" }} />
+          <StatCard label="Avg Tokens" value={avgTokens.toLocaleString()} trend={{ direction: "neutral", value: "~steady" }} />
+          <StatCard label="This Week" value="12" trend={{ direction: "up", value: "+40%" }} />
+        </div>
+
+        {/* Toolbar */}
+        <FilterBar search={search} onSearchChange={setSearch} />
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((prompt) => (
+            <PromptCard
+              key={prompt.id}
+              title={prompt.title}
+              status={prompt.status}
+              preview={prompt.preview}
+              version={prompt.version}
+              updatedAgo={prompt.updatedAgo}
+              tokens={prompt.tokens}
+              selected={selected.has(prompt.id)}
+              onClick={() => toggleSelect(prompt.id)}
+            />
+          ))}
+        </div>
+
+        {/* Bulk Actions */}
+        {selected.size > 0 && (
+          <BulkActionsBar
+            selectedCount={selected.size}
+            onDismiss={() => setSelected(new Set())}
+          />
+        )}
+      </div>
+    </div>
   );
 }

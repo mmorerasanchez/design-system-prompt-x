@@ -16,7 +16,7 @@ import PagesPage from "@/pages/PagesPage";
 import DashboardPage from "@/pages/DashboardPage";
 import LibraryPage from "@/pages/LibraryPage";
 import SettingsPage from "@/pages/SettingsPage";
-import EvaluationsPage from "@/pages/EvaluationsPage";
+import AIDesignerPage from "@/pages/AIDesignerPage";
 import PromptEditorPage from "@/pages/PromptEditorPage";
 import OnboardingPage from "@/pages/OnboardingPage";
 import NotFound from "@/pages/NotFound";
@@ -47,7 +47,7 @@ const App = () => (
               <Route index element={<DashboardPage />} />
               <Route path="library" element={<LibraryPage />} />
               <Route path="library/:id/edit" element={<PromptEditorPage />} />
-              <Route path="evaluations" element={<EvaluationsPage />} />
+              <Route path="ai-designer" element={<AIDesignerPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
             <Route path="/app/welcome" element={<OnboardingPage />} />
