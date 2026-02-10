@@ -28,7 +28,14 @@ export function NavItem({ icon: Icon, label, active, disabled, collapsed, count,
         className,
       )}
     >
-      <Icon className="h-[18px] w-[18px] shrink-0" />
+      <div className="relative shrink-0">
+        <Icon className="h-[18px] w-[18px]" />
+        {collapsed && count !== undefined && (
+          <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-accent font-mono text-[8px] font-bold text-accent-foreground">
+            {count}
+          </span>
+        )}
+      </div>
       {!collapsed && (
         <>
           <span className="flex-1 text-left truncate">{label}</span>
