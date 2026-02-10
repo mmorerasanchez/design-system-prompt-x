@@ -1,23 +1,14 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import { DetailLayout } from "@/components/templates/DetailLayout";
-import { TabNav } from "@/components/molecules/TabNav";
-import { StatCard } from "@/components/molecules/StatCard";
 import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
+import { StatCard } from "@/components/molecules/StatCard";
 import { StatusLifecycleBar } from "@/components/organisms/StatusLifecycleBar";
 import { AnatomyFieldCard } from "@/components/organisms/AnatomyFieldCard";
 import { CompiledPreview } from "@/components/organisms/CompiledPreview";
-import { VariableManager } from "@/components/organisms/VariableManager";
-import { PlaygroundPanel } from "@/components/organisms/PlaygroundPanel";
-import { VersionTimeline } from "@/components/organisms/VersionTimeline";
-import { VersionComparison } from "@/components/organisms/VersionComparison";
-import { PromptConfigFields, defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
-import type { PromptConfigState } from "@/components/organisms/PromptConfigFields";
-import { Heading, Text } from "@/components/atoms";
+import { Heading } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Play, Plus, Copy, GitBranch, Pencil } from "lucide-react";
+import { Play, History, Pencil } from "lucide-react";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 
 // --- Mock data ---
@@ -48,56 +39,19 @@ const lifecycleSteps = [
   { label: "Archived", status: "archived" as const },
 ];
 
-const versions = [
-  { id: "v3.2", label: "v3.2", status: "production" as const, timestamp: "Feb 10, 2026", author: "Mariano R.", tokenDelta: 24, active: true },
-  { id: "v3.1", label: "v3.1", status: "testing" as const, timestamp: "Feb 8, 2026", author: "Sarah K.", tokenDelta: -12 },
-  { id: "v3.0", label: "v3.0", status: "testing" as const, timestamp: "Feb 5, 2026", author: "Mariano R.", tokenDelta: 156 },
-  { id: "v2.0", label: "v2.0", status: "archived" as const, timestamp: "Jan 20, 2026", author: "Alex M.", tokenDelta: 89 },
-  { id: "v1.0", label: "v1.0", status: "archived" as const, timestamp: "Jan 5, 2026", author: "Mariano R.", tokenDelta: 0 },
-];
-
-const versionA = {
-  label: "v3.1",
-  status: "testing" as const,
-  content: `# ROLE\nYou are an expert onboarding assistant for SaaS products.\n\n# TONE\nFriendly and professional.\n\n# TASK\nGuide the user through initial setup.\n\n# CONSTRAINTS\nKeep responses under 150 words.`,
-  tokenCount: 450,
+const configSummary = {
+  model: "gemini-3-flash-preview",
+  platform: "Claude",
+  temperature: 0.7,
+  maxTokens: 2048,
+  complexity: "Standard",
+  reasoning: "Chain of Thought",
 };
 
-const versionB = {
-  label: "v3.2",
-  status: "production" as const,
-  content: `# ROLE\nYou are an expert onboarding assistant for SaaS products.\n\n# TONE\nFriendly, professional, and encouraging. Avoid jargon.\n\n# TASK\nGuide the user through the initial setup: connecting their workspace, inviting team members, and creating their first project.\n\n# CONSTRAINTS\nKeep responses under 200 words. Never mention competitors. Don't skip steps.`,
-  tokenCount: 574,
-};
-
-const variations = [
-  { id: "master", name: "Master", status: "production" as const, tokens: 574, lastEdited: "2 min ago", isMaster: true },
-  { id: "concise", name: "Concise", status: "testing" as const, tokens: 320, lastEdited: "1 hr ago", isMaster: false },
-  { id: "enterprise", name: "Enterprise Tone", status: "draft" as const, tokens: 610, lastEdited: "3 hrs ago", isMaster: false },
-  { id: "multilang", name: "Multi-language", status: "draft" as const, tokens: 680, lastEdited: "1 day ago", isMaster: false },
-];
-
-// --- Tabs ---
-
-const tabs = [
-  { label: "Fields", value: "editor" },
-  { label: "Settings", value: "config" },
-  { label: "Variables", value: "variables" },
-  { label: "Versions", value: "versions" },
-  { label: "Variations", value: "variations", disabled: true, badge: "soon" },
-];
-
-// --- Component ---
+const hasVersions = true;
 
 export default function PromptDetailPage() {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState("editor");
-  const [variables, setVariables] = useState(initialVariables);
-  const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
-  const [userInput, setUserInput] = useState("");
-  const [isRunning, setIsRunning] = useState(false);
-  const [response, setResponse] = useState("");
-  const [selectedVersion, setSelectedVersion] = useState("v3.2");
 
   const compiledOutput = useMemo(
     () => initialFields.map((f) => `# ${f.field.toUpperCase()}\n${f.content}`).join("\n\n"),
@@ -109,225 +63,122 @@ export default function PromptDetailPage() {
     ? id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : PROMPT_TITLE;
 
-  const handleRun = () => {
-    setIsRunning(true);
-    setResponse("");
-    setTimeout(() => {
-      setResponse(
-        "Welcome to Acme App! 🎉 Let's get you set up in 3 quick steps:\n\n" +
-        "## (1/3) Connect Your Workspace\nFirst, let's link your workspace. Click **Settings → Workspace** and follow the setup wizard.\n\n" +
-        "## (2/3) Invite Your Team\nCollaboration is key! Head to **Team → Invite Members** and add your colleagues.\n\n" +
-        "## (3/3) Create Your First Project\nNow you're ready! Click **New Project** and choose a template.\n\n" +
-        "You're all set! Need help with anything else?",
-      );
-      setIsRunning(false);
-    }, 2000);
-  };
-
   return (
-    <DetailLayout
-      breadcrumb={
-        <BreadcrumbNav
-          items={[
-            { label: "Library", href: "/app/library" },
-            { label: promptTitle },
-          ]}
-        />
-      }
-      titleBar={
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 min-w-0">
-            <Heading level="h1" className="truncate">{promptTitle}</Heading>
-            <Badge variant="production" size="sm">v3.2</Badge>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <Button variant="ghost" size="sm">
-              <Play className="h-3.5 w-3.5" />
-              Run
-            </Button>
-            <Button size="sm">
-              <Pencil className="h-3.5 w-3.5" />
-              Edit
-            </Button>
+    <div className="flex h-full flex-col overflow-hidden">
+      {/* Header */}
+      <div className="shrink-0 space-y-0">
+        <div className="px-4 pt-3 md:px-6">
+          <BreadcrumbNav
+            items={[
+              { label: "Library", href: "/app/library" },
+              { label: promptTitle },
+            ]}
+          />
+        </div>
+        <div className="px-4 py-3 md:px-6">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <Heading level="h1" className="truncate">{promptTitle}</Heading>
+              <Badge variant="production" size="sm">v3.2</Badge>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <Button variant="ghost" size="sm" disabled={!hasVersions}>
+                <History className="h-3.5 w-3.5" />
+                History
+              </Button>
+              <Button variant="ghost" size="sm">
+                <Play className="h-3.5 w-3.5" />
+                Run
+              </Button>
+              <Button size="sm" asChild>
+                <Link to={`/app/library/${id}/edit`}>
+                  <Pencil className="h-3.5 w-3.5" />
+                  Edit
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
-      }
-      statusBar={<StatusLifecycleBar steps={lifecycleSteps} />}
-      tabs={<TabNav items={tabs} value={activeTab} onValueChange={setActiveTab} />}
-    >
-      {/* ===== EDITOR TAB ===== */}
-      {activeTab === "editor" && (
-        <div className="space-y-6">
-          {/* KPI row */}
+        <div className="px-4 pb-3 md:px-6">
+          <StatusLifecycleBar steps={lifecycleSteps} />
+        </div>
+
+        {/* KPI Row */}
+        <div className="px-4 pb-4 md:px-6">
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             <StatCard label="Total Tokens" value={String(totalTokens)} trend={{ direction: "up", value: "+24" }} />
             <StatCard label="Fields Active" value={String(initialFields.length)} trend={{ direction: "neutral", value: "of 9" }} />
-            <StatCard label="Variables" value={String(variables.length)} trend={{ direction: "neutral", value: "defined" }} />
+            <StatCard label="Variables" value={String(initialVariables.length)} trend={{ direction: "neutral", value: "defined" }} />
             <StatCard label="Version" value="v3.2" trend={{ direction: "up", value: "production" }} />
           </div>
+        </div>
+      </div>
 
-          {/* Anatomy Fields + Compiled Preview — 60/40 */}
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-display text-sm font-medium text-foreground">Anatomy Fields</span>
-                <span className="font-mono text-2xs text-muted-foreground">{initialFields.length} fields · {totalTokens} tokens</span>
-              </div>
+      {/* 50/50 Split */}
+      <div className="flex flex-1 flex-col overflow-hidden lg:flex-row">
+        {/* Left — Summary */}
+        <div className="flex-1 overflow-auto border-b border-border p-4 md:p-6 lg:border-b-0 lg:border-r space-y-8">
+          {/* Fields Summary */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-display text-sm font-medium text-foreground">Fields</span>
+              <span className="font-mono text-2xs text-muted-foreground">{initialFields.length} fields · {totalTokens} tokens</span>
+            </div>
+            <div className="space-y-2">
               {initialFields.map((f) => (
                 <AnatomyFieldCard
                   key={f.field}
                   field={f.field}
-                  variant="expanded"
+                  variant="compact"
                   tokenCount={f.tokenCount}
                   content={f.content}
                 />
               ))}
             </div>
-            <div className="space-y-4">
-              <CompiledPreview
-                content={compiledOutput}
-                totalTokens={totalTokens}
-                maxTokens={4096}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+          </section>
 
-      {/* ===== SETTINGS TAB ===== */}
-      {activeTab === "config" && (
-        <div className="space-y-6">
-          <div className="rounded-md border border-border bg-card">
-            <div className="border-b border-border px-3 py-2">
-              <span className="font-display text-sm font-medium text-foreground">Prompt Configuration</span>
+          {/* Settings Summary */}
+          <section className="space-y-3">
+            <span className="font-display text-sm font-medium text-foreground">Settings</span>
+            <div className="rounded-md border border-border bg-card">
+              <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-3">
+                {Object.entries(configSummary).map(([key, value]) => (
+                  <div key={key} className="bg-card px-3 py-2.5">
+                    <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">{key}</span>
+                    <p className="mt-0.5 font-mono text-sm text-foreground">{String(value)}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="space-y-4 p-4">
-              <PromptConfigFields config={config} onChange={setConfig} mode="settings" />
-            </div>
-          </div>
-        </div>
-      )}
+          </section>
 
-      {/* ===== VARIABLES TAB ===== */}
-      {activeTab === "variables" && (
-        <div className="space-y-6">
-          <VariableManager
-            variables={variables}
-            onChange={setVariables}
+          {/* Variables Summary */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-display text-sm font-medium text-foreground">Variables</span>
+              <span className="font-mono text-2xs text-muted-foreground">{initialVariables.length} defined</span>
+            </div>
+            <div className="rounded-md border border-border bg-card divide-y divide-border">
+              {initialVariables.map((v) => (
+                <div key={v.name} className="flex items-center justify-between px-3 py-2">
+                  <span className="font-mono text-sm text-accent">{`{{${v.name}}}`}</span>
+                  <span className="font-mono text-sm text-muted-foreground">{v.defaultValue}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* Right — Compiled Output */}
+        <div className="flex-1 overflow-auto p-4 md:p-6">
+          <CompiledPreview
+            content={compiledOutput}
+            totalTokens={totalTokens}
+            maxTokens={4096}
+            className="sticky top-0 min-h-[400px]"
           />
         </div>
-      )}
-
-      {/* ===== VERSIONS TAB ===== */}
-      {activeTab === "versions" && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {/* Timeline */}
-            <div>
-              <VersionTimeline
-                versions={versions}
-                onSelect={setSelectedVersion}
-              />
-            </div>
-            {/* Diff */}
-            <div className="lg:col-span-2">
-              <VersionComparison versionA={versionA} versionB={versionB} />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ===== VARIATIONS TAB ===== */}
-      {activeTab === "variations" && (
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="font-display text-sm font-medium text-foreground">Prompt Variations</span>
-              <p className="font-body text-xs text-muted-foreground mt-0.5">Create variations from the master prompt to test different approaches.</p>
-            </div>
-            <Button size="sm" variant="secondary">
-              <Plus className="h-3.5 w-3.5" />
-              New Variation
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {variations.map((v) => (
-              <div
-                key={v.id}
-                className={`rounded-md border p-4 transition-colors ${
-                  v.isMaster ? "border-accent/30 bg-card" : "border-border bg-card"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-display text-sm font-medium text-foreground">{v.name}</span>
-                      {v.isMaster && (
-                        <Badge variant="outline" size="sm">
-                          <GitBranch className="h-3 w-3 mr-0.5" />
-                          master
-                        </Badge>
-                      )}
-                      <Badge variant={v.status} size="sm">{v.status}</Badge>
-                    </div>
-                    <div className="mt-1 flex items-center gap-3">
-                      <span className="font-mono text-2xs text-muted-foreground">{v.tokens} tokens</span>
-                      <span className="text-border">·</span>
-                      <span className="font-mono text-2xs text-muted-foreground">{v.lastEdited}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 shrink-0">
-                    <Button variant="ghost" size="sm">
-                      <Copy className="h-3.5 w-3.5" />
-                    </Button>
-                    <Button variant="ghost" size="sm">Edit</Button>
-                  </div>
-                </div>
-
-                {/* Mini diff preview for non-master */}
-                {!v.isMaster && (
-                  <div className="mt-3 rounded-sm border border-border bg-surface p-2">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-2xs text-muted-foreground">vs master</span>
-                      <span className="font-mono text-2xs text-warning">
-                        {v.tokens > 574 ? `+${v.tokens - 574}` : `${v.tokens - 574}`} tokens
-                      </span>
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="font-mono text-2xs text-success">+ Modified tone/constraints</div>
-                      <div className="font-mono text-2xs text-error">− Removed examples section</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Compare variations */}
-          <div className="rounded-md border border-border bg-card">
-            <div className="border-b border-border px-3 py-2">
-              <span className="font-display text-sm font-medium text-foreground">Compare Variations</span>
-            </div>
-            <div className="p-4">
-              <VersionComparison
-                versionA={{
-                  label: "Master",
-                  status: "production",
-                  content: compiledOutput,
-                  tokenCount: totalTokens,
-                }}
-                versionB={{
-                  label: "Concise",
-                  status: "testing",
-                  content: `# ROLE\nYou are an onboarding assistant.\n\n# TASK\nGuide the user through setup in 3 steps.\n\n# CONSTRAINTS\nKeep responses under 100 words. Be direct.`,
-                  tokenCount: 320,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-    </DetailLayout>
+      </div>
+    </div>
   );
 }

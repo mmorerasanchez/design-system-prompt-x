@@ -8,8 +8,8 @@ interface DetailLayoutProps {
   titleBar: ReactNode;
   /** StatusLifecycleBar or similar status indicator */
   statusBar?: ReactNode;
-  /** Tabs navigation */
-  tabs: ReactNode;
+  /** Tabs navigation (optional — omitted on saved view) */
+  tabs?: ReactNode;
   /** Active tab content */
   children: ReactNode;
   className?: string;
