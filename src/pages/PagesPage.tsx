@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 interface PageDef {
@@ -12,36 +11,36 @@ interface PageDef {
 const pages: PageDef[] = [
   {
     name: "Dashboard",
-    route: "/dashboard",
+    route: "/app",
     template: "DashboardLayout",
-    organisms: ["DashboardStats", "ActivityFeed", "QuickActions"],
-    description: "Overview with KPI stats, recent activity feed, and quick action buttons.",
+    organisms: ["DashboardStats", "TabNav", "AIGenerationPanel", "EvaluationResults", "ActivityFeed", "PromptCard"],
+    description: "Overview with KPI stats, AI Designer snippet with Generator/Evaluator tabs, activity feed, and recent prompts grid.",
   },
   {
-    name: "Prompt Library",
-    route: "/library",
-    template: "LibraryLayout",
-    organisms: ["FilterBar", "PromptCard grid", "BulkActionsBar", "Pagination"],
-    description: "Searchable, filterable grid of all prompts with bulk actions and view modes.",
+    name: "Prompt Store",
+    route: "/app/library",
+    template: "DashboardLayout",
+    organisms: ["StatCard x4", "FilterBar", "PromptCard grid", "BulkActionsBar"],
+    description: "Searchable, filterable prompt repository with KPI row, toolbar, grid/list view, and bulk actions.",
   },
   {
-    name: "Prompt Detail",
-    route: "/library/:id",
-    template: "DetailLayout",
-    organisms: ["StatusLifecycleBar", "Tabs (Editor/Versions/Evaluations/Settings)"],
-    description: "Single prompt view with lifecycle status, tabbed content sections.",
+    name: "AI Designer",
+    route: "/app/ai-designer",
+    template: "DashboardLayout",
+    organisms: ["StatCard x4", "TabNav", "ParameterControl", "AIGenerationPanel", "EvaluationResults", "RunHistory", "TestDatasetManager"],
+    description: "AI-powered prompt generation (50/50 split-pane) and evaluation (full-width stacked) with tabbed navigation.",
   },
   {
     name: "Prompt Editor",
-    route: "/library/:id/edit",
+    route: "/app/library/:id/edit",
     template: "EditorLayout",
     organisms: ["PromptEditorPanel", "CompiledPreview", "PlaygroundPanel", "VariableManager"],
     description: "Split-pane editor with 9 anatomy fields, compiled preview, and playground.",
   },
   {
     name: "Settings",
-    route: "/settings",
-    template: "SettingsLayout",
+    route: "/app/settings",
+    template: "DashboardLayout",
     organisms: ["SettingsNav", "Profile form", "APIKeyManager", "IntegrationCard"],
     description: "User settings with profile, API keys, and platform integrations.",
   },
@@ -53,15 +52,8 @@ const pages: PageDef[] = [
     description: "Authentication with email/password and social login options.",
   },
   {
-    name: "Signup",
-    route: "/signup",
-    template: "AuthLayout",
-    organisms: ["AuthForm (signup mode)"],
-    description: "Account creation with name, email, password, and social signup.",
-  },
-  {
     name: "Onboarding",
-    route: "/welcome",
+    route: "/app/welcome",
     template: "Modal on Dashboard",
     organisms: ["OnboardingWizard"],
     description: "3-step wizard: Welcome → Connect Provider → Create First Prompt.",
@@ -74,7 +66,7 @@ export default function PagesPage() {
       <div>
         <h1 className="font-display text-xl font-semibold tracking-tight">Pages</h1>
         <p className="mt-1 font-body text-base text-muted-foreground">
-          Reference index of all pages defined in the spec. These will be assembled in the application projects.
+          Page-level information architecture. Each page composes organisms into consistent section blocks.
         </p>
       </div>
 

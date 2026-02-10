@@ -3,7 +3,7 @@ import { NavItem } from "@/components/molecules/NavItem";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Home, FileText, BarChart3, Settings, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { Home, FileText, Sparkles, Settings, ChevronsLeft, ChevronsRight } from "lucide-react";
 
 interface SidebarNavProps {
   collapsed?: boolean;
@@ -15,8 +15,8 @@ interface SidebarNavProps {
 
 const navItems = [
   { id: "dashboard", label: "Dashboard", icon: Home },
-  { id: "library", label: "Prompt Library", icon: FileText },
-  { id: "evaluations", label: "Evaluations", icon: BarChart3 },
+  { id: "library", label: "Prompt Store", icon: FileText },
+  { id: "ai-designer", label: "AI Designer", icon: Sparkles },
   { id: "settings", label: "Settings", icon: Settings },
 ];
 
