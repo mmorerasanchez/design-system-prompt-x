@@ -9,11 +9,15 @@ import { useState } from "react";
 interface FilterBarProps {
   search: string;
   onSearchChange: (v: string) => void;
+  viewMode?: "grid" | "list";
+  onViewModeChange?: (mode: "grid" | "list") => void;
   className?: string;
 }
 
-export function FilterBar({ search, onSearchChange, className }: FilterBarProps) {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+export function FilterBar({ search, onSearchChange, viewMode: controlledViewMode, onViewModeChange, className }: FilterBarProps) {
+  const [internalViewMode, setInternalViewMode] = useState<"grid" | "list">("grid");
+  const viewMode = controlledViewMode ?? internalViewMode;
+  const setViewMode = onViewModeChange ?? setInternalViewMode;
   const statuses = ["Draft", "Testing", "Production", "Archived"] as const;
   const [activeStatuses, setActiveStatuses] = useState<string[]>([]);
 
