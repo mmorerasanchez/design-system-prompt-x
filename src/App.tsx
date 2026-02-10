@@ -18,6 +18,7 @@ import LibraryPage from "@/pages/LibraryPage";
 import SettingsPage from "@/pages/SettingsPage";
 import EvaluationsPage from "@/pages/EvaluationsPage";
 import PromptEditorPage from "@/pages/PromptEditorPage";
+import OnboardingPage from "@/pages/OnboardingPage";
 import NotFound from "@/pages/NotFound";
 import TokenSmokeTest from "@/pages/TokenSmokeTest";
 
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="evaluations" element={<EvaluationsPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
+            <Route path="/app/welcome" element={<OnboardingPage />} />
             <Route path="/test/tokens" element={<TokenSmokeTest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
