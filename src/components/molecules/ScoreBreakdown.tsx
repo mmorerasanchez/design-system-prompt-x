@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 interface ScoreCriterion {
   label: string;
@@ -25,13 +26,15 @@ interface ScoreBreakdownProps {
 }
 
 /**
- * ScoreBreakdown — Score badge with popover showing weighted rubric methodology.
+ * ScoreBreakdown — Score badge that opens a centered modal with weighted rubric methodology.
  */
 export function ScoreBreakdown({
   score = 90,
   criteria = DEFAULT_CRITERIA,
   className,
 }: ScoreBreakdownProps) {
+  const [open, setOpen] = useState(false);
+
   const getScoreColor = (s: number) => {
     if (s >= 90) return "text-success";
     if (s >= 75) return "text-warning";
@@ -39,52 +42,54 @@ export function ScoreBreakdown({
   };
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <button
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-sm transition-colors hover:bg-muted",
-            className,
-          )}
-        >
-          <span className="text-muted-foreground">Score</span>
-          <span className={cn("font-semibold", getScoreColor(score))}>{score}</span>
-          <span className="text-muted-foreground">/100</span>
-          <ChevronDown className="h-3 w-3 text-muted-foreground" />
-        </button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="end">
-        <div className="border-b border-border px-4 py-3">
-          <span className="font-display text-sm font-medium text-foreground">Quality Score Methodology</span>
-          <p className="mt-0.5 font-body text-xs text-muted-foreground">
-            Weighted evaluation across 5 prompt quality dimensions.
-          </p>
-        </div>
-        <div className="divide-y divide-border">
-          {criteria.map((c) => (
-            <div key={c.label} className="px-4 py-2.5 space-y-1">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="font-display text-sm font-medium text-foreground">{c.label}</span>
-                  <Badge variant="secondary" size="sm">
-                    <span className="font-mono text-2xs">{c.weight}%</span>
-                  </Badge>
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className={cn(
+          "inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-sm transition-colors hover:bg-muted",
+          className,
+        )}
+      >
+        <span className="text-muted-foreground">Score</span>
+        <span className={cn("font-semibold", getScoreColor(score))}>{score}</span>
+        <span className="text-muted-foreground">/100</span>
+        <ChevronDown className="h-3 w-3 text-muted-foreground" />
+      </button>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="sm:max-w-lg p-0">
+          <DialogHeader className="border-b border-border px-5 py-4">
+            <DialogTitle className="font-display text-md font-medium">Quality Score Methodology</DialogTitle>
+            <DialogDescription className="font-body text-sm text-muted-foreground">
+              Weighted evaluation across 5 prompt quality dimensions.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="divide-y divide-border">
+            {criteria.map((c) => (
+              <div key={c.label} className="px-5 py-3 space-y-1">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="font-display text-sm font-medium text-foreground">{c.label}</span>
+                    <Badge variant="secondary" size="sm">
+                      <span className="font-mono text-2xs">{c.weight}%</span>
+                    </Badge>
+                  </div>
+                  <span className={cn("font-mono text-sm font-semibold", getScoreColor(c.score))}>
+                    {c.score}
+                  </span>
                 </div>
-                <span className={cn("font-mono text-sm font-semibold", getScoreColor(c.score))}>
-                  {c.score}
-                </span>
+                <p className="font-body text-xs text-muted-foreground leading-relaxed">
+                  {c.explanation}
+                </p>
               </div>
-              <p className="font-body text-xs text-muted-foreground leading-relaxed">
-                {c.explanation}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center justify-between border-t border-border px-4 py-2.5 bg-surface">
-          <span className="font-display text-sm font-medium text-foreground">Weighted Total</span>
-          <span className={cn("font-mono text-sm font-bold", getScoreColor(score))}>{score}/100</span>
-        </div>
-      </PopoverContent>
-    </Popover>
+            ))}
+          </div>
+          <div className="flex items-center justify-between border-t border-border px-5 py-3 bg-surface rounded-b-lg">
+            <span className="font-display text-sm font-medium text-foreground">Weighted Total</span>
+            <span className={cn("font-mono text-sm font-bold", getScoreColor(score))}>{score}/100</span>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
