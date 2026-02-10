@@ -19,16 +19,40 @@ All design system components have been implemented and verified.
 | Atoms | 22 | ✅ All Ready |
 | Molecules | 17 | ✅ All Ready |
 | Organisms | 35 | ✅ All Ready |
-| Templates | 8 | ✅ All Ready |
-| **Total** | **82** | **✅ Complete** |
+| Templates | 8 + 2 | ✅ All Ready |
+| **Total** | **84** | **✅ Complete** |
+
+### Page Assembly
+
+| Page | Route | Status | Organisms Used |
+|---|---|---|---|
+| Dashboard | `/app` | ✅ Done | DashboardStats, ActivityFeed, PromptCard |
+| Library | `/app/library` | ✅ Done | FilterBar, PromptCard grid, BulkActionsBar |
+| Prompt Editor | `/app/library/:id/edit` | ✅ Done | PromptEditorPanel, PlaygroundPanel, VariableManager, StatusLifecycleBar |
+| Evaluations | `/app/evaluations` | ✅ Done | EvaluationResults, TestDatasetManager, RunHistory |
+| Settings | `/app/settings` | ✅ Done | SettingsNav, APIKeyManager, IntegrationCard |
+| Auth (Login/Signup) | `/app/login`, `/app/signup` | ⬜ Pending | AuthForm |
+| Onboarding | `/app/welcome` | ⬜ Pending | OnboardingWizard |
+
+### Infrastructure
+
+| Item | Status |
+|---|---|
+| AppShell (SidebarNav + TopBar + Outlet) | ✅ Done |
+| DashboardLayout template | ✅ Done |
+| App routing (`/app/*`) | ✅ Done |
+| Design system showcase (`/`) | ✅ Done |
 
 ### Next Steps
 
-- [ ] Assemble app pages: Dashboard, Library, Prompt Detail/Editor, Settings, Auth
-- [ ] Connect real data and routing
+- [ ] Build Auth pages (Login/Signup) with AuthForm
+- [ ] Build Onboarding wizard page
 - [ ] Add backend (Lovable Cloud) for persistence and auth
+- [ ] Connect real data to replace mock data
 
 ### Design Decision Log
 
 - **Auth form inputs**: Keep `font-body` on name/email/password fields (personal data, not prompt content).
 - **Link component**: Added to AtomsPage showcase with internal and external variants.
+- **AppShell**: Custom wrapper with SidebarNav + TopBar (not using shadcn Sidebar) for full control over collapse/mobile drawer behavior.
+- **EditorLayout reuse**: Prompt Editor uses EditorLayout split-pane with PromptEditorPanel (left) and PlaygroundPanel (right).
