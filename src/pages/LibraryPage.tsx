@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FilterBar } from "@/components/organisms/FilterBar";
 import { PromptCard } from "@/components/organisms/PromptCard";
@@ -23,10 +24,13 @@ const prompts = [
 ];
 
 export default function LibraryPage() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [createOpen, setCreateOpen] = useState(false);
+
+  const toSlug = (title: string) => title.toLowerCase().replace(/\s+/g, "-");
 
   const toggleSelect = (id: string) => {
     setSelected((prev) => {
@@ -83,7 +87,7 @@ export default function LibraryPage() {
                 updatedAgo={prompt.updatedAgo}
                 tokens={prompt.tokens}
                 selected={selected.has(prompt.id)}
-                onClick={() => toggleSelect(prompt.id)}
+                onClick={() => navigate(`/app/library/${toSlug(prompt.title)}`)}
               />
             ))}
           </div>
@@ -107,7 +111,7 @@ export default function LibraryPage() {
                       "cursor-pointer transition-colors hover:bg-surface",
                       selected.has(prompt.id) && "bg-accent/5"
                     )}
-                    onClick={() => toggleSelect(prompt.id)}
+                    onClick={() => navigate(`/app/library/${toSlug(prompt.title)}`)}
                   >
                     <td className="px-4 py-3">
                       <span className="font-display text-sm font-medium text-foreground">{prompt.title}</span>
