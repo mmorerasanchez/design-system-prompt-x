@@ -10,7 +10,7 @@ import { TestDatasetManager } from "@/components/organisms/TestDatasetManager";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const tabs = [
   { label: "Generator", value: "generator" },
@@ -75,7 +75,16 @@ export default function AIDesignerPage() {
         </div>
 
         {/* TabNav */}
-        <TabNav items={tabs} value={activeTab} onValueChange={setActiveTab} />
+        <div className="flex items-center justify-between">
+          <TabNav items={tabs} value={activeTab} onValueChange={setActiveTab} />
+          <a
+            href="/app/library"
+            className="inline-flex items-center gap-1 font-display text-sm font-medium text-accent hover:underline"
+          >
+            Start from preset
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
+        </div>
 
         {/* Generator Tab — 50/50 split */}
         {activeTab === "generator" && (
