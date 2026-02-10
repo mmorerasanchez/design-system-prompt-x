@@ -6,6 +6,7 @@ interface TabNavItem {
   value: string;
   icon?: LucideIcon;
   disabled?: boolean;
+  badge?: string;
 }
 
 interface TabNavProps {
@@ -35,10 +36,11 @@ export function TabNav({ items, value, onValueChange, className }: TabNavProps) 
               isActive
                 ? "bg-card text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground",
-              item.disabled && "cursor-not-allowed opacity-40",
+              item.disabled && "cursor-not-allowed opacity-40 hover:text-muted-foreground",
             )}
           >
             {item.label}
+            {item.badge && <span className="font-mono text-2xs text-muted-foreground">{item.badge}</span>}
             {Icon && <Icon className="h-3.5 w-3.5" />}
           </button>
         );
