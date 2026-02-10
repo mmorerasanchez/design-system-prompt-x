@@ -14,6 +14,7 @@ import OrganismsPage from "@/pages/OrganismsPage";
 import TemplatesPage from "@/pages/TemplatesPage";
 import PagesPage from "@/pages/PagesPage";
 import DashboardPage from "@/pages/DashboardPage";
+import LibraryPage from "@/pages/LibraryPage";
 import NotFound from "@/pages/NotFound";
 import TokenSmokeTest from "@/pages/TokenSmokeTest";
 
@@ -40,6 +41,7 @@ const App = () => (
             {/* App pages */}
             <Route path="/app" element={<AppShell />}>
               <Route index element={<DashboardPage />} />
+              <Route path="library" element={<LibraryPage />} />
             </Route>
             <Route path="/test/tokens" element={<TokenSmokeTest />} />
             <Route path="*" element={<NotFound />} />
