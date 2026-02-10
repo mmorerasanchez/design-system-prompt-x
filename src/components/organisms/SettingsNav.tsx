@@ -25,7 +25,7 @@ export function SettingsNav({
   className,
 }: SettingsNavProps) {
   return (
-    <div className={cn("border-b border-border", className)}>
+    <div className={cn(className)}>
       <TabNav
         items={sections.map((s) => ({ label: s.label, value: s.value, disabled: s.disabled }))}
         value={activeSection}
