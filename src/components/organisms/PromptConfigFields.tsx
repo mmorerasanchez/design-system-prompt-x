@@ -98,14 +98,26 @@ export function PromptConfigFields({
     update("anatomyFields", next);
   };
 
+  const getProviderForModel = (model: string) => {
+    for (const [provider, models] of Object.entries(MODELS)) {
+      if (models.includes(model)) return provider;
+    }
+    return null;
+  };
+
   // --- Shared sub-components ---
+
+  const modelProvider = getProviderForModel(config.model);
 
   const ModelSelect = (
     <div className="space-y-1.5">
       <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Model</span>
       <Select value={config.model} onValueChange={(v) => update("model", v)}>
         <SelectTrigger className="h-9 font-mono text-sm">
-          <SelectValue />
+          <span className="truncate">
+            {modelProvider && <span className="font-body text-muted-foreground">{modelProvider} / </span>}
+            {config.model}
+          </span>
         </SelectTrigger>
         <SelectContent className="bg-popover border-border">
           {Object.entries(MODELS).map(([provider, models]) => (
