@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
 
 interface WizardStep {
@@ -8,6 +7,8 @@ interface WizardStep {
   title: string;
   description: string;
   completed?: boolean;
+  /** If true, this step auto-advances (no manual next) */
+  autoAdvance?: boolean;
 }
 
 interface OnboardingWizardProps {
@@ -16,13 +17,18 @@ interface OnboardingWizardProps {
   onStepClick?: (index: number) => void;
   onNext?: () => void;
   onSkip?: () => void;
+  onBack?: () => void;
   children?: React.ReactNode;
   className?: string;
+  /** Hide footer actions (for auto-advance or result steps) */
+  hideActions?: boolean;
+  /** Hide progress header */
+  hideHeader?: boolean;
 }
 
 /**
  * OnboardingWizard — Step-by-step onboarding flow with progress indicator,
- * step content slot, and navigation actions.
+ * step content slot, and navigation actions. Supports broader widths.
  */
 export function OnboardingWizard({
   steps,
@@ -30,29 +36,35 @@ export function OnboardingWizard({
   onStepClick,
   onNext,
   onSkip,
+  onBack,
   children,
   className,
+  hideActions = false,
+  hideHeader = false,
 }: OnboardingWizardProps) {
   const isLastStep = currentStep === steps.length - 1;
+  const isFirstStep = currentStep === 0;
 
   return (
     <div className={cn("rounded-md border border-border bg-card", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border px-4 py-3">
-        <span className="font-display text-sm font-medium text-foreground">Getting Started</span>
-        <span className="font-mono text-2xs text-muted-foreground">
-          Step {currentStep + 1} of {steps.length}
-        </span>
-      </div>
+      {!hideHeader && (
+        <div className="flex items-center justify-between border-b border-border px-5 py-3">
+          <span className="font-display text-sm font-medium text-foreground">Getting Started</span>
+          <span className="font-mono text-2xs text-muted-foreground">
+            Step {currentStep + 1} of {steps.length}
+          </span>
+        </div>
+      )}
 
       {/* Progress steps */}
-      <div className="border-b border-border px-4 py-3">
+      <div className="border-b border-border px-5 py-3">
         <div className="flex items-center gap-2">
           {steps.map((step, i) => (
             <div key={step.id} className="flex items-center gap-2">
               {i > 0 && (
                 <div className={cn(
-                  "h-px w-6 transition-colors",
+                  "h-px w-4 sm:w-6 transition-colors",
                   i <= currentStep ? "bg-accent" : "bg-border",
                 )} />
               )}
@@ -77,7 +89,7 @@ export function OnboardingWizard({
       </div>
 
       {/* Current step info */}
-      <div className="px-4 py-4">
+      <div className="px-5 py-5">
         <h3 className="font-display text-md font-medium text-foreground">
           {steps[currentStep]?.title}
         </h3>
@@ -90,14 +102,27 @@ export function OnboardingWizard({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between border-t border-border px-4 py-3">
-        <Button variant="ghost" size="sm" onClick={onSkip}>
-          Skip
-        </Button>
-        <Button size="sm" onClick={onNext}>
-          {isLastStep ? "Finish" : "Continue"}
-        </Button>
-      </div>
+      {!hideActions && (
+        <div className="flex items-center justify-between border-t border-border px-5 py-3">
+          <div>
+            {!isFirstStep && (
+              <Button variant="ghost" size="sm" onClick={onBack}>
+                Back
+              </Button>
+            )}
+            {isFirstStep && (
+              <Button variant="ghost" size="sm" onClick={onSkip}>
+                Skip
+              </Button>
+            )}
+          </div>
+          <Button size="sm" onClick={onNext}>
+            {isLastStep ? "Finish" : "Continue"}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
+
+export type { WizardStep, OnboardingWizardProps };
