@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/use-theme";
 import { ShowcaseLayout } from "@/components/ShowcaseLayout";
+import { AppShell } from "@/components/templates/AppShell";
 import OverviewPage from "@/pages/OverviewPage";
 import TokensPage from "@/pages/TokensPage";
 import AtomsPage from "@/pages/AtomsPage";
@@ -12,6 +13,7 @@ import MoleculesPage from "@/pages/MoleculesPage";
 import OrganismsPage from "@/pages/OrganismsPage";
 import TemplatesPage from "@/pages/TemplatesPage";
 import PagesPage from "@/pages/PagesPage";
+import DashboardPage from "@/pages/DashboardPage";
 import NotFound from "@/pages/NotFound";
 import TokenSmokeTest from "@/pages/TokenSmokeTest";
 
@@ -25,6 +27,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Design system showcase */}
             <Route element={<ShowcaseLayout />}>
               <Route path="/" element={<OverviewPage />} />
               <Route path="/tokens" element={<TokensPage />} />
@@ -33,6 +36,10 @@ const App = () => (
               <Route path="/organisms" element={<OrganismsPage />} />
               <Route path="/templates" element={<TemplatesPage />} />
               <Route path="/pages" element={<PagesPage />} />
+            </Route>
+            {/* App pages */}
+            <Route path="/app" element={<AppShell />}>
+              <Route index element={<DashboardPage />} />
             </Route>
             <Route path="/test/tokens" element={<TokenSmokeTest />} />
             <Route path="*" element={<NotFound />} />
