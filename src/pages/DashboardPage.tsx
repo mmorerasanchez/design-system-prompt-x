@@ -3,6 +3,7 @@ import { DashboardLayout } from "@/components/templates/DashboardLayout";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
 import { EvalConfirmModal } from "@/components/organisms/EvalConfirmModal";
+import { EvaluationResultsView } from "@/components/organisms/EvaluationResultsView";
 import { PromptConfigFields, defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
 import type { PromptConfigState } from "@/components/organisms/PromptConfigFields";
 import { TabNav } from "@/components/molecules/TabNav";
@@ -33,6 +34,23 @@ export default function DashboardPage() {
 
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [evalRunning, setEvalRunning] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+
+  if (showResults) {
+    return (
+      <div className="flex-1 overflow-auto p-4 md:p-6 lg:p-8">
+        <div className="mx-auto max-w-6xl space-y-6">
+          <EvaluationResultsView
+            onBack={() => setShowResults(false)}
+            onReEvaluate={() => {
+              setShowResults(false);
+              setConfirmOpen(true);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DashboardLayout
@@ -116,7 +134,7 @@ export default function DashboardPage() {
       {/* Recent Activity — full-width */}
       <ActivityFeed items={feedItems} />
 
-      {/* EvalConfirmModal — same workflow as Designer */}
+      {/* EvalConfirmModal */}
       <EvalConfirmModal
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
@@ -127,6 +145,7 @@ export default function DashboardPage() {
           setTimeout(() => {
             setEvalRunning(false);
             setConfirmOpen(false);
+            setShowResults(true);
           }, 1800);
         }}
       />
