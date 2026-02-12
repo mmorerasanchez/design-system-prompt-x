@@ -34,3 +34,5 @@ export type { CreatePromptFormData } from "./CreatePromptDialog";
 export { TestRunnerModal } from "./TestRunnerModal";
 export { CLEARScorePanel } from "./CLEARScorePanel";
 export { ImprovedPromptPanel } from "./ImprovedPromptPanel";
+export { EvalConfirmModal } from "./EvalConfirmModal";
+export { EvaluationResultsView } from "./EvaluationResultsView";
