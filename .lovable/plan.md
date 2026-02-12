@@ -1,80 +1,165 @@
 
 
-## Fix: Edit and Back Button Navigation Crash
+# Evaluator Experience: Test Runner Modal + Evaluation Results Panel
 
-### Problem
+## Overview
 
-Both the **Edit** button (saved view) and **Back** button (edit page) crash with:
-`React.Children.only expected to receive a single React element child`
+This plan redesigns the Evaluator tab into a proper prompt evaluation experience. Users paste/write a prompt (or start from a preset), run an AI evaluation that returns a CLEAR framework score, KPIs, and an improved version -- both as full text and as anatomy fields. The current analytics-style dashboard content (EvaluationResults, TestDatasetManager, RunHistory) gets extracted to a separate file for future analytics use.
 
-This happens because `Button asChild` uses Radix's `Slot`, which requires exactly one React element child. But the `Link` inside contains multiple children (icon + text), causing the crash. The pages render blank/broken as a result.
+## What Changes
 
-### Solution
+### 1. Extract analytics data to a separate file
 
-Wrap the icon and text inside the `Link` so that `Button` receives a single child element. The `Link` itself is the single child — its internal contents (icon + text) are fine.
+Move the current evaluator tab content (the dashboard-style EvaluationResults, TestDatasetManager, RunHistory mock data and layout) into a new file `src/data/evaluator-analytics-mock.ts` so it's preserved for future analytics implementation but no longer clutters the evaluator UX.
 
-The fix is the same pattern for both files: ensure Button with `asChild` receives exactly one child element.
+### 2. New Organism: `TestRunnerModal`
+
+A Dialog modal (consistent with CreatePromptDialog and ScoreBreakdown patterns) triggered by "Run" buttons across the app.
+
+**Location**: `src/components/organisms/TestRunnerModal.tsx`
+
+**Contents (top to bottom)**:
+- DialogHeader: "Test Run" title + description
+- Prompt input: a monospace Textarea for pasting/writing the prompt (pre-filled when launched from editor)
+- "Start from preset" link (reuses the same `ArrowRight` pattern from AI Designer)
+- Model selection: reuses the existing `ModelSelect` pattern from PromptConfigFields (Select with grouped providers)
+- Variable inputs section: if prompt contains `{{variables}}`, show name/value pairs (reuses the VariableEditorRow molecule pattern)
+- "Run Evaluation" Button with Sparkles icon
+- Results area (appears after run, replaces empty state):
+  - KPI row: 3 inline stats (Tokens, Latency, Est. Cost) using the same `font-mono text-lg font-bold` pattern from EvaluationResults
+  - CLEAR Score gauge section (see next organism)
+
+**Props**: `open`, `onOpenChange`, `initialPrompt?` (string, pre-filled from editor), `initialVariables?`
+
+**Reused components**: Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Button, Select, Textarea, Badge
+
+### 3. New Organism: `CLEARScorePanel`
+
+An expandable/collapsible panel showing the CLEAR framework evaluation results. Used inside TestRunnerModal and also embeddable in the editor as an expandable section.
+
+**Location**: `src/components/organisms/CLEARScorePanel.tsx`
+
+**CLEAR Framework dimensions** (5 criteria):
+- **C**larity -- How unambiguous the instructions are
+- **L**everage -- How well it uses model capabilities
+- **E**fficiency -- Token optimization, no redundancy
+- **A**daptability -- Handles edge cases and variations
+- **R**obustness -- Resilience to adversarial inputs
+
+**Layout (top to bottom)**:
+- Overall CLEAR score: large mono number with semantic color (reuses `scoreColor` pattern from EvaluationResults)
+- Dimension breakdown: 5 rows, each with label, Progress bar, score (reuses exact pattern from EvaluationResults metrics section)
+- Strengths section: 2-3 bullet points with success-colored dots
+- Improvements section: 2-3 bullet points with warning-colored dots
+- Top 3 Suggestions: each in a bordered card-row with suggestion text + "Apply" ghost Button
+
+**Reused components**: Progress, Badge, Button
+
+### 4. New Organism: `ImprovedPromptPanel`
+
+Shows the AI-improved version of the prompt in two views.
+
+**Location**: `src/components/organisms/ImprovedPromptPanel.tsx`
+
+**Two sub-sections via TabNav**:
+- **Full Version** tab: monospace read-only view of the complete improved prompt (reuses CompiledPreview pattern) with Copy and "Save to Store" buttons. "Save to Store" opens a small inline form with status select (Draft default, Testing, Production) using existing status Badge variants.
+- **Anatomy Fields** tab: the improved prompt broken into the 9 anatomy fields, each rendered as an `AnatomyFieldCard` with `variant="expanded"` (editable). Below: "Re-evaluate" Button and "Save to Store" Button.
+
+**Reused components**: TabNav, CompiledPreview (pattern), AnatomyFieldCard, Button, Badge (status variants), Select
+
+### 5. Rewire the Evaluator tab in AIDesignerPage
+
+Replace the current analytics dashboard with the new evaluator experience:
+
+**Layout**: 50/50 split (matching Generator tab), consistent with page architecture.
+
+- **Left pane** ("Evaluate"): card with prompt Textarea input, model select, "Start from preset" link, and "Evaluate" Button. Same card pattern as Generator's Configuration pane.
+- **Right pane** ("Results"): Initially shows empty state italic text. After evaluation: CLEARScorePanel + ImprovedPromptPanel stacked in a scrollable area.
+
+### 6. Rewire the Evaluator tab in DashboardPage
+
+Replace the `EvaluationResults` mini-view with a compact evaluator snippet:
+- Same compact card pattern as the Generator snippet
+- Textarea for prompt + "Evaluate" button
+- On click, opens TestRunnerModal
+
+### 7. Wire "Run" buttons to TestRunnerModal
+
+Connect the existing "Run" buttons in:
+- `PromptDetailPage` -- the "Run" ghost button in the header opens TestRunnerModal with the compiled prompt pre-filled
+- `PromptEditorPage` -- the "Run" ghost button opens TestRunnerModal with current compiled output
+
+### 8. Update organisms barrel export
+
+Add new organisms to `src/components/organisms/index.ts`:
+- `TestRunnerModal`
+- `CLEARScorePanel`
+- `ImprovedPromptPanel`
+
+### 9. Update DESIGN_SYSTEM.md
+
+Document:
+- CLEAR framework (5 dimensions with descriptions)
+- TestRunnerModal (trigger points, props, content)
+- CLEARScorePanel (layout, reused patterns)
+- ImprovedPromptPanel (two-tab structure, save flow)
+- Updated Evaluator tab description in page architecture
 
 ---
 
-### Technical Details
+## Technical Details
 
-**File 1: `src/pages/PromptDetailPage.tsx`** (Edit button, lines 93-98)
+### File changes summary
 
-Current (broken):
-```tsx
-<Button size="sm" asChild>
-  <Link to={`/app/library/${id}/edit`}>
-    <Pencil className="h-3.5 w-3.5" />
-    Edit
-  </Link>
-</Button>
+| Action | File |
+|--------|------|
+| Create | `src/data/evaluator-analytics-mock.ts` |
+| Create | `src/components/organisms/TestRunnerModal.tsx` |
+| Create | `src/components/organisms/CLEARScorePanel.tsx` |
+| Create | `src/components/organisms/ImprovedPromptPanel.tsx` |
+| Modify | `src/pages/AIDesignerPage.tsx` |
+| Modify | `src/pages/DashboardPage.tsx` |
+| Modify | `src/pages/PromptDetailPage.tsx` |
+| Modify | `src/pages/PromptEditorPage.tsx` |
+| Modify | `src/components/organisms/index.ts` |
+| Modify | `src/DESIGN_SYSTEM.md` |
+
+### Component reuse map
+
+```text
+TestRunnerModal
+  +-- Dialog, DialogContent, DialogHeader (ui)
+  +-- Select w/ grouped models (from PromptConfigFields pattern)
+  +-- Textarea (ui)
+  +-- Button (ui)
+  +-- Badge (ui)
+  +-- CLEARScorePanel (new organism)
+
+CLEARScorePanel
+  +-- Progress (ui)
+  +-- Badge (ui)
+  +-- Button (ui)
+  (follows EvaluationResults metric-row pattern exactly)
+
+ImprovedPromptPanel
+  +-- TabNav (molecule)
+  +-- AnatomyFieldCard (organism, variant="expanded")
+  +-- Button (ui)
+  +-- Badge (status variants)
+  +-- Select (ui)
+  (follows CompiledPreview monospace pattern for Full Version tab)
 ```
 
-The issue is subtle — the `Link` has two children nodes (the icon element and the "Edit" text node). Radix Slot merges props onto the single child, and `Link` IS the single child here. This should actually work. Let me investigate further — the error may come from another `asChild` usage on the page, or from how the Button component handles `asChild` internally.
+### Entry points for evaluator
 
-Actually, re-reading the error and the code — the `Button` component uses `Slot` when `asChild` is true. `Slot` calls `React.Children.only` on its children, which means the `Link` element must be the only child of `Button`. The `Link` component has an icon + text inside it, but `Link` itself is a single element — so this should work.
-
-The crash is likely on the **edit page** specifically. Let me look more carefully at the PromptEditorPage Back button code — it was written with `asChild` and a `Link` containing icon + text. This is the standard pattern and should work with shadcn/ui Button.
-
-The real issue might be that the page itself is erroring during render for another reason. But the console clearly shows `React.Children.only` from `Slot`. This means one of the `asChild` buttons has a problem.
-
-Looking again at PromptEditorPage, the History button (line 107) does NOT use `asChild` so that's fine. The Run button (line 110) also doesn't. Only the Back button (lines 101-106) and Save button use `asChild`... wait, Save doesn't use `asChild` either.
-
-The issue is likely that `<Button asChild>` with children containing both a React element AND a text node causes the problem. The `Link` is one element, so `Slot` should handle it. Unless the Button's internal implementation wraps differently.
-
-Let me check the Button component to be sure, and also verify if both pages crash or just the edit page.
-
-**Fix approach**: Remove `asChild` from both buttons and wrap the `Link` around the `Button` instead, or use `onClick` + `useNavigate()` for navigation.
-
-**File 1: `src/pages/PromptEditorPage.tsx`**
-- Replace the `asChild` Back button with a regular `Button` inside a `Link`, or use `useNavigate` with `onClick`
-
-**File 2: `src/pages/PromptDetailPage.tsx`**
-- Same fix for the Edit button
-
-The simplest fix: swap the nesting so `Link` wraps `Button` (without `asChild`), or just use `useNavigate()`:
-
-```tsx
-// Option A: Link wraps Button
-<Link to={`/app/library/${id}`}>
-  <Button variant="ghost" size="sm">
-    <ArrowLeft className="h-3.5 w-3.5" />
-    Back
-  </Button>
-</Link>
-
-// Option B: useNavigate (cleaner)
-<Button variant="ghost" size="sm" onClick={() => navigate(`/app/library/${id}`)}>
-  <ArrowLeft className="h-3.5 w-3.5" />
-  Back
-</Button>
+```text
+Dashboard Evaluator tab  -->  compact card + opens TestRunnerModal
+AI Designer Evaluator tab -->  inline 50/50 split experience
+Prompt Detail "Run"       -->  TestRunnerModal (pre-filled)
+Prompt Editor "Run"       -->  TestRunnerModal (pre-filled)
 ```
 
-Option B is cleaner. We'll use `useNavigate` for both buttons.
+### Mock data approach
 
-### Changes
+All components remain in prototype mode with hardcoded mock data for CLEAR scores, suggestions, and improved prompt content. No API calls or backend integration.
 
-1. **`src/pages/PromptEditorPage.tsx`**: Replace `Button asChild > Link` with `Button onClick={() => navigate(...)}` for the Back button. Add `useNavigate` import.
-
-2. **`src/pages/PromptDetailPage.tsx`**: Same fix for the Edit button — replace `Button asChild > Link` with `Button onClick={() => navigate(...)}`. Add `useNavigate` import.
