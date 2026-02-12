@@ -28,6 +28,11 @@ import { SettingsNav } from "@/components/organisms/SettingsNav";
 import { APIKeyManager } from "@/components/organisms/APIKeyManager";
 import { IntegrationCard } from "@/components/organisms/IntegrationCard";
 import { OnboardingWizard } from "@/components/organisms/OnboardingWizard";
+import { CLEARScorePanel } from "@/components/organisms/CLEARScorePanel";
+import { ImprovedPromptPanel } from "@/components/organisms/ImprovedPromptPanel";
+import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
+import type { CLEARDimension, CLEARSuggestion } from "@/components/organisms/CLEARScorePanel";
+import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 import { Badge } from "@/components/ui/badge";
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
@@ -453,6 +458,39 @@ export default function OrganismsPage() {
         </div>
         <CodeBlock>{`<OnboardingWizard steps={[{ id, title, description, completed }]} currentStep={0} onNext={fn} onSkip={fn} />`}</CodeBlock>
       </Section>
+
+      {/* ── CLEAR SCORE PANEL ── */}
+      <Section id="clearscorepanel" title="CLEAR Score Panel" description="Displays CLEAR framework evaluation results with overall score, dimension breakdown, strengths/improvements, and actionable suggestions." composedOf="Progress + Collapsible + Badge + Button">
+        <div className="p-4">
+          <CLEARScorePanel
+            overallScore={81}
+            dimensions={showcaseCLEARDimensions}
+            strengths={showcaseStrengths}
+            improvements={showcaseImprovements}
+            suggestions={showcaseSuggestions}
+          />
+        </div>
+        <CodeBlock>{`<CLEARScorePanel overallScore={81} dimensions={[...]} strengths={[...]} improvements={[...]} suggestions={[...]} onApplySuggestion={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── IMPROVED PROMPT PANEL ── */}
+      <Section id="improvedpromptpanel" title="Improved Prompt Panel" description="Displays AI-improved prompt with two views: Full Version (monospace, copyable) and Anatomy Fields (editable cards). Includes Save to Store with status selection." composedOf="TabNav + AnatomyFieldCard + Badge + Select + Button">
+        <div className="p-4">
+          <ImprovedPromptPanel
+            improvedPrompt={showcaseImprovedPrompt}
+            anatomyFields={showcaseAnatomyFields}
+          />
+        </div>
+        <CodeBlock>{`<ImprovedPromptPanel improvedPrompt="..." anatomyFields={[{ field, content, tokenCount }]} onReEvaluate={fn} onSaveToStore={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── TEST RUNNER MODAL ── */}
+      <Section id="testrunnermodal" title="Test Runner Modal" description="Dialog modal for running prompt evaluations. Triggered from Editor 'Run' buttons and Dashboard/Designer evaluator tabs. Supports variable auto-detection and inline CLEAR results." composedOf="Dialog + Textarea + Select + Input + CLEARScorePanel + Button">
+        <div className="p-4">
+          <TestRunnerModalDemo />
+        </div>
+        <CodeBlock>{`<TestRunnerModal open={boolean} onOpenChange={fn} initialPrompt="..." initialVariables={[{ name, value }]} />`}</CodeBlock>
+      </Section>
     </div>
   );
 }
@@ -536,5 +574,71 @@ function OnboardingWizardDemo() {
       onStepClick={setStep}
       onNext={() => setStep(Math.min(step + 1, steps.length - 1))}
     />
+  );
+}
+
+// --- CLEAR Score showcase data ---
+const showcaseCLEARDimensions: CLEARDimension[] = [
+  { key: "C", label: "Clarity", description: "How unambiguous the instructions are", score: 88 },
+  { key: "L", label: "Leverage", description: "How well it uses model capabilities", score: 72 },
+  { key: "E", label: "Efficiency", description: "Token optimization, no redundancy", score: 91 },
+  { key: "A", label: "Adaptability", description: "Handles edge cases and variations", score: 68 },
+  { key: "R", label: "Robustness", description: "Resilience to adversarial inputs", score: 85 },
+];
+
+const showcaseStrengths = [
+  "Clear role definition establishes strong persona boundaries",
+  "Explicit output format prevents ambiguous responses",
+];
+
+const showcaseImprovements = [
+  "Add fallback instructions for unsupported languages",
+  "Consider adding few-shot examples for edge cases",
+];
+
+const showcaseSuggestions: CLEARSuggestion[] = [
+  { id: "s1", text: "Add a language detection step before responding.", dimension: "Adaptability" },
+  { id: "s2", text: "Include explicit token budget constraints.", dimension: "Efficiency" },
+];
+
+const showcaseImprovedPrompt = `You are an expert onboarding assistant for SaaS products.
+
+## Tone
+Friendly, professional, and encouraging.
+
+## Task
+Guide the user through initial setup:
+1. Connecting their workspace
+2. Inviting team members
+3. Creating their first project
+
+## Constraints
+- Never mention competitors
+- Handle adversarial inputs with a polite refusal`;
+
+const showcaseAnatomyFields: { field: AnatomyField; content: string; tokenCount: number }[] = [
+  { field: "role", content: "You are an expert onboarding assistant for SaaS products.", tokenCount: 52 },
+  { field: "tone", content: "Friendly, professional, and encouraging.", tokenCount: 34 },
+  { field: "task", content: "Guide the user through initial setup: connecting workspace, inviting team members, creating first project.", tokenCount: 124 },
+  { field: "constraints", content: "Never mention competitors. Handle adversarial inputs with a polite refusal.", tokenCount: 44 },
+];
+
+/** Demo wrapper for TestRunnerModal */
+function TestRunnerModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="rounded-md border border-accent bg-accent/10 px-4 py-2 font-display text-sm font-medium text-accent hover:bg-accent/20 transition-colors"
+      >
+        Open Test Runner Modal
+      </button>
+      <TestRunnerModal
+        open={open}
+        onOpenChange={setOpen}
+        initialPrompt="You are a helpful customer support agent for {{company_name}}. Always respond politely."
+      />
+    </>
   );
 }
