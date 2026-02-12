@@ -5,11 +5,13 @@ import { StatCard } from "@/components/molecules/StatCard";
 import { StatusLifecycleBar } from "@/components/organisms/StatusLifecycleBar";
 import { AnatomyFieldCard } from "@/components/organisms/AnatomyFieldCard";
 import { CompiledPreview } from "@/components/organisms/CompiledPreview";
+import { EvalConfirmModal } from "@/components/organisms/EvalConfirmModal";
+import { EvaluationResultsView } from "@/components/organisms/EvaluationResultsView";
+import { defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
 import { Heading } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Play, History, Pencil } from "lucide-react";
-import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 
 // --- Mock data ---
@@ -54,7 +56,18 @@ const hasVersions = true;
 export default function PromptDetailPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [testRunnerOpen, setTestRunnerOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [evalRunning, setEvalRunning] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+
+  const evalConfig = useMemo(() => ({
+    ...defaultPromptConfig,
+    instruction: initialFields.map((f) => `# ${f.field.toUpperCase()}\n${f.content}`).join("\n\n"),
+    model: configSummary.model,
+    platform: configSummary.platform,
+    temperature: configSummary.temperature,
+    maxTokens: configSummary.maxTokens,
+  }), []);
 
   const compiledOutput = useMemo(
     () => initialFields.map((f) => `# ${f.field.toUpperCase()}\n${f.content}`).join("\n\n"),
@@ -66,7 +79,24 @@ export default function PromptDetailPage() {
     ? id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : PROMPT_TITLE;
 
+  if (showResults) {
+    return (
+      <div className="flex-1 overflow-auto p-4 md:p-6 lg:p-8">
+        <div className="mx-auto max-w-6xl space-y-6">
+          <EvaluationResultsView
+            onBack={() => setShowResults(false)}
+            onReEvaluate={() => {
+              setShowResults(false);
+              setConfirmOpen(true);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
+    <>
     <div className="flex h-full flex-col overflow-hidden">
       {/* Header */}
       <div className="shrink-0 space-y-0">
@@ -89,7 +119,7 @@ export default function PromptDetailPage() {
                 <History className="h-3.5 w-3.5" />
                 History
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => setTestRunnerOpen(true)}>
+              <Button variant="ghost" size="sm" onClick={() => setConfirmOpen(true)}>
                 <Play className="h-3.5 w-3.5" />
                 Run
               </Button>
@@ -180,11 +210,21 @@ export default function PromptDetailPage() {
           />
         </div>
       </div>
-      <TestRunnerModal
-        open={testRunnerOpen}
-        onOpenChange={setTestRunnerOpen}
-        initialPrompt={compiledOutput}
-      />
     </div>
+    <EvalConfirmModal
+      open={confirmOpen}
+      onOpenChange={setConfirmOpen}
+      config={evalConfig}
+      running={evalRunning}
+      onConfirm={() => {
+        setEvalRunning(true);
+        setTimeout(() => {
+          setEvalRunning(false);
+          setConfirmOpen(false);
+          setShowResults(true);
+        }, 1800);
+      }}
+    />
+    </>
   );
 }

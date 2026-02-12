@@ -14,7 +14,8 @@ import { Heading } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Save, History, Play, ArrowLeft } from "lucide-react";
-import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
+import { EvalConfirmModal } from "@/components/organisms/EvalConfirmModal";
+import { EvaluationResultsView } from "@/components/organisms/EvaluationResultsView";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 
 // --- Mock data ---
@@ -73,7 +74,9 @@ export default function PromptEditorPage() {
   const [variables, setVariables] = useState(initialVariables);
   const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const [selectedVersion, setSelectedVersion] = useState("v3.2");
-  const [testRunnerOpen, setTestRunnerOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [evalRunning, setEvalRunning] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const compiledOutput = useMemo(
     () => initialFields.map((f) => `# ${f.field.toUpperCase()}\n${f.content}`).join("\n\n"),
@@ -84,6 +87,26 @@ export default function PromptEditorPage() {
   const promptTitle = id
     ? id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : "Untitled Prompt";
+  const evalConfig = useMemo(() => ({
+    ...defaultPromptConfig,
+    instruction: compiledOutput,
+  }), [compiledOutput]);
+
+  if (showResults) {
+    return (
+      <div className="flex-1 overflow-auto p-4 md:p-6 lg:p-8">
+        <div className="mx-auto max-w-6xl space-y-6">
+          <EvaluationResultsView
+            onBack={() => setShowResults(false)}
+            onReEvaluate={() => {
+              setShowResults(false);
+              setConfirmOpen(true);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -112,7 +135,7 @@ export default function PromptEditorPage() {
               <Button variant="ghost" size="sm">
                 <History className="h-3.5 w-3.5" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => setTestRunnerOpen(true)}>
+              <Button variant="ghost" size="sm" onClick={() => setConfirmOpen(true)}>
                 <Play className="h-3.5 w-3.5" />
                 Run
               </Button>
@@ -193,10 +216,19 @@ export default function PromptEditorPage() {
         </div>
       }
     />
-    <TestRunnerModal
-      open={testRunnerOpen}
-      onOpenChange={setTestRunnerOpen}
-      initialPrompt={compiledOutput}
+    <EvalConfirmModal
+      open={confirmOpen}
+      onOpenChange={setConfirmOpen}
+      config={evalConfig}
+      running={evalRunning}
+      onConfirm={() => {
+        setEvalRunning(true);
+        setTimeout(() => {
+          setEvalRunning(false);
+          setConfirmOpen(false);
+          setShowResults(true);
+        }, 1800);
+      }}
     />
     </>
   );
