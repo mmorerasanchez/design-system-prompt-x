@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BreadcrumbNav } from "@/components/molecules/BreadcrumbNav";
 import { StatCard } from "@/components/molecules/StatCard";
@@ -9,6 +9,7 @@ import { Heading } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Play, History, Pencil } from "lucide-react";
+import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 
 // --- Mock data ---
@@ -53,6 +54,7 @@ const hasVersions = true;
 export default function PromptDetailPage() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [testRunnerOpen, setTestRunnerOpen] = useState(false);
 
   const compiledOutput = useMemo(
     () => initialFields.map((f) => `# ${f.field.toUpperCase()}\n${f.content}`).join("\n\n"),
@@ -87,7 +89,7 @@ export default function PromptDetailPage() {
                 <History className="h-3.5 w-3.5" />
                 History
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" onClick={() => setTestRunnerOpen(true)}>
                 <Play className="h-3.5 w-3.5" />
                 Run
               </Button>
@@ -178,6 +180,11 @@ export default function PromptDetailPage() {
           />
         </div>
       </div>
+      <TestRunnerModal
+        open={testRunnerOpen}
+        onOpenChange={setTestRunnerOpen}
+        initialPrompt={compiledOutput}
+      />
     </div>
   );
 }

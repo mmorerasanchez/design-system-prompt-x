@@ -14,6 +14,7 @@ import { Heading } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Save, History, Play, ArrowLeft } from "lucide-react";
+import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 
 // --- Mock data ---
@@ -72,6 +73,7 @@ export default function PromptEditorPage() {
   const [variables, setVariables] = useState(initialVariables);
   const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const [selectedVersion, setSelectedVersion] = useState("v3.2");
+  const [testRunnerOpen, setTestRunnerOpen] = useState(false);
 
   const compiledOutput = useMemo(
     () => initialFields.map((f) => `# ${f.field.toUpperCase()}\n${f.content}`).join("\n\n"),
@@ -84,6 +86,7 @@ export default function PromptEditorPage() {
     : "Untitled Prompt";
 
   return (
+    <>
     <EditorLayout
       header={
         <div className="space-y-0">
@@ -109,7 +112,7 @@ export default function PromptEditorPage() {
               <Button variant="ghost" size="sm">
                 <History className="h-3.5 w-3.5" />
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" onClick={() => setTestRunnerOpen(true)}>
                 <Play className="h-3.5 w-3.5" />
                 Run
               </Button>
@@ -190,5 +193,11 @@ export default function PromptEditorPage() {
         </div>
       }
     />
+    <TestRunnerModal
+      open={testRunnerOpen}
+      onOpenChange={setTestRunnerOpen}
+      initialPrompt={compiledOutput}
+    />
+    </>
   );
 }

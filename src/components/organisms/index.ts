@@ -31,3 +31,6 @@ export { PromptConfigFields, defaultPromptConfig } from "./PromptConfigFields";
 export type { PromptConfigState } from "./PromptConfigFields";
 export { CreatePromptDialog } from "./CreatePromptDialog";
 export type { CreatePromptFormData } from "./CreatePromptDialog";
+export { TestRunnerModal } from "./TestRunnerModal";
+export { CLEARScorePanel } from "./CLEARScorePanel";
+export { ImprovedPromptPanel } from "./ImprovedPromptPanel";
