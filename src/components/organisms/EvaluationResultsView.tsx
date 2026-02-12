@@ -93,6 +93,13 @@ export function EvaluationResultsView({ onBack, onReEvaluate }: EvaluationResult
         <Text variant="muted" className="mt-1">CLEAR framework analysis of your prompt.</Text>
       </div>
 
+      {/* Full-width Improved Prompt Panel — first */}
+      <ImprovedPromptPanel
+        improvedPrompt={mockImprovedPrompt}
+        anatomyFields={mockAnatomyFields}
+        onReEvaluate={onReEvaluate}
+      />
+
       {/* KPI Row */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard label="Tokens" value="1,247" trend={{ direction: "neutral", value: "total" }} />
@@ -108,13 +115,6 @@ export function EvaluationResultsView({ onBack, onReEvaluate }: EvaluationResult
         strengths={mockStrengths}
         improvements={mockImprovements}
         suggestions={mockSuggestions}
-      />
-
-      {/* Full-width Improved Prompt Panel */}
-      <ImprovedPromptPanel
-        improvedPrompt={mockImprovedPrompt}
-        anatomyFields={mockAnatomyFields}
-        onReEvaluate={onReEvaluate}
       />
     </div>
   );
