@@ -15,3 +15,4 @@ export { ActivityFeedItem } from "./ActivityFeedItem";
 export { VariableEditorRow } from "./VariableEditorRow";
 export { RunHistoryItem } from "./RunHistoryItem";
 export { TestCaseRow } from "./TestCaseRow";
+export { ScoreBreakdown } from "./ScoreBreakdown";

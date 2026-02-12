@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 87+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 94+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -231,7 +231,7 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | Progress | shadcn/ui Progress | Ready |
 | Kbd | custom | Ready |
 
-### Molecules (17)
+### Molecules (18)
 
 | Name | Base | Status | Notes |
 |---|---|---|---|
@@ -254,7 +254,7 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | TestCaseRow | custom | Ready | Test case with checkbox, input/expected, status, score |
 | ScoreBreakdown | custom | Ready | Score badge that opens a centered modal with weighted rubric |
 
-### Organisms (40)
+### Organisms (46)
 
 | Name | Base | Status |
 |---|---|---|
@@ -607,6 +607,6 @@ All 4 entry points share the same evaluator workflow:
 
 ---
 
-*87+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
+*94+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
 
-<!-- CHECKSUM: Atoms(22) + Molecules(17+1) + Organisms(40+) + Templates(8) = 87+ -->
+<!-- CHECKSUM: Atoms(22) + Molecules(18) + Organisms(46) + Templates(8) = 94 -->
