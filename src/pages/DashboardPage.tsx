@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DashboardLayout } from "@/components/templates/DashboardLayout";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
-import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
+import { EvalConfirmModal } from "@/components/organisms/EvalConfirmModal";
 import { PromptConfigFields, defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
 import type { PromptConfigState } from "@/components/organisms/PromptConfigFields";
 import { TabNav } from "@/components/molecules/TabNav";
@@ -31,8 +31,8 @@ export default function DashboardPage() {
   const [evalConfig, setEvalConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const typingText = useTypingAnimation();
 
-  // Evaluator state
-  const [testRunnerOpen, setTestRunnerOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [evalRunning, setEvalRunning] = useState(false);
 
   return (
     <DashboardLayout
@@ -102,7 +102,7 @@ export default function DashboardPage() {
                 <Button
                   size="sm"
                   disabled={!evalConfig.instruction.trim()}
-                  onClick={() => setTestRunnerOpen(true)}
+                  onClick={() => setConfirmOpen(true)}
                 >
                   <Sparkles className="h-3.5 w-3.5" />
                   Evaluate
@@ -116,11 +116,19 @@ export default function DashboardPage() {
       {/* Recent Activity — full-width */}
       <ActivityFeed items={feedItems} />
 
-      {/* TestRunnerModal */}
-      <TestRunnerModal
-        open={testRunnerOpen}
-        onOpenChange={setTestRunnerOpen}
-        initialPrompt={evalConfig.instruction}
+      {/* EvalConfirmModal — same workflow as Designer */}
+      <EvalConfirmModal
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        config={evalConfig}
+        running={evalRunning}
+        onConfirm={() => {
+          setEvalRunning(true);
+          setTimeout(() => {
+            setEvalRunning(false);
+            setConfirmOpen(false);
+          }, 1800);
+        }}
       />
     </DashboardLayout>
   );
