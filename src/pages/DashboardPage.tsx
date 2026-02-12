@@ -2,13 +2,14 @@ import { useState } from "react";
 import { DashboardLayout } from "@/components/templates/DashboardLayout";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
-import { EvaluationResults } from "@/components/organisms/EvaluationResults";
+import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
 import { PromptConfigFields, defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
 import type { PromptConfigState } from "@/components/organisms/PromptConfigFields";
 import { TabNav } from "@/components/molecules/TabNav";
 import { Heading, Text } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
@@ -20,19 +21,6 @@ const feedItems = [
   { actor: "Jordan L.", initials: "JL", action: "archived", resource: "legacy-summarizer", time: "5 hrs ago" },
 ];
 
-const miniEvalData = {
-  model: "claude-3.5-sonnet",
-  overallScore: 87,
-  totalTests: 24,
-  passed: 21,
-  failed: 3,
-  metrics: [
-    { name: "Accuracy", score: 92 },
-    { name: "Relevance", score: 88 },
-    { name: "Safety", score: 100 },
-  ],
-};
-
 const aiDesignerTabs = [
   { label: "Generator", value: "generator" },
   { label: "Evaluator", value: "evaluator" },
@@ -42,6 +30,10 @@ export default function DashboardPage() {
   const [aiTab, setAiTab] = useState("generator");
   const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const typingText = useTypingAnimation();
+
+  // Evaluator state
+  const [evalPrompt, setEvalPrompt] = useState("");
+  const [testRunnerOpen, setTestRunnerOpen] = useState(false);
 
   return (
     <DashboardLayout
@@ -92,12 +84,49 @@ export default function DashboardPage() {
             </div>
           </div>
         ) : (
-          <EvaluationResults {...miniEvalData} />
+          <div className="rounded-md border border-border bg-card">
+            <div className="flex items-center justify-between border-b border-border px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="font-display text-sm font-medium text-foreground">Quick Evaluate</span>
+              </div>
+              <Badge variant="secondary" size="sm">
+                <span className="font-mono">CLEAR</span>
+              </Badge>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="space-y-1.5">
+                <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Prompt</span>
+                <Textarea
+                  value={evalPrompt}
+                  onChange={(e) => setEvalPrompt(e.target.value)}
+                  placeholder="Paste a prompt to evaluate…"
+                  className="min-h-[60px] font-mono text-xs"
+                />
+              </div>
+              <div className="flex justify-end">
+                <Button
+                  size="sm"
+                  disabled={!evalPrompt.trim()}
+                  onClick={() => setTestRunnerOpen(true)}
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Evaluate
+                </Button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
       {/* Recent Activity — full-width */}
       <ActivityFeed items={feedItems} />
+
+      {/* TestRunnerModal */}
+      <TestRunnerModal
+        open={testRunnerOpen}
+        onOpenChange={setTestRunnerOpen}
+        initialPrompt={evalPrompt}
+      />
     </DashboardLayout>
   );
 }
