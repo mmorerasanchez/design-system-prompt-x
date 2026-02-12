@@ -1,12 +1,12 @@
-# promptx Design System v2.1
+# promptx Design System v2.2
 
-> Single Source of Truth · Last updated: 2026-02-10
+> Single Source of Truth · Last updated: 2026-02-12
 
 ---
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 83 components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 87+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -254,7 +254,7 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | TestCaseRow | custom | Ready | Test case with checkbox, input/expected, status, score |
 | ScoreBreakdown | custom | Ready | Score badge that opens a centered modal with weighted rubric |
 
-### Organisms (36)
+### Organisms (40)
 
 | Name | Base | Status |
 |---|---|---|
@@ -299,6 +299,11 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | CreatePromptDialog | custom | Ready |
 | PromptConfigFields | custom | Ready |
 | SidebarNav | custom | Ready |
+| CLEARScorePanel | custom | Ready |
+| ImprovedPromptPanel | custom | Ready |
+| EvalConfirmModal | custom | Ready |
+| EvaluationResultsView | custom | Ready |
+| TestRunnerModal | custom | Deprecated |
 
 ### Templates (8)
 
@@ -320,15 +325,15 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 ### 8.1 Dashboard (`/app`)
 
 **Template:** DashboardLayout  
-**Key organisms:** DashboardStats, TabNav, PromptConfigFields, EvaluationResults, ActivityFeed
+**Key organisms:** DashboardStats, TabNav, PromptConfigFields, EvalConfirmModal, EvaluationResultsView, ActivityFeed
 
 | Section | Width | Content |
 |---|---|---|
 | PageHeader | full | H1 "Dashboard" + muted subtitle |
-| KPI Row | full | 4× StatCard (Total Prompts, Production, Avg Score, Active Users) |
+| KPI Row | full | 4× StatCard (Total Prompts, Evaluations, Avg Score, Active Users) |
 | AI Designer | full | TabNav (Generator / Evaluator) + "Open designer" link |
 | Generator tab | full | Compact PromptConfigFields with typing animation + Generate button |
-| Evaluator tab | full | EvaluationResults summary |
+| Evaluator tab | full | Compact PromptConfigFields + Evaluate button → EvalConfirmModal → EvaluationResultsView |
 | Activity Feed | full | Recent activity list |
 
 ### 8.2 Prompt Store (`/app/library`)
@@ -349,17 +354,17 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 ### 8.3 AI Designer (`/app/ai-designer`)
 
 **Template:** DashboardLayout  
-**Key organisms:** StatCard, TabNav, PromptConfigFields, EvaluationResults, RunHistory, TestDatasetManager
+**Key organisms:** StatCard, TabNav, PromptConfigFields, EvalConfirmModal, EvaluationResultsView, RunHistory, TestDatasetManager
 
 | Tab | Layout | Content |
 |---|---|---|
 | Generator | 50/50 split (lg) | Left: Full PromptConfigFields + Generate button. Right: Output area |
-| Evaluator | stacked | EvaluationResults + 2/3 TestDatasetManager + 1/3 RunHistory |
+| Evaluator | stacked | Full PromptConfigFields + Evaluate button → EvalConfirmModal → EvaluationResultsView. Below: 2/3 TestDatasetManager + 1/3 RunHistory |
 
 ### 8.4 Prompt Detail — Saved View (`/app/library/:id`)
 
 **Template:** DetailLayout  
-**Key organisms:** BreadcrumbNav, StatusLifecycleBar, StatCard, AnatomyFieldCard, CompiledPreview
+**Key organisms:** BreadcrumbNav, StatusLifecycleBar, StatCard, AnatomyFieldCard, CompiledPreview, EvalConfirmModal, EvaluationResultsView
 
 | Section | Width | Content |
 |---|---|---|
@@ -369,12 +374,13 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | KPI Row | full | 4× StatCard |
 | Content | 50/50 split | Left: Fields (compact cards), Settings grid, Variables list. Right: Sticky CompiledPreview |
 
+**Run action:** Run button opens EvalConfirmModal (with compiled prompt as instruction) → transitions to full-page EvaluationResultsView.  
 **Navigation:** Edit button uses `useNavigate()` (not `asChild`) to avoid React `Slot` crash.
 
 ### 8.5 Prompt Editor (`/app/library/:id/edit`)
 
 **Template:** EditorLayout (split-pane)  
-**Key organisms:** BreadcrumbNav, TabNav, AnatomyFieldCard, CompiledPreview, VariableManager, VersionTimeline, VersionComparison, PromptConfigFields
+**Key organisms:** BreadcrumbNav, TabNav, AnatomyFieldCard, CompiledPreview, VariableManager, VersionTimeline, VersionComparison, PromptConfigFields, EvalConfirmModal, EvaluationResultsView
 
 | Tab | Content |
 |---|---|
@@ -384,6 +390,7 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | Versions | 1/3 VersionTimeline + 2/3 VersionComparison side-by-side |
 | Variations | Disabled, "soon" badge |
 
+**Run action:** Run button opens EvalConfirmModal (with compiled prompt as instruction) → transitions to full-page EvaluationResultsView.  
 **Navigation:** Back button uses `useNavigate()`.
 
 ### 8.6 Settings (`/app/settings`)
@@ -556,6 +563,13 @@ All form components (Input, Textarea, SelectTrigger) must align visually with st
 
 | Date | Change | Files Affected |
 |---|---|---|
+| 2026-02-12 | Unified evaluator flow: all 4 entry points (Dashboard, Designer, Detail, Editor) use EvalConfirmModal → EvaluationResultsView | `DashboardPage.tsx`, `AIDesignerPage.tsx`, `PromptDetailPage.tsx`, `PromptEditorPage.tsx` |
+| 2026-02-12 | Added CLEARScorePanel: collapsible CLEAR framework scores with dimension breakdown + Insights placeholder | `CLEARScorePanel.tsx` |
+| 2026-02-12 | Added ImprovedPromptPanel: tabbed view (Full Version / Anatomy Fields) with copy, save, re-evaluate actions | `ImprovedPromptPanel.tsx` |
+| 2026-02-12 | Added EvalConfirmModal: configuration summary dialog before running evaluations | `EvalConfirmModal.tsx` |
+| 2026-02-12 | Added EvaluationResultsView: full-page results with Improved Prompt, KPIs, CLEAR Score | `EvaluationResultsView.tsx` |
+| 2026-02-12 | Deprecated TestRunnerModal in favor of EvalConfirmModal + EvaluationResultsView workflow | `TestRunnerModal.tsx` |
+| 2026-02-12 | CLEARScorePanel: consolidated Strengths/Improvements/Suggestions into single "Insights" section with "soon" badge | `CLEARScorePanel.tsx` |
 | 2026-02-10 | ScoreBreakdown: Converted from Popover to centered Dialog (modal) | `ScoreBreakdown.tsx` |
 | 2026-02-10 | Onboarding step 3: Removed borders from anatomy field cards | `OnboardingPage.tsx` |
 | 2026-02-10 | Onboarding step 4: Removed Sparkles icon above generation phases | `OnboardingPage.tsx` |
@@ -567,6 +581,32 @@ All form components (Input, Textarea, SelectTrigger) must align visually with st
 
 ---
 
-*83+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
+## 17. Evaluator Workflow Architecture
 
-<!-- CHECKSUM: Atoms(22) + Molecules(17+1) + Organisms(36+) + Templates(8) = 83+ -->
+All 4 entry points share the same evaluator workflow:
+
+```
+[Configure] → [EvalConfirmModal] → [1.8s simulation] → [EvaluationResultsView]
+```
+
+| Entry Point | Instruction Source | Back Navigation |
+|---|---|---|
+| Dashboard (`/app`) | User-typed in evaluator textarea | Returns to Dashboard evaluator tab |
+| AI Designer (`/app/ai-designer`) | User-typed in evaluator config | Returns to Designer evaluator tab |
+| Prompt Detail (`/app/library/:id`) | Compiled prompt from anatomy fields | Returns to Detail page |
+| Prompt Editor (`/app/library/:id/edit`) | Compiled prompt from anatomy fields | Returns to Editor page |
+
+### EvaluationResultsView Layout
+
+| Section | Component | Description |
+|---|---|---|
+| Back + Header | Button + Heading | "Back to Evaluator" + "Evaluation Results" |
+| Improved Prompt | ImprovedPromptPanel | Tabbed: Full Version (monospace preview) / Anatomy Fields (editable cards). Actions: Copy, Save to Store, Re-evaluate |
+| KPI Row | 4× StatCard | Tokens, Latency, Est. Cost, CLEAR Score |
+| CLEAR Score | CLEARScorePanel | Collapsible: overall score, 5 dimension bars (C/L/E/A/R), Insights placeholder |
+
+---
+
+*87+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
+
+<!-- CHECKSUM: Atoms(22) + Molecules(17+1) + Organisms(40+) + Templates(8) = 87+ -->
