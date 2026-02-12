@@ -30,7 +30,9 @@ import { IntegrationCard } from "@/components/organisms/IntegrationCard";
 import { OnboardingWizard } from "@/components/organisms/OnboardingWizard";
 import { CLEARScorePanel } from "@/components/organisms/CLEARScorePanel";
 import { ImprovedPromptPanel } from "@/components/organisms/ImprovedPromptPanel";
-import { TestRunnerModal } from "@/components/organisms/TestRunnerModal";
+import { EvalConfirmModal } from "@/components/organisms/EvalConfirmModal";
+import { EvaluationResultsView } from "@/components/organisms/EvaluationResultsView";
+import { defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
 import type { CLEARDimension, CLEARSuggestion } from "@/components/organisms/CLEARScorePanel";
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 import { Badge } from "@/components/ui/badge";
@@ -484,12 +486,20 @@ export default function OrganismsPage() {
         <CodeBlock>{`<ImprovedPromptPanel improvedPrompt="..." anatomyFields={[{ field, content, tokenCount }]} onReEvaluate={fn} onSaveToStore={fn} />`}</CodeBlock>
       </Section>
 
-      {/* ── TEST RUNNER MODAL ── */}
-      <Section id="testrunnermodal" title="Test Runner Modal" description="Dialog modal for running prompt evaluations. Triggered from Editor 'Run' buttons and Dashboard/Designer evaluator tabs. Supports variable auto-detection and inline CLEAR results." composedOf="Dialog + Textarea + Select + Input + CLEARScorePanel + Button">
+      {/* ── EVAL CONFIRM MODAL ── */}
+      <Section id="evalconfirmmodal" title="Eval Confirm Modal" description="Configuration summary dialog shown before running an evaluation. Displays model, platform, temperature, anatomy fields, and instruction preview." composedOf="Dialog + Badge + Button">
         <div className="p-4">
-          <TestRunnerModalDemo />
+          <EvalConfirmModalDemo />
         </div>
-        <CodeBlock>{`<TestRunnerModal open={boolean} onOpenChange={fn} initialPrompt="..." initialVariables={[{ name, value }]} />`}</CodeBlock>
+        <CodeBlock>{`<EvalConfirmModal open={boolean} onOpenChange={fn} config={PromptConfigState} running={boolean} onConfirm={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── EVALUATION RESULTS VIEW ── */}
+      <Section id="evaluationresultsview" title="Evaluation Results View" description="Full-page results layout: Improved Prompt (tabbed), KPI stats, and CLEAR Score Panel. Used after evaluation completes across all entry points." composedOf="ImprovedPromptPanel + StatCard + CLEARScorePanel + Button">
+        <div className="p-4">
+          <EvaluationResultsView onBack={() => {}} onReEvaluate={() => {}} />
+        </div>
+        <CodeBlock>{`<EvaluationResultsView onBack={fn} onReEvaluate={fn} />`}</CodeBlock>
       </Section>
     </div>
   );
@@ -623,21 +633,30 @@ const showcaseAnatomyFields: { field: AnatomyField; content: string; tokenCount:
   { field: "constraints", content: "Never mention competitors. Handle adversarial inputs with a polite refusal.", tokenCount: 44 },
 ];
 
-/** Demo wrapper for TestRunnerModal */
-function TestRunnerModalDemo() {
+/** Demo wrapper for EvalConfirmModal */
+function EvalConfirmModalDemo() {
   const [open, setOpen] = useState(false);
+  const config = {
+    ...defaultPromptConfig,
+    instruction: "You are a helpful customer support agent for {{company_name}}. Always respond politely and professionally.",
+    model: "claude-4-sonnet" as const,
+    platform: "Claude" as const,
+    anatomyFields: ["role", "tone", "task", "output"] as string[],
+  };
   return (
     <>
       <button
         onClick={() => setOpen(true)}
         className="rounded-md border border-accent bg-accent/10 px-4 py-2 font-display text-sm font-medium text-accent hover:bg-accent/20 transition-colors"
       >
-        Open Test Runner Modal
+        Open Eval Confirm Modal
       </button>
-      <TestRunnerModal
+      <EvalConfirmModal
         open={open}
         onOpenChange={setOpen}
-        initialPrompt="You are a helpful customer support agent for {{company_name}}. Always respond politely."
+        config={config}
+        running={false}
+        onConfirm={() => setOpen(false)}
       />
     </>
   );
