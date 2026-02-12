@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, CheckCircle2, AlertTriangle, Lightbulb } from "lucide-react";
+import { ChevronDown, Lightbulb } from "lucide-react";
 import { useState } from "react";
 
 export interface CLEARDimension {
@@ -93,60 +93,19 @@ export function CLEARScorePanel({
               ))}
             </div>
 
-            {/* Strengths */}
-            {strengths.length > 0 && (
-              <div className="space-y-2">
-                <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Strengths</span>
-                <ul className="space-y-1.5">
-                  {strengths.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success mt-0.5" />
-                      <span className="font-body text-sm text-foreground">{s}</span>
-                    </li>
-                  ))}
-                </ul>
+            {/* Insights — coming soon */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Insights</span>
+                <Badge variant="secondary" size="sm"><span className="font-mono">soon</span></Badge>
               </div>
-            )}
-
-            {/* Improvements */}
-            {improvements.length > 0 && (
-              <div className="space-y-2">
-                <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Improvements</span>
-                <ul className="space-y-1.5">
-                  {improvements.map((imp, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-warning mt-0.5" />
-                      <span className="font-body text-sm text-foreground">{imp}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="rounded-md border border-border bg-muted/50 px-4 py-8 text-center">
+                <Lightbulb className="mx-auto h-5 w-5 text-muted-foreground mb-2" />
+                <p className="font-body text-sm text-muted-foreground">
+                  Strengths, improvements, and actionable suggestions will appear here.
+                </p>
               </div>
-            )}
-
-            {/* Top Suggestions */}
-            {suggestions.length > 0 && (
-              <div className="space-y-2">
-                <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Suggestions</span>
-                <div className="space-y-2">
-                  {suggestions.map((sug) => (
-                    <div key={sug.id} className="flex items-start justify-between gap-3 rounded-md border border-border px-3 py-2">
-                      <div className="flex items-start gap-2 min-w-0">
-                        <Lightbulb className="h-3.5 w-3.5 shrink-0 text-accent mt-0.5" />
-                        <span className="font-body text-sm text-foreground">{sug.text}</span>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="shrink-0"
-                        onClick={() => onApplySuggestion?.(sug.id)}
-                      >
-                        Apply
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         </CollapsibleContent>
       </div>
