@@ -9,7 +9,6 @@ import { TabNav } from "@/components/molecules/TabNav";
 import { Heading, Text } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
@@ -29,10 +28,10 @@ const aiDesignerTabs = [
 export default function DashboardPage() {
   const [aiTab, setAiTab] = useState("generator");
   const [config, setConfig] = useState<PromptConfigState>(defaultPromptConfig);
+  const [evalConfig, setEvalConfig] = useState<PromptConfigState>(defaultPromptConfig);
   const typingText = useTypingAnimation();
 
   // Evaluator state
-  const [evalPrompt, setEvalPrompt] = useState("");
   const [testRunnerOpen, setTestRunnerOpen] = useState(false);
 
   return (
@@ -94,19 +93,15 @@ export default function DashboardPage() {
               </Badge>
             </div>
             <div className="p-4 space-y-3">
-              <div className="space-y-1.5">
-                <span className="font-mono text-2xs uppercase tracking-widest text-muted-foreground">Prompt</span>
-                <Textarea
-                  value={evalPrompt}
-                  onChange={(e) => setEvalPrompt(e.target.value)}
-                  placeholder="Paste a prompt to evaluate…"
-                  className="min-h-[60px] font-mono text-xs"
-                />
-              </div>
+              <PromptConfigFields
+                config={evalConfig}
+                onChange={setEvalConfig}
+                mode="compact"
+              />
               <div className="flex justify-end">
                 <Button
                   size="sm"
-                  disabled={!evalPrompt.trim()}
+                  disabled={!evalConfig.instruction.trim()}
                   onClick={() => setTestRunnerOpen(true)}
                 >
                   <Sparkles className="h-3.5 w-3.5" />
@@ -125,7 +120,7 @@ export default function DashboardPage() {
       <TestRunnerModal
         open={testRunnerOpen}
         onOpenChange={setTestRunnerOpen}
-        initialPrompt={evalPrompt}
+        initialPrompt={evalConfig.instruction}
       />
     </DashboardLayout>
   );
