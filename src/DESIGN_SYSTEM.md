@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 94+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 100+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -254,7 +254,7 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | TestCaseRow | custom | Ready | Test case with checkbox, input/expected, status, score |
 | ScoreBreakdown | custom | Ready | Score badge that opens a centered modal with weighted rubric |
 
-### Organisms (46)
+### Organisms (52)
 
 | Name | Base | Status |
 |---|---|---|
@@ -304,6 +304,12 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | EvalConfirmModal | custom | Ready |
 | EvaluationResultsView | custom | Ready |
 | TestRunnerModal | custom | Deprecated |
+| APIDocPanel | custom | Ready |
+| PresetCard | custom | Ready |
+| PresetDetailPanel | custom | Ready |
+| OrganizationManager | custom | Ready |
+| GlobalVariableManager | custom | Ready |
+| DataManager | custom | Ready |
 
 ### Templates (8)
 
@@ -396,16 +402,18 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 ### 8.6 Settings (`/app/settings`)
 
 **Template:** DashboardLayout  
-**Key organisms:** SettingsNav, APIKeyManager, IntegrationCard, StatCard
+**Key organisms:** SettingsNav, APIKeyManager, IntegrationCard, APIDocPanel, PresetCard, PresetDetailPanel, OrganizationManager, GlobalVariableManager, DataManager, StatCard
 
-| Section | Content |
+| Tab | Content |
 |---|---|
-| Profile | Name, email, role, timezone form + Danger Zone |
+| Profile | Personal info form + Editor Defaults (merged from Preferences) |
 | Billing | Plan card with usage meters + credit usage bar chart + billing history |
-| API Keys | APIKeyManager with masked values and add/delete |
-| Integrations | Grid of IntegrationCards with connect/disconnect |
-| Preferences | Toggle switches for editor defaults |
-| Team | Coming soon placeholder |
+| API Keys | APIKeyManager (BYOK) + APIDocPanel + Integrations grid |
+| Presets | Model Presets (system + user CRUD) + Prompt Presets (system + user CRUD) with PresetDetailPanel |
+| Organization | OrganizationManager (Tabs + Tags sections with create/edit modals) |
+| Variables | GlobalVariableManager (table + add form + sync note) |
+| Data | DataManager (Export checkboxes + Import drop zone + Danger Zone) |
+| Team | Coming soon placeholder (disabled) |
 
 ### 8.7 Onboarding (`/app/welcome`)
 
@@ -607,6 +615,6 @@ All 4 entry points share the same evaluator workflow:
 
 ---
 
-*94+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
+*100+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
 
-<!-- CHECKSUM: Atoms(22) + Molecules(18) + Organisms(46) + Templates(8) = 94 -->
+<!-- CHECKSUM: Atoms(22) + Molecules(18) + Organisms(52) + Templates(8) = 100 -->
