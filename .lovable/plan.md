@@ -1,165 +1,110 @@
 
-
-# Evaluator Experience: Test Runner Modal + Evaluation Results Panel
+# Settings Panel Overhaul — High-Fidelity Prototype
 
 ## Overview
 
-This plan redesigns the Evaluator tab into a proper prompt evaluation experience. Users paste/write a prompt (or start from a preset), run an AI evaluation that returns a CLEAR framework score, KPIs, and an improved version -- both as full text and as anatomy fields. The current analytics-style dashboard content (EvaluationResults, TestDatasetManager, RunHistory) gets extracted to a separate file for future analytics use.
-
-## What Changes
-
-### 1. Extract analytics data to a separate file
-
-Move the current evaluator tab content (the dashboard-style EvaluationResults, TestDatasetManager, RunHistory mock data and layout) into a new file `src/data/evaluator-analytics-mock.ts` so it's preserved for future analytics implementation but no longer clutters the evaluator UX.
-
-### 2. New Organism: `TestRunnerModal`
-
-A Dialog modal (consistent with CreatePromptDialog and ScoreBreakdown patterns) triggered by "Run" buttons across the app.
-
-**Location**: `src/components/organisms/TestRunnerModal.tsx`
-
-**Contents (top to bottom)**:
-- DialogHeader: "Test Run" title + description
-- Prompt input: a monospace Textarea for pasting/writing the prompt (pre-filled when launched from editor)
-- "Start from preset" link (reuses the same `ArrowRight` pattern from AI Designer)
-- Model selection: reuses the existing `ModelSelect` pattern from PromptConfigFields (Select with grouped providers)
-- Variable inputs section: if prompt contains `{{variables}}`, show name/value pairs (reuses the VariableEditorRow molecule pattern)
-- "Run Evaluation" Button with Sparkles icon
-- Results area (appears after run, replaces empty state):
-  - KPI row: 3 inline stats (Tokens, Latency, Est. Cost) using the same `font-mono text-lg font-bold` pattern from EvaluationResults
-  - CLEAR Score gauge section (see next organism)
-
-**Props**: `open`, `onOpenChange`, `initialPrompt?` (string, pre-filled from editor), `initialVariables?`
-
-**Reused components**: Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Button, Select, Textarea, Badge
-
-### 3. New Organism: `CLEARScorePanel`
-
-An expandable/collapsible panel showing the CLEAR framework evaluation results. Used inside TestRunnerModal and also embeddable in the editor as an expandable section.
-
-**Location**: `src/components/organisms/CLEARScorePanel.tsx`
-
-**CLEAR Framework dimensions** (5 criteria):
-- **C**larity -- How unambiguous the instructions are
-- **L**everage -- How well it uses model capabilities
-- **E**fficiency -- Token optimization, no redundancy
-- **A**daptability -- Handles edge cases and variations
-- **R**obustness -- Resilience to adversarial inputs
-
-**Layout (top to bottom)**:
-- Overall CLEAR score: large mono number with semantic color (reuses `scoreColor` pattern from EvaluationResults)
-- Dimension breakdown: 5 rows, each with label, Progress bar, score (reuses exact pattern from EvaluationResults metrics section)
-- Strengths section: 2-3 bullet points with success-colored dots
-- Improvements section: 2-3 bullet points with warning-colored dots
-- Top 3 Suggestions: each in a bordered card-row with suggestion text + "Apply" ghost Button
-
-**Reused components**: Progress, Badge, Button
-
-### 4. New Organism: `ImprovedPromptPanel`
-
-Shows the AI-improved version of the prompt in two views.
-
-**Location**: `src/components/organisms/ImprovedPromptPanel.tsx`
-
-**Two sub-sections via TabNav**:
-- **Full Version** tab: monospace read-only view of the complete improved prompt (reuses CompiledPreview pattern) with Copy and "Save to Store" buttons. "Save to Store" opens a small inline form with status select (Draft default, Testing, Production) using existing status Badge variants.
-- **Anatomy Fields** tab: the improved prompt broken into the 9 anatomy fields, each rendered as an `AnatomyFieldCard` with `variant="expanded"` (editable). Below: "Re-evaluate" Button and "Save to Store" Button.
-
-**Reused components**: TabNav, CompiledPreview (pattern), AnatomyFieldCard, Button, Badge (status variants), Select
-
-### 5. Rewire the Evaluator tab in AIDesignerPage
-
-Replace the current analytics dashboard with the new evaluator experience:
-
-**Layout**: 50/50 split (matching Generator tab), consistent with page architecture.
-
-- **Left pane** ("Evaluate"): card with prompt Textarea input, model select, "Start from preset" link, and "Evaluate" Button. Same card pattern as Generator's Configuration pane.
-- **Right pane** ("Results"): Initially shows empty state italic text. After evaluation: CLEARScorePanel + ImprovedPromptPanel stacked in a scrollable area.
-
-### 6. Rewire the Evaluator tab in DashboardPage
-
-Replace the `EvaluationResults` mini-view with a compact evaluator snippet:
-- Same compact card pattern as the Generator snippet
-- Textarea for prompt + "Evaluate" button
-- On click, opens TestRunnerModal
-
-### 7. Wire "Run" buttons to TestRunnerModal
-
-Connect the existing "Run" buttons in:
-- `PromptDetailPage` -- the "Run" ghost button in the header opens TestRunnerModal with the compiled prompt pre-filled
-- `PromptEditorPage` -- the "Run" ghost button opens TestRunnerModal with current compiled output
-
-### 8. Update organisms barrel export
-
-Add new organisms to `src/components/organisms/index.ts`:
-- `TestRunnerModal`
-- `CLEARScorePanel`
-- `ImprovedPromptPanel`
-
-### 9. Update DESIGN_SYSTEM.md
-
-Document:
-- CLEAR framework (5 dimensions with descriptions)
-- TestRunnerModal (trigger points, props, content)
-- CLEARScorePanel (layout, reused patterns)
-- ImprovedPromptPanel (two-tab structure, save flow)
-- Updated Evaluator tab description in page architecture
+Restructure the Settings page from 6 tabs to 7 tabs, consolidating existing content, eliminating redundant tabs, and adding 4 new feature-rich tabs (Presets, Organization, Variables, Data). All new components follow the existing atomic design patterns: bordered card containers with `font-display` headers, `font-mono` data values, `bg-card` surfaces, and `space-y-6` section spacing.
 
 ---
 
-## Technical Details
+## Tab Structure (Before vs After)
 
-### File changes summary
+| Before | After |
+|---|---|
+| Profile | Profile (+ merged Preferences content) |
+| Billing | Billing (unchanged) |
+| API Keys | API Keys (BYOK + API Docs + Integrations merged) |
+| Integrations | *removed* |
+| Preferences | *removed* (merged into Profile) |
+| Team (disabled) | Team (disabled, unchanged) |
+| -- | Presets (new) |
+| -- | Organization (new) |
+| -- | Variables (new) |
+| -- | Data (new) |
 
-| Action | File |
-|--------|------|
-| Create | `src/data/evaluator-analytics-mock.ts` |
-| Create | `src/components/organisms/TestRunnerModal.tsx` |
-| Create | `src/components/organisms/CLEARScorePanel.tsx` |
-| Create | `src/components/organisms/ImprovedPromptPanel.tsx` |
-| Modify | `src/pages/AIDesignerPage.tsx` |
-| Modify | `src/pages/DashboardPage.tsx` |
-| Modify | `src/pages/PromptDetailPage.tsx` |
-| Modify | `src/pages/PromptEditorPage.tsx` |
-| Modify | `src/components/organisms/index.ts` |
-| Modify | `src/DESIGN_SYSTEM.md` |
+---
 
-### Component reuse map
+## New Files to Create
 
-```text
-TestRunnerModal
-  +-- Dialog, DialogContent, DialogHeader (ui)
-  +-- Select w/ grouped models (from PromptConfigFields pattern)
-  +-- Textarea (ui)
-  +-- Button (ui)
-  +-- Badge (ui)
-  +-- CLEARScorePanel (new organism)
+### 1. `src/components/organisms/PresetCard.tsx`
+Reusable card for both Model and Prompt presets:
+- Name (`font-body font-medium`), Badge ("System" read-only or "Custom"), details line (`font-mono text-xs`): Provider, Model, Temp for model presets; Complexity, Field count for prompt presets
+- Actions: [Copy] for system, [Configure] / [Delete] for user presets
+- Clicking "Configure" opens an inline detail expansion or dialog
 
-CLEARScorePanel
-  +-- Progress (ui)
-  +-- Badge (ui)
-  +-- Button (ui)
-  (follows EvaluationResults metric-row pattern exactly)
+### 2. `src/components/organisms/PresetDetailPanel.tsx`
+Detail view for configuring a preset:
+- **Model Preset Detail**: Two sub-tabs (Generation / Evaluation) each with provider, model_id, temperature, target_platform, system_prompt, field_templates. "View Default" / "Customize" toggle for system prompt override.
+- **Prompt Preset Detail**: Single view with provider, model, temperature, platform, user_prompt textarea, complexity select, reasoning_framework select, 9 anatomy field_templates. Context Engineering section (Knowledge Source Templates, Tool Schema Templates, Context Budget Defaults). Quality Gates section (toggle, min CLEAR score slider, required test runs, required fields, max context utilization %).
 
-ImprovedPromptPanel
-  +-- TabNav (molecule)
-  +-- AnatomyFieldCard (organism, variant="expanded")
-  +-- Button (ui)
-  +-- Badge (status variants)
-  +-- Select (ui)
-  (follows CompiledPreview monospace pattern for Full Version tab)
-```
+### 3. `src/components/organisms/OrganizationManager.tsx`
+Two-section panel:
+- **Tabs Section**: Header with [+ New Tab] button. "All Prompts" default tab (non-deletable, count badge). Custom tabs with edit/delete and prompt counts. Create modal with name field.
+- **Tags Section**: Header with [+ New Tag] button. Primary tags (color dot, name, count, edit/delete). Secondary tags (lightweight). Unused tags (0 count) highlighted. Create/edit modal with name, type radio (primary/secondary), color picker (primary only).
 
-### Entry points for evaluator
+### 4. `src/components/organisms/GlobalVariableManager.tsx`
+Extended version of the existing `VariableManager` pattern:
+- Table-like list: Name, Type badge, Default value, Description, Usage count
+- Add variable form: name ({{variable_name}} syntax), type select (text/number/boolean/select/json), default value, description
+- Sync note callout: "Global variables are templates -- importing copies the definition into the prompt."
 
-```text
-Dashboard Evaluator tab  -->  compact card + opens TestRunnerModal
-AI Designer Evaluator tab -->  inline 50/50 split experience
-Prompt Detail "Run"       -->  TestRunnerModal (pre-filled)
-Prompt Editor "Run"       -->  TestRunnerModal (pre-filled)
-```
+### 5. `src/components/organisms/DataManager.tsx`
+Three sections:
+- **Export**: Checkboxes (All prompts, Variables, Settings) with [Download Export] button (JSON)
+- **Import**: Drag-and-drop zone for `.json` files (reuses ImportDialog pattern)
+- **Danger Zone**: Red-bordered card with Clear All Data (confirmation dialog) and Account deletion
 
-### Mock data approach
+### 6. `src/components/organisms/APIDocPanel.tsx`
+Standard API documentation panel with mocked endpoints:
+- Base URL display, Authentication section (Bearer token)
+- Endpoint table: GET /prompts, GET /prompts/:id, POST /prompts, PUT /prompts/:id, DELETE /prompts/:id, POST /evaluate
+- Each endpoint shows method badge, path, description, sample request/response in monospace code blocks
 
-All components remain in prototype mode with hardcoded mock data for CLEAR scores, suggestions, and improved prompt content. No API calls or backend integration.
+---
 
+## Modified Files
+
+### `src/pages/SettingsPage.tsx`
+- Update tab array: Profile, Billing, API Keys, Presets, Organization, Variables, Data, Team (disabled)
+- **Profile tab**: Keep Personal Information card. Add "Editor Defaults" card below it (moved from Preferences). Remove Danger Zone (moved to Data tab).
+- **API Keys tab**: Section 1 = existing `APIKeyManager` (BYOK). Section 2 = new `APIDocPanel`. Section 3 = existing integrations grid using `IntegrationCard`.
+- **Presets tab**: Model Presets section (system presets read-only + user presets CRUD) + Prompt Presets section (same pattern)
+- **Organization tab**: Render `OrganizationManager`
+- **Variables tab**: Render `GlobalVariableManager`
+- **Data tab**: Render `DataManager`
+- Remove `activeSection === "integrations"` and `activeSection === "preferences"` conditionals
+- Update KPI row to reflect new counts (Presets, Variables, etc.)
+
+### `src/components/organisms/index.ts`
+- Add exports for all new organisms: `PresetCard`, `PresetDetailPanel`, `OrganizationManager`, `GlobalVariableManager`, `DataManager`, `APIDocPanel`
+
+### `src/DESIGN_SYSTEM.md`
+- Add new organisms to the inventory
+- Update Settings page description with new tab structure
+- Update component counts
+
+---
+
+## Mock Data
+
+All tabs use realistic mocked data:
+
+- **Model Presets**: 3 system (Balanced, Creative, Precise) + 1 user custom
+- **Prompt Presets**: 2 system (Customer Support, Code Review) + 1 user custom
+- **Tabs**: All Prompts (24), Customer Support (8), Internal Tools (6), Content Gen (10)
+- **Tags**: Primary (3 color-coded), Secondary (4 lightweight), 1 unused for cleanup highlight
+- **Global Variables**: 5 variables with types and usage counts
+- **API Endpoints**: 6 mocked REST endpoints with sample JSON
+
+---
+
+## Technical Notes
+
+- All new components use the standard card pattern: `rounded-md border border-border bg-card` with `border-b border-border px-3 py-2` headers
+- Typography: `font-display` for section titles, `font-body` for descriptions, `font-mono` for data/code values
+- Dialogs use `z-modal` (300) and `max-w-3xl` for create/edit modals
+- Badge variants reuse existing `outline`, `success`, `secondary`, and `count` variants
+- Switch, Select, Input, Textarea all follow existing `bg-card h-9 rounded-md` standards
+- Color picker for tags uses a simple preset color palette (8-10 colors) rendered as clickable circles
+- Quality Gates sliders reuse `ParameterControl` molecule
+- The preset system prompt "View Default" / "Customize" toggle uses a read-only textarea that becomes editable
