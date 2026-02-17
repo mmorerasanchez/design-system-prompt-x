@@ -571,6 +571,7 @@ All form components (Input, Textarea, SelectTrigger) must align visually with st
 
 | Date | Change | Files Affected |
 |---|---|---|
+| 2026-02-17 | Settings Panel Overhaul: restructured from 6→8 tabs, merged Preferences→Profile, consolidated Integrations→API Keys, added Presets/Organization/Variables/Data tabs | `SettingsPage.tsx`, `APIDocPanel.tsx`, `PresetCard.tsx`, `PresetDetailPanel.tsx`, `OrganizationManager.tsx`, `GlobalVariableManager.tsx`, `DataManager.tsx` |
 | 2026-02-12 | Unified evaluator flow: all 4 entry points (Dashboard, Designer, Detail, Editor) use EvalConfirmModal → EvaluationResultsView | `DashboardPage.tsx`, `AIDesignerPage.tsx`, `PromptDetailPage.tsx`, `PromptEditorPage.tsx` |
 | 2026-02-12 | Added CLEARScorePanel: collapsible CLEAR framework scores with dimension breakdown + Insights placeholder | `CLEARScorePanel.tsx` |
 | 2026-02-12 | Added ImprovedPromptPanel: tabbed view (Full Version / Anatomy Fields) with copy, save, re-evaluate actions | `ImprovedPromptPanel.tsx` |
