@@ -1,53 +1,57 @@
 
 
-# README.md Professional Upgrade
+## Redesign Overview Page
 
-## Overview
+### Goal
+Refresh the home overview page with accurate component counts, a cleaner minimalist layout inspired by the interface-design.dev reference, and a Getting Started section that links to the GitHub repo with a star CTA.
 
-Rewrite `README.md` to accurately reflect the live project architecture, branding ("promptx" not "prompt-x"), actual file paths, component counts, and routing structure. Remove fictional files/folders from the template and replace with the real codebase.
+### Changes (single file: `src/pages/OverviewPage.tsx`)
 
-## Key Corrections from Template
+### 1. Hero Section — Simplified
+- Keep the promptx wordmark with accent color and version badge
+- Update the subtitle to be more concise and confident
+- Add two CTA buttons inspired by the reference site:
+  - **Star on GitHub** (primary, links to `https://github.com/mmorerasanchez/design-system-prompt-x`, with a Star icon and external link)
+  - **Explore Components** (outline/secondary, scrolls or links to the Tokens page)
+- Replace the "Last updated" line with a cleaner mono-styled meta line
 
-The template contains several inaccuracies that need fixing:
+### 2. Stats Row — Updated Counts
+Update all counters to reflect the actual current inventory:
 
-1. **Brand name**: "prompt-x" should be "promptx" (no hyphen), with the "x" in accent color per branding rules
-2. **Architecture tree**: Template shows fictional paths (`src/tokens/`, `src/styles/`, `src/components/layout/`, `src/components/patterns/`, `src/pages/design/`). Real structure is Atomic Design: `atoms/ molecules/ organisms/ templates/ ui/` plus `pages/`
-3. **File references**: No `design-tokens.json`, no `tokens.css`, no `globals.css` — tokens live in `src/index.css` and `tailwind.config.ts`
-4. **Component counts**: Real inventory is 22 atoms, 18 molecules, 52 organisms, 8 templates (from DESIGN_SYSTEM.md)
-5. **Three-theme table**: Hex values in template are approximations — will use actual HSL values from `index.css`
-6. **Platform badges**: Template mentions "platform-badge.tsx" with Claude/GPT/Gemini colors, but these were intentionally removed per project decision
-7. **Repo URL**: Use `https://github.com/mmorerasanchez/design-system-prompt-x`
-8. **Routes**: Showcase routes (`/`, `/tokens`, `/atoms`, etc.) and app routes (`/app`, `/app/library`, etc.) should be documented
+| Label | Old Count | New Count |
+|-------|-----------|-----------|
+| Design Tokens | 60+ | 90+ |
+| Atoms | 16 | 7 |
+| Molecules | 8 | 18 |
+| Organisms | 10 | 42 |
+| Templates | 8 | 7 |
 
-## Changes
+Add a sixth stat: **UI Primitives: 48** (shadcn/ui base components). Update descriptions to match actual component names.
 
-### File: `README.md` (full rewrite)
+### 3. Explore Navigation — Keep, Polish
+- Keep the 6-card grid (Tokens, Atoms, Molecules, Organisms, Templates, Pages)
+- Update descriptions to be more accurate based on actual components
+- No structural changes needed; the card style is already clean
 
-Replace entirely with corrected content including:
+### 4. Design Principles — Keep As-Is
+- The 7 principles are accurate and well-written; no changes needed
 
-- **Header**: Fix brand to "promptx", update badge URLs, add correct repo URL
-- **Why This Exists**: Keep as-is (well written), minor polish
-- **Quick Start**: Update repo URL to actual GitHub URL
-- **Architecture**: Replace fictional tree with real Atomic Design structure showing actual folders and key files
-- **Design Principles**: Keep table, remove "Invisible Intelligence" (not in DESIGN_SYSTEM.md), align with actual 7 principles
-- **Three-Theme Table**: Use real HSL values from `index.css` converted to hex, remove fictional accent-400/600/700 tiers (we use a single `--accent` per theme)
-- **For AI Agents**: Update file references (`index.css` not `globals.css`, no `design-tokens.json`)
-- **Tech Stack**: Remove "W3C DTCG" (no such file exists), keep everything else
-- **Documentation table**: Fix file paths to actual files
-- **Component counts**: Add summary stats from DESIGN_SYSTEM.md
-- **Routes section**: Add showcase and app route tables
-- **License**: MIT with correct LICENSE link
-- **Author**: Keep as-is
+### 5. Getting Started — Full Rewrite
+Replace the current generic instructions with a GitHub-focused section:
+- Add the repo URL prominently in a copyable code block: `git clone https://github.com/mmorerasanchez/design-system-prompt-x.git`
+- Include install + dev commands: `npm install` then `npm run dev`
+- Add a "Star on GitHub" CTA button (matching the hero style)
+- Keep the 4 usage rules (copy config, screenshot components, follow tokens, respect fonts) but make them more concise
+- Add a note about AI usage referencing `CLAUDE.md` and `docs/ai-usage.md`
 
-### File: `LICENSE` (new file)
+### 6. Removed Elements
+- Remove `<Separator />` dividers between sections (the reference site uses whitespace-only separation, which is cleaner)
 
-Create standard MIT license file with author "Mariano Morera Sanchez" and year 2026.
+### Technical Details
 
-## Technical Details
+**File modified:** `src/pages/OverviewPage.tsx`
 
-- All shield.io badge URLs will use proper markdown image syntax (the template had broken badge formatting — missing `!` for image rendering)
-- The architecture tree will match the actual `src/` directory structure verified via `lov-list-dir`
-- Component inventory numbers sourced from `src/DESIGN_SYSTEM.md` (v2.3)
-- Live demo URL: `https://design-system-prompt-x.lovable.app/`
-- GitHub URL: `https://github.com/mmorerasanchez/design-system-prompt-x`
+**New imports:** `Star`, `ExternalLink`, `Github`, `Terminal` from lucide-react
+
+**No new components or dependencies required.** All changes are data updates and JSX restructuring within the existing page.
 
