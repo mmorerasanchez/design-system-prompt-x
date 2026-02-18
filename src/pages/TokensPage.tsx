@@ -104,6 +104,9 @@ export default function TokensPage() {
             { token: "--primary-foreground", label: "primary-foreground" },
             { token: "--accent", label: "accent" },
             { token: "--accent-foreground", label: "accent-foreground" },
+            { token: "--accent-muted", label: "accent-muted" },
+            { token: "--accent-subtle", label: "accent-subtle" },
+            { token: "--warm-dark", label: "warm-dark" },
           ]}
         />
         <ColorGroup
