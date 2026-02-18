@@ -297,6 +297,7 @@ IDE-inspired, clean, distraction-free aesthetic.
 | [`src/index.css`](src/index.css) | CSS custom properties, font imports, three-theme definitions, base resets |
 | [`tailwind.config.ts`](tailwind.config.ts) | Tailwind CSS integration with all custom tokens, fonts, spacing, and animations |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines, commit conventions, and component creation workflow |
+| [`CHANGELOG.md`](CHANGELOG.md) | Version history following [Keep a Changelog](https://keepachangelog.com/) format |
 
 ---
 
