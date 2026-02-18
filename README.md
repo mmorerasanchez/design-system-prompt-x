@@ -296,6 +296,7 @@ IDE-inspired, clean, distraction-free aesthetic.
 | [`src/DESIGN_SYSTEM.md`](src/DESIGN_SYSTEM.md) | Complete design system specification (v2.3) — component inventory, token reference, usage rules |
 | [`src/index.css`](src/index.css) | CSS custom properties, font imports, three-theme definitions, base resets |
 | [`tailwind.config.ts`](tailwind.config.ts) | Tailwind CSS integration with all custom tokens, fonts, spacing, and animations |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines, commit conventions, and component creation workflow |
 
 ---
 
