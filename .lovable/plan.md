@@ -1,130 +1,128 @@
 
-# Settings Panel Overhaul — High-Fidelity Prototype
-
-## Status: ✅ COMPLETED (2026-02-17)
+# Color System Upgrade — Cross-Theme Audit Fix
 
 ## Overview
 
-Restructured the Settings page from 6 tabs to 8 tabs, consolidating existing content, eliminating redundant tabs, and adding 4 new feature-rich tabs (Presets, Organization, Variables, Data). All new components follow the existing atomic design patterns.
+Apply 28 token changes across 3 themes plus 3 new tokens to fix the 6 identified issues: collapsed surface hierarchy, cold light theme, theme-blind semantics, accent inconsistency documentation, dark input/card collision, and missing accent variants.
 
 ---
 
-## Completed Work
+## Changes Summary
 
-### New Organisms Created (6)
-- ✅ `PresetCard.tsx` — Reusable card for Model/Prompt presets with System/Custom badges
-- ✅ `PresetDetailPanel.tsx` — Full detail view with Generation/Evaluation tabs, Quality Gates, Context Engineering
-- ✅ `OrganizationManager.tsx` — Tabs + Tags sections with create/edit modals, color picker
-- ✅ `GlobalVariableManager.tsx` — Table with typed badges, usage counts, add form, sync note
-- ✅ `DataManager.tsx` — Export checkboxes, Import drop zone, Danger Zone with confirmation dialogs
-- ✅ `APIDocPanel.tsx` — API Reference with base URL, auth, 6 expandable endpoint entries
+### Files Modified
 
-### Modified Files
-- ✅ `src/pages/SettingsPage.tsx` — 8-tab structure, merged Preferences→Profile, consolidated Integrations→API Keys
-- ✅ `src/components/organisms/index.ts` — All 6 new exports added
-- ✅ `src/DESIGN_SYSTEM.md` — Updated to 100+ components, new tab structure documented
-
-### Tab Structure (Final)
-| Tab | Content |
-|---|---|
-| Profile | Personal Info + Editor Defaults (merged from Preferences) |
-| Billing | Plan, usage meters, credit chart, billing history |
-| API Keys | BYOK APIKeyManager + APIDocPanel + Integrations grid |
-| Presets | Model Presets (3 system + 1 user) + Prompt Presets (2 system + 1 user) |
-| Organization | Tabs (project folders) + Tags (primary/secondary with color dots) |
-| Variables | Global variable library with types, defaults, usage counts |
-| Data | Export/Import + Danger Zone (Clear Data, Delete Account) |
-| Team | Coming soon (disabled) |
-
-### Verification
-- ✅ All 8 tabs render correctly
-- ✅ PresetDetailPanel opens via Configure action with Generation/Evaluation sub-tabs
-- ✅ Organization shows Tabs + Primary/Secondary Tags with unused highlight
-- ✅ Variables table displays typed badges and usage counts
-- ✅ Data tab shows Export checkboxes, Import drop zone, and Danger Zone
+1. **`src/index.css`** — All CSS variable updates (28 token changes + 3 new tokens per theme)
+2. **`tailwind.config.ts`** — Add 3 new color tokens: `accent-muted`, `accent-subtle`, `warm-dark`
+3. **`src/DESIGN_SYSTEM.md`** — Document all changes, new tokens, and the intentional warm accent shift
+4. **`src/pages/TokenSmokeTest.tsx`** — Add visual test rows for the 3 new tokens
 
 ---
 
-# Next Steps — Full Working Front-End Prototype
+## Token Changes by Theme
 
-## Phase 1: Cross-Page State & Navigation Polish
+### DARK THEME (`:root`) — 9 changes
 
-### 1.1 Unified State Management
-- Implement React Context or Zustand store for shared app state (prompts, variables, presets, tags)
-- Wire up CRUD operations across all pages (create prompt → appears in Store, delete → removed everywhere)
-- Connect global variables to prompt editor's variable import flow
+| Token | Before | After | Reason |
+|---|---|---|---|
+| `--secondary` | `12 6% 15%` | `20 8% 17%` | Decouple from card |
+| `--surface` | `24 10% 10%` | `20 8% 8%` | Decouple from muted, darker |
+| `--muted` | `24 10% 10%` | `24 10% 12%` | Distinct middle layer |
+| `--input` | `12 6% 15%` | `20 8% 17%` | Decouple from card |
+| `--border` | `30 6% 25%` | `25 8% 25%` | Warmer hue |
+| `--success` / `-bg` / `-border` | `142 71% 45%` | `148 45% 50%` | Warmer, lighter for dark bg |
+| `--warning` / `-bg` / `-border` | `45 93% 47%` | `40 75% 55%` | Golden, less acidic |
+| `--error` / `-bg` / `-border` | `0 84% 60%` | `6 65% 60%` | Warm terracotta red |
+| `--info` / `-bg` / `-border` | `217 91% 60%` | `215 50% 62%` | Muted, lighter |
 
-### 1.2 Navigation Consistency
-- Ensure all sidebar project tabs match Organization tab definitions
-- Wire sidebar project counts to actual prompt data
-- Add breadcrumb navigation to all nested views
+Plus `--destructive` updated to match error: `6 65% 60%`
 
-### 1.3 Search & Filter Integration
-- Connect SearchBar in TopBar to filter prompts across Store and Dashboard
-- Wire FilterBar status chips to actual prompt status values
-- Implement tag-based filtering using Organization tags
+New tokens added:
+- `--accent-muted: 18 40% 30%`
+- `--accent-subtle: 20 15% 10%`
+- `--warm-dark: 20 8% 72%`
 
-## Phase 2: Interactive Workflows
+### LIGHT THEME (`.light`) — 12 changes
 
-### 2.1 Prompt Lifecycle
-- Wire StatusLifecycleBar transitions (Draft → Testing → Production → Archived)
-- Connect status changes to prompt data model
-- Add confirmation dialogs for status transitions
+| Token | Before | After | Reason |
+|---|---|---|---|
+| `--background` | `0 0% 96%` | `30 5% 96%` | Add warmth |
+| `--card` | `0 0% 100%` | `40 8% 99%` | Warm white |
+| `--popover` | `0 0% 100%` | `40 8% 99%` | Match card |
+| `--primary-foreground` | `0 0% 98%` | `40 6% 98%` | Warm white |
+| `--secondary` | `0 0% 96%` | `30 8% 93%` | Separate from background |
+| `--muted` | `0 0% 96%` | `25 6% 91%` | Distinct layer |
+| `--muted-foreground` | `20 3% 41%` | `20 6% 41%` | Less dead gray |
+| `--accent-foreground` | `0 0% 100%` | `40 6% 99%` | Warm white |
+| `--border` / `--input` | `20 6% 90%` | `25 8% 89%` | Warmer border |
+| `--surface` | `0 0% 98%` | `40 6% 97%` | Match warm family |
+| `--success` | same base | `148 50% 42%` | Warmer green |
+| `--warning` | same base | `40 80% 48%` | Golden amber |
+| `--error` / `--destructive` | same base | `6 70% 52%` | Warm red |
+| `--info` | same base | `215 55% 52%` | Muted steel-blue |
 
-### 2.2 Evaluator Flow End-to-End
-- Ensure all 4 entry points (Dashboard, Designer, Detail, Editor) flow seamlessly
-- Wire EvalConfirmModal config to EvaluationResultsView output
-- Connect "Save to Store" from ImprovedPromptPanel to create new prompt version
+New tokens:
+- `--accent-muted: 18 35% 65%`
+- `--accent-subtle: 30 12% 94%`
+- `--warm-dark: 20 12% 36%`
 
-### 2.3 Preset Application
-- Wire preset selection to PromptConfigFields defaults
-- Apply model presets to Playground and Evaluator configurations
-- Apply prompt presets to new prompt creation flow
+Sidebar tokens updated to match warm surface values.
 
-## Phase 3: Data Persistence (LocalStorage MVP)
+### WARM THEME (`.warm`) — 7 changes
 
-### 3.1 Prompt Storage
-- Persist prompts, versions, and anatomy fields to localStorage
-- Support create, read, update, delete with optimistic UI
-- Implement prompt versioning with diff tracking
+| Token | Before | After | Reason |
+|---|---|---|---|
+| `--secondary` | `30 18% 91%` | `28 14% 87%` | 4pts darker than bg |
+| `--muted` | `30 18% 91%` | `25 12% 88%` | Between secondary and bg |
+| `--muted-foreground` | `20 3% 41%` | `20 6% 41%` | Less dead gray |
+| `--border` / `--input` | `30 12% 82%` | `28 14% 81%` | Smoother curve |
+| `--success` | same base | `152 45% 38%` | Deep earthy green |
+| `--warning` | same base | `38 70% 45%` | Deep golden |
+| `--error` / `--destructive` | same base | `8 60% 48%` | Deep warm red |
+| `--info` | same base | `215 45% 48%` | Deep muted blue |
 
-### 3.2 Settings Persistence
-- Persist user preferences (theme, editor defaults, presets)
-- Persist global variables and organization (tabs/tags)
-- Export/Import using actual localStorage data
-
-### 3.3 Activity Tracking
-- Log user actions to populate ActivityFeed with real data
-- Track evaluation runs for RunHistory
-- Persist dashboard KPI calculations
-
-## Phase 4: Polish & Edge Cases
-
-### 4.1 Responsive Design Audit
-- Test all pages at mobile (375px), tablet (768px), desktop (1280px+)
-- Ensure sidebar collapse works correctly on all pages
-- Verify modal/dialog stacking on mobile
-
-### 4.2 Empty States
-- Add EmptyState components for zero-data scenarios (no prompts, no variables, etc.)
-- Ensure graceful degradation when localStorage is empty
-
-### 4.3 Loading & Feedback
-- Add skeleton loading states for data-dependent sections
-- Implement toast notifications for all CRUD operations
-- Add optimistic updates for better perceived performance
+New tokens:
+- `--accent-muted: 18 38% 55%`
+- `--accent-subtle: 30 15% 92%`
+- `--warm-dark: 20 14% 30%`
 
 ---
 
-## Component Count Summary
-| Layer | Count |
-|---|---|
-| Atoms | 22 |
-| Molecules | 18 |
-| Organisms | 52 |
-| Templates | 8 |
-| **Total** | **100** |
+## Tailwind Config Updates
+
+Add to `colors` in `tailwind.config.ts`:
+
+```text
+"accent-muted": "hsl(var(--accent-muted))"
+"accent-subtle": "hsl(var(--accent-subtle))"
+"warm-dark": "hsl(var(--warm-dark))"
+```
+
+Also update `accent` to include `muted` and `subtle` as sub-keys for consistency.
 
 ---
 
-*Last updated: 2026-02-17*
+## Token Smoke Test Update
+
+Add a new section to `TokenSmokeTest.tsx` showing:
+- `accent-muted` swatch (hover state simulation)
+- `accent-subtle` swatch (highlight/selection)
+- `warm-dark` swatch (emphasis text)
+
+---
+
+## Documentation Updates
+
+Update `src/DESIGN_SYSTEM.md`:
+- Add new tokens to the Color Token Quick Reference
+- Document the intentional accent lightness shift in warm theme (H4 fix)
+- Add changelog entry for the cross-theme color audit
+- Update the color distribution description to note theme-adaptive semantics
+
+---
+
+## Technical Notes
+
+- Status colors (`--status-*`) are NOT changed — they use the same base as semantics but serve a different purpose (lifecycle badges). They will inherit the semantic fixes where they share the same CSS variable values.
+- The `--destructive` token is updated to match `--error` in each theme for consistency.
+- All changes are pure CSS variable updates — no component code changes needed beyond the smoke test.
+- The popover tokens mirror card tokens in each theme (existing pattern preserved).
