@@ -1,4 +1,4 @@
-# promptx Design System v2.2
+# promptx Design System v2.3
 
 > Single Source of Truth · Last updated: 2026-02-12
 
@@ -68,7 +68,7 @@ promptx is a prompt engineering platform built on the principle that **Prompts A
 | Token | CSS Variable | Dark HSL | Tailwind Class | Usage |
 |---|---|---|---|---|
 | Background | `--background` | `20 14% 4%` | `bg-background` | Page background (darkest) |
-| Surface | `--surface` | `24 10% 10%` | `bg-surface` | Panels, sidebars, headers |
+| Surface | `--surface` | `20 8% 8%` | `bg-surface` | Panels, sidebars, headers |
 | Card | `--card` | `12 6% 15%` | `bg-card` | Cards, dialogs, elevated content |
 
 ### Text Colors
@@ -79,23 +79,30 @@ promptx is a prompt engineering platform built on the principle that **Prompts A
 | Muted | `--muted-foreground` | `24 5% 64%` | `text-muted-foreground` | Secondary text, timestamps |
 | Subtle | `--foreground-subtle` | `24 5% 45%` | `text-foreground-subtle` | Tertiary text, placeholders |
 | Accent | `--accent` | `18 65% 55%` | `text-accent` | Links, highlights, interactive |
+| Warm Dark | `--warm-dark` | `20 8% 72%` | `text-warm-dark` | Emphasis text on warm surfaces |
 
 ### Accent & Action
 
 | Token | CSS Variable | Dark HSL | Tailwind Class | Usage |
 |---|---|---|---|---|
 | Accent | `--accent` | `18 65% 55%` | `bg-accent text-accent-foreground` | Primary CTA, terracotta orange |
+| Accent Muted | `--accent-muted` | `18 40% 30%` | `bg-accent-muted` | Hover states, disabled buttons, badges |
+| Accent Subtle | `--accent-subtle` | `20 15% 10%` | `bg-accent-subtle` | Code blocks, active tabs, selected rows |
 | Primary | `--primary` | `20 6% 90%` | `bg-primary text-primary-foreground` | Standard buttons (inverts per theme) |
-| Destructive | `--destructive` | `0 84% 60%` | `bg-destructive` | Delete, danger actions |
+| Destructive | `--destructive` | `6 65% 60%` | `bg-destructive` | Delete, danger actions (matches error) |
 
-### Semantic Feedback
+### Semantic Feedback (theme-adaptive)
 
-| State | CSS Variable | HSL | Text | Background | Border |
-|---|---|---|---|---|---|
-| Success | `--success` | `142 71% 45%` | `text-success` | `bg-success-bg` (10%) | `border-success-border` (30%) |
-| Warning | `--warning` | `45 93% 47%` | `text-warning` | `bg-warning-bg` (10%) | `border-warning-border` (30%) |
-| Error | `--error` | `0 84% 60%` | `text-error` | `bg-error-bg` (10%) | `border-error-border` (30%) |
-| Info | `--info` | `217 91% 60%` | `text-info` | `bg-info-bg` (10%) | `border-info-border` (30%) |
+Semantic colors are now **theme-adaptive** — each theme has tuned values for optimal contrast and warmth on its surfaces.
+
+| State | CSS Variable | Dark HSL | Light HSL | Warm HSL |
+|---|---|---|---|---|
+| Success | `--success` | `148 45% 50%` | `148 50% 42%` | `152 45% 38%` |
+| Warning | `--warning` | `40 75% 55%` | `40 80% 48%` | `38 70% 45%` |
+| Error | `--error` | `6 65% 60%` | `6 70% 52%` | `8 60% 48%` |
+| Info | `--info` | `215 50% 62%` | `215 55% 52%` | `215 45% 48%` |
+
+Each has `bg` (10% opacity) and `border` (30% opacity) variants: `bg-success-bg`, `border-success-border`, etc.
 
 ### Anatomy Field Colors (9 fields)
 
@@ -483,8 +490,8 @@ Three themes applied via class on `<html>`:
 | Warm | `.warm` | Sepia-toned, paper-like warmth |
 
 - **Primary button** inverts per theme (light-on-dark in dark, dark-on-light in light)
-- **Accent** stays terracotta orange (`hue 18°`) across all themes
-- All semantic, anatomy, and status colors are theme-invariant
+- **Accent** stays terracotta orange (`hue 18°`) across all themes. Warm theme intentionally uses `hsl(18, 60%, 45%)` (−10% lightness) for better contrast on warm surfaces — this is by design.
+- Semantic colors (success, warning, error, info) are **theme-adaptive** — each theme has tuned HSL values
 
 ---
 
@@ -571,6 +578,7 @@ All form components (Input, Textarea, SelectTrigger) must align visually with st
 
 | Date | Change | Files Affected |
 |---|---|---|
+| 2026-02-18 | Cross-Theme Color Audit: 28 token changes + 3 new tokens (`accent-muted`, `accent-subtle`, `warm-dark`). Fixed collapsed surface hierarchy, cold light theme, theme-blind semantics, dark input/card collision. Semantic colors now theme-adaptive. | `index.css`, `tailwind.config.ts`, `TokenSmokeTest.tsx`, `DESIGN_SYSTEM.md` |
 | 2026-02-17 | Settings Panel Overhaul: restructured from 6→8 tabs, merged Preferences→Profile, consolidated Integrations→API Keys, added Presets/Organization/Variables/Data tabs | `SettingsPage.tsx`, `APIDocPanel.tsx`, `PresetCard.tsx`, `PresetDetailPanel.tsx`, `OrganizationManager.tsx`, `GlobalVariableManager.tsx`, `DataManager.tsx` |
 | 2026-02-12 | Unified evaluator flow: all 4 entry points (Dashboard, Designer, Detail, Editor) use EvalConfirmModal → EvaluationResultsView | `DashboardPage.tsx`, `AIDesignerPage.tsx`, `PromptDetailPage.tsx`, `PromptEditorPage.tsx` |
 | 2026-02-12 | Added CLEARScorePanel: collapsible CLEAR framework scores with dimension breakdown + Insights placeholder | `CLEARScorePanel.tsx` |

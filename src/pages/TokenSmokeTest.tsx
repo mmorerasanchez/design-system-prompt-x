@@ -78,6 +78,33 @@ export default function TokenSmokeTest() {
         </div>
       </section>
 
+      {/* New Tokens Test */}
+      <section className="space-y-3">
+        <h2 className="font-display text-lg font-medium">New Tokens (accent-muted, accent-subtle, warm-dark)</h2>
+        <div className="flex gap-4">
+          {[
+            { bg: "bg-accent-muted", label: "accent-muted", desc: "Hover states, disabled" },
+            { bg: "bg-accent-subtle", label: "accent-subtle", desc: "Highlights, selections" },
+            { bg: "bg-warm-dark", label: "warm-dark", desc: "Emphasis text" },
+          ].map(({ bg, label, desc }) => (
+            <div key={label} className="flex flex-col items-center gap-2">
+              <div className={`w-20 h-20 ${bg} rounded-lg border border-border`} />
+              <span className="font-mono text-xs text-foreground">{label}</span>
+              <span className="font-body text-2xs text-muted-foreground">{desc}</span>
+            </div>
+          ))}
+        </div>
+        <div className="space-y-2">
+          <p className="text-warm-dark font-body text-sm">This text uses warm-dark for emphasis on warm surfaces.</p>
+          <div className="bg-accent-subtle rounded-md px-4 py-3 font-mono text-sm text-foreground border border-border">
+            Selected row / active tab highlight using accent-subtle
+          </div>
+          <button className="bg-accent-muted text-accent-foreground rounded-md px-4 py-2 font-display text-sm font-medium">
+            Hover-state button using accent-muted
+          </button>
+        </div>
+      </section>
+
       {/* Border Radius Test */}
       <section className="space-y-3">
         <h2 className="font-display text-lg font-medium">Border Radius Test</h2>
