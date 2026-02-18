@@ -1,0 +1,148 @@
+# Changelog
+
+All notable changes to the **promptx** Atomic Design System will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [0.1.0] — 2026-02-18
+
+### Added
+
+#### Design System Architecture
+- Atomic Design methodology with 5 layers: Atoms, Molecules, Organisms, Templates, UI Primitives
+- Three-theme support: Dark (default), Light, Warm — all defined via CSS custom properties in `src/index.css`
+- Monochromatic + accent color philosophy (95% warm stone grays, 4% terracotta orange, 1% semantic)
+- Three-font typography system: Plus Jakarta Sans (display), Satoshi (body), JetBrains Mono (mono)
+
+#### Atoms (7 components)
+- `Code` — inline code with accent styling
+- `Heading` — H1–H4 with font-display hierarchy
+- `Kbd` — keyboard shortcut badges
+- `Link` — styled anchor with accent underline
+- `Spinner` — loading indicator
+- `Tag` — anatomy field color tags (9 field colors)
+- `Text` — body text variants (default, muted, subtle)
+
+#### Molecules (18 components)
+- `ActivityFeedItem` — single activity entry
+- `AvatarGroup` — stacked avatar display
+- `BreadcrumbNav` — navigation breadcrumbs
+- `DiffLine` — version diff line display
+- `EmptyState` — empty content placeholder
+- `FormField` — label + input composition
+- `NavItem` — sidebar navigation item
+- `ParameterControl` — model parameter slider
+- `PromptFieldHeader` — anatomy field section header
+- `RunHistoryItem` — single run history entry
+- `ScoreBreakdown` — evaluation score display
+- `SearchBar` — search input with icon
+- `StatCard` — dashboard metric card
+- `TabNav` — tab navigation bar
+- `TestCaseRow` — test dataset row
+- `TokenCounter` — token usage display
+- `VariableEditorRow` — variable key-value editor
+- `VariableHighlight` — inline variable highlight
+
+#### Organisms (42 components)
+- `AIGenerationPanel` — AI prompt generation interface
+- `APIDocPanel` — API documentation viewer
+- `APIKeyManager` — API key CRUD management
+- `ActivityFeed` — activity timeline
+- `AnatomyFieldCard` — 9-field anatomy editor card
+- `AuthForm` — login/signup form
+- `BulkActionsBar` — multi-select action bar
+- `CLEARScorePanel` — CLEAR scoring panel
+- `CompiledPreview` — compiled prompt preview
+- `CreatePromptDialog` — new prompt creation dialog
+- `DashboardStats` — dashboard statistics grid
+- `DataManager` — data management interface
+- `DataTable` — sortable data table
+- `EvalConfirmModal` — evaluation confirmation modal
+- `EvaluationResults` — evaluation results display
+- `EvaluationResultsView` — full evaluation results view
+- `ExportMenu` — export options menu
+- `FilterBar` — filter controls bar
+- `GlobalVariableManager` — global variable management
+- `ImportDialog` — import dialog
+- `ImprovedPromptPanel` — AI-improved prompt display
+- `IntegrationCard` — third-party integration card
+- `OnboardingWizard` — user onboarding flow
+- `OrganizationManager` — organization settings
+- `PlaygroundPanel` — prompt playground
+- `PresetCard` — model preset card
+- `PresetDetailPanel` — preset detail panel
+- `PromptCard` — prompt library card
+- `PromptConfigFields` — prompt configuration fields
+- `PromptEditorPanel` — main prompt editor
+- `RunHistory` — run history list
+- `SettingsNav` — settings navigation
+- `SidebarNav` — collapsible sidebar navigation
+- `StatusLifecycleBar` — Draft → Testing → Production → Archived workflow
+- `TemplatePicker` — template selection
+- `TestDatasetManager` — test dataset management
+- `TestRunnerModal` — test execution modal
+- `TopBar` — top navigation bar with theme toggle
+- `UserMenu` — user dropdown menu
+- `VariableManager` — variable management panel
+- `VersionComparison` — version diff comparison
+- `VersionTimeline` — version history timeline
+
+#### Templates (7 components)
+- `AppShell` — root app layout (sidebar + topbar + outlet)
+- `ComparisonLayout` — side-by-side comparison layout
+- `DashboardLayout` — dashboard grid layout
+- `DetailLayout` — detail view with right panel
+- `EditorLayout` — split-pane editor layout
+- `LibraryLayout` — library grid/list layout
+- `TemplatePreview` — template wireframe preview
+
+#### UI Primitives (40+ shadcn/ui components)
+- Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, Breadcrumb, Button, Calendar, Card, Carousel, Chart, Checkbox, Collapsible, Command, ContextMenu, Dialog, Drawer, DropdownMenu, Form, HoverCard, Input, InputOTP, Label, Menubar, NavigationMenu, Pagination, Popover, Progress, RadioGroup, Resizable, ScrollArea, Select, Separator, Sheet, Sidebar, Skeleton, Slider, Sonner, Switch, Table, Tabs, Textarea, Toast, Toaster, Toggle, ToggleGroup, Tooltip
+
+#### Design Tokens
+- **Core surfaces**: `--background`, `--surface`, `--card` (3-layer hierarchy)
+- **Text colors**: `--foreground`, `--muted-foreground`, `--foreground-muted`, `--foreground-subtle`
+- **Accent system**: `--accent`, `--accent-muted`, `--accent-subtle`, `--warm-dark`
+- **Interactive**: `--primary`, `--secondary`, `--destructive`, `--muted`, `--popover`, `--input`, `--ring`, `--border`
+- **Semantic feedback**: `--success`, `--warning`, `--error`, `--info` (each with `-bg` and `-border` variants)
+- **Anatomy fields** (9 prompt sections): `--anatomy-role`, `--anatomy-tone`, `--anatomy-context`, `--anatomy-task`, `--anatomy-reasoning`, `--anatomy-examples`, `--anatomy-output`, `--anatomy-constraints`, `--anatomy-tools`
+- **Status lifecycle**: `--status-draft`, `--status-testing`, `--status-production`, `--status-archived`
+- **Typography scale**: `text-2xs` (10px) through `text-3xl` (36px) — 9 sizes
+- **Spacing tokens**: `--header-height` (3.5rem), `--sidebar-width` (15rem), `--sidebar-collapsed` (4rem), `--right-panel` (22rem)
+- **Border radius**: `--radius` (0.75rem) with `lg`, `md`, `sm` variants
+- **Z-index scale**: `--z-dropdown` (50), `--z-sticky` (100), `--z-overlay` (200), `--z-modal` (300), `--z-toast` (400)
+- **Motion tokens**: 5 durations (instant → slow), 4 easing curves, AI-specific animation tokens
+- **Sidebar tokens**: `--sidebar-background`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-accent`, `--sidebar-border`, `--sidebar-ring`
+
+#### Animations
+- `ai-pulse` — AI thinking indicator
+- `ai-cursor` — AI cursor blink
+- `slide-in-right` — panel slide-in
+- `bulk-bar-in` — bulk actions bar entrance
+- `accordion-down` / `accordion-up` — accordion open/close
+
+#### Pages & Routes
+- Design system showcase: Overview (`/`), Tokens (`/tokens`), Atoms (`/atoms`), Molecules (`/molecules`), Organisms (`/organisms`), Templates (`/templates`), Pages (`/pages`)
+- Application pages: Dashboard (`/app`), Library (`/app/library`), Prompt Detail (`/app/library/:id`), Prompt Editor (`/app/library/:id/edit`), AI Designer (`/app/ai-designer`), Settings (`/app/settings`), Onboarding (`/app/welcome`)
+- Testing: Token Smoke Test (`/test/tokens`)
+
+#### Tooling
+- **Vite** — build tool and dev server
+- **TypeScript 5** (strict mode) — type safety
+- **Tailwind CSS 3.4** with `tailwindcss-animate` plugin
+- **Vitest** — unit testing framework
+- **ESLint** — code linting
+- **React Router 6** — client-side routing
+- **TanStack React Query** — async state management
+
+#### Documentation
+- `README.md` — project overview, architecture, AI agent instructions, tech stack
+- `CONTRIBUTING.md` — contribution guidelines, commit conventions, component workflow
+- `CHANGELOG.md` — version history (this file)
+- `LICENSE` — MIT license
+- `src/DESIGN_SYSTEM.md` — complete design system specification (v2.3)
+
+[0.1.0]: https://github.com/mmorerasanchez/design-system-prompt-x/releases/tag/v0.1.0
