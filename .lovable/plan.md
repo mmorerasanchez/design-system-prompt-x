@@ -1,55 +1,53 @@
 
-# Color System Upgrade — Cross-Theme Audit Fix ✅ COMPLETED
 
-> Completed: 2026-02-18
+# README.md Professional Upgrade
 
 ## Overview
 
-Applied 28 token changes across 3 themes plus 3 new tokens to fix the 6 identified issues: collapsed surface hierarchy, cold light theme, theme-blind semantics, accent inconsistency documentation, dark input/card collision, and missing accent variants.
+Rewrite `README.md` to accurately reflect the live project architecture, branding ("promptx" not "prompt-x"), actual file paths, component counts, and routing structure. Remove fictional files/folders from the template and replace with the real codebase.
 
-**All 6 issues resolved. Verified visually across all 3 themes via Token Smoke Test and Tokens showcase page.**
+## Key Corrections from Template
 
----
+The template contains several inaccuracies that need fixing:
 
-## Files Modified
+1. **Brand name**: "prompt-x" should be "promptx" (no hyphen), with the "x" in accent color per branding rules
+2. **Architecture tree**: Template shows fictional paths (`src/tokens/`, `src/styles/`, `src/components/layout/`, `src/components/patterns/`, `src/pages/design/`). Real structure is Atomic Design: `atoms/ molecules/ organisms/ templates/ ui/` plus `pages/`
+3. **File references**: No `design-tokens.json`, no `tokens.css`, no `globals.css` — tokens live in `src/index.css` and `tailwind.config.ts`
+4. **Component counts**: Real inventory is 22 atoms, 18 molecules, 52 organisms, 8 templates (from DESIGN_SYSTEM.md)
+5. **Three-theme table**: Hex values in template are approximations — will use actual HSL values from `index.css`
+6. **Platform badges**: Template mentions "platform-badge.tsx" with Claude/GPT/Gemini colors, but these were intentionally removed per project decision
+7. **Repo URL**: Use `https://github.com/mmorerasanchez/design-system-prompt-x`
+8. **Routes**: Showcase routes (`/`, `/tokens`, `/atoms`, etc.) and app routes (`/app`, `/app/library`, etc.) should be documented
 
-1. ~~**`src/index.css`**~~ ✅ All CSS variable updates (28 token changes + 3 new tokens per theme)
-2. ~~**`tailwind.config.ts`**~~ ✅ Added `accent-muted`, `accent-subtle`, `warm-dark` color tokens
-3. ~~**`src/DESIGN_SYSTEM.md`**~~ ✅ Documented all changes, new tokens, intentional warm accent shift, changelog entry
-4. ~~**`src/pages/TokenSmokeTest.tsx`**~~ ✅ Added visual test rows for 3 new tokens
-5. ~~**`src/pages/TokensPage.tsx`**~~ ✅ Added new tokens to showcase
-6. ~~**`src/pages/PagesPage.tsx`**~~ ✅ Updated organism inventory and Settings description
+## Changes
 
----
+### File: `README.md` (full rewrite)
 
-## Issues Resolved
+Replace entirely with corrected content including:
 
-| # | Issue | Severity | Status |
-|---|---|---|---|
-| H1 | Collapsed Surface Hierarchy | 🔴 Critical | ✅ Fixed — bg/surface/card now distinct in all 3 themes |
-| H2 | Light Theme Has No Warmth | 🔴 Critical | ✅ Fixed — 5-8% saturation added to all light neutrals |
-| H3 | Semantic Colors Are Theme-Blind | 🟡 Major | ✅ Fixed — each theme has tuned HSL values |
-| H4 | Accent Inconsistency | 🟡 Major | ✅ Documented — warm theme −10% lightness is intentional |
-| H5 | Dark Input = Card | 🔵 Minor | ✅ Fixed — input now matches secondary, separate from card |
-| H6 | Missing Accent Variants | 🔵 Minor | ✅ Fixed — added accent-muted, accent-subtle, warm-dark |
+- **Header**: Fix brand to "promptx", update badge URLs, add correct repo URL
+- **Why This Exists**: Keep as-is (well written), minor polish
+- **Quick Start**: Update repo URL to actual GitHub URL
+- **Architecture**: Replace fictional tree with real Atomic Design structure showing actual folders and key files
+- **Design Principles**: Keep table, remove "Invisible Intelligence" (not in DESIGN_SYSTEM.md), align with actual 7 principles
+- **Three-Theme Table**: Use real HSL values from `index.css` converted to hex, remove fictional accent-400/600/700 tiers (we use a single `--accent` per theme)
+- **For AI Agents**: Update file references (`index.css` not `globals.css`, no `design-tokens.json`)
+- **Tech Stack**: Remove "W3C DTCG" (no such file exists), keep everything else
+- **Documentation table**: Fix file paths to actual files
+- **Component counts**: Add summary stats from DESIGN_SYSTEM.md
+- **Routes section**: Add showcase and app route tables
+- **License**: MIT with correct LICENSE link
+- **Author**: Keep as-is
 
----
+### File: `LICENSE` (new file)
 
-## Next Steps — Full Working Prototype
+Create standard MIT license file with author "Mariano Morera Sanchez" and year 2026.
 
-### Phase 1: Unified State Management
-- [ ] 1.1 Create shared React Context or Zustand store for prompts, variables, presets, tags
-- [ ] 1.2 Wire CRUD operations across Library, Detail, Editor, Settings pages
+## Technical Details
 
-### Phase 2: Interactive Workflows
-- [ ] 2.1 Wire StatusLifecycleBar transitions with confirmation dialogs
-- [ ] 2.2 Connect evaluator flow end-to-end (config → run → results)
+- All shield.io badge URLs will use proper markdown image syntax (the template had broken badge formatting — missing `!` for image rendering)
+- The architecture tree will match the actual `src/` directory structure verified via `lov-list-dir`
+- Component inventory numbers sourced from `src/DESIGN_SYSTEM.md` (v2.3)
+- Live demo URL: `https://design-system-prompt-x.lovable.app/`
+- GitHub URL: `https://github.com/mmorerasanchez/design-system-prompt-x`
 
-### Phase 3: Data Persistence
-- [ ] 3.1 Add localStorage MVP for prompts and settings
-- [ ] 3.2 Implement import/export with real data serialization
-
-### Phase 4: Polish & Edge Cases
-- [ ] 4.1 Responsive design audit at 375px, 768px, 1280px+
-- [ ] 4.2 Loading states, empty states, error feedback
-- [ ] 4.3 Keyboard navigation and accessibility audit
