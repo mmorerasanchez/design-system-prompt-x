@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Outlet, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { SidebarNav } from "@/components/organisms/SidebarNav";
 import { TopBar } from "@/components/organisms/TopBar";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const routeMap: Record<string, string> = {
   store: "/app/library",
@@ -62,7 +63,7 @@ export function AppShell() {
       </div>
 
       <div className="flex flex-1 flex-col overflow-hidden">
-        <TopBar onMenuClick={() => setMobileOpen(true)} />
+        <TopBar onMenuClick={() => setMobileOpen(true)} actions={<ThemeToggle />} />
         <Outlet />
       </div>
     </div>
