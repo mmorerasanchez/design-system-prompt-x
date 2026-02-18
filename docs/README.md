@@ -1,0 +1,34 @@
+# prompt-x Documentation
+
+> Comprehensive documentation for the **prompt-x** Atomic Design System.
+
+---
+
+## Guides
+
+| Document | Description |
+|---|---|
+| [Getting Started](./getting-started.md) | Installation, dev setup, and first steps |
+| [Architecture](./architecture.md) | Atomic Design decisions and rationale |
+| [Design Tokens](./tokens.md) | Complete tokens reference — colors, typography, spacing, radii, motion |
+| [AI Usage](./ai-usage.md) | How to use this design system with AI coding tools (Claude, Cursor, Copilot) |
+
+## Component Reference
+
+| Document | Level | Description |
+|---|---|---|
+| [Atoms](./components/atoms.md) | Atoms | Foundational building blocks — `Heading`, `Tag`, `Spinner`, `Code`, `Kbd`, `Link`, `Text` |
+| [Molecules](./components/molecules.md) | Molecules | Compositions of atoms — `FormField`, `SearchBar`, `StatCard`, `TokenCounter`, `TabNav` |
+| [Organisms](./components/organisms.md) | Organisms | Major UI sections — `TopBar`, `DataTable`, `PromptCard`, `FilterBar`, `DashboardStats` |
+
+## Root Documentation
+
+These files live at the project root:
+
+| File | Purpose |
+|---|---|
+| [README.md](../README.md) | Project overview, live demo, and quick start |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | Development workflow, commit conventions, PR guidelines |
+| [CHANGELOG.md](../CHANGELOG.md) | Version history (Keep a Changelog format) |
+| [CLAUDE.md](../CLAUDE.md) | AI agent context file — auto-read by Claude Code, Cursor, etc. |
+| [LICENSE](../LICENSE) | MIT License |
