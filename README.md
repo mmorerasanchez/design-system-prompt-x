@@ -298,6 +298,8 @@ IDE-inspired, clean, distraction-free aesthetic.
 | [`tailwind.config.ts`](tailwind.config.ts) | Tailwind CSS integration with all custom tokens, fonts, spacing, and animations |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines, commit conventions, and component creation workflow |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history following [Keep a Changelog](https://keepachangelog.com/) format |
+| [`CLAUDE.md`](CLAUDE.md) | AI agent context file — auto-read by Claude Code, Cursor, and similar tools |
+| [`docs/README.md`](docs/README.md) | Documentation index with links to all guides and component references |
 
 ---
 
