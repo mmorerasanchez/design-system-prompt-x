@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Heading, Text, Code } from "@/components/atoms";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Palette, Box, Layers, LayoutGrid, Layout, FileText, Star, ExternalLink, Terminal } from "lucide-react";
 
 const stats = [
@@ -35,6 +35,7 @@ const sections = [
 const REPO_URL = "https://github.com/mmorerasanchez/design-system-prompt-x";
 
 export default function OverviewPage() {
+  const navigate = useNavigate();
   return (
     <div className="space-y-16">
       {/* Hero */}
@@ -49,15 +50,12 @@ export default function OverviewPage() {
           Design system for prompt engineering tooling. Minimal, monochromatic, precisely crafted.
         </Text>
         <div className="flex items-center gap-3">
-          <Button asChild>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-              <Star className="h-4 w-4" />
-              Star on GitHub
-              <ExternalLink className="h-3 w-3" />
-            </a>
+          <Button onClick={() => window.open(REPO_URL, "_blank")}>
+            <Star className="h-4 w-4" />
+            Star on GitHub
           </Button>
-          <Button variant="outline" asChild>
-            <Link to="/tokens">Explore Components</Link>
+          <Button variant="outline" onClick={() => navigate("/tokens")}>
+            Explore Components
           </Button>
         </div>
         <Text mono size="xs" variant="muted">
@@ -159,12 +157,9 @@ export default function OverviewPage() {
           </div>
 
           {/* Star CTA */}
-          <Button asChild variant="secondary" className="w-full sm:w-auto">
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-              <Star className="h-4 w-4" />
-              Star on GitHub
-              <ExternalLink className="h-3 w-3" />
-            </a>
+          <Button variant="secondary" className="w-full sm:w-auto" onClick={() => window.open(REPO_URL, "_blank")}>
+            <Star className="h-4 w-4" />
+            Star on GitHub
           </Button>
         </div>
       </div>
