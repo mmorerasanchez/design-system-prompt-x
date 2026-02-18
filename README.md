@@ -118,7 +118,7 @@ src/
 │   │   ├── VersionTimeline.tsx        #   Version history timeline
 │   │   └── index.ts
 │   │
-│   ├── templates/                     # Page layout shells (8 components)
+│   ├── templates/                     # Page layout shells (7 components)
 │   │   ├── AppShell.tsx               #   Root app layout (sidebar + topbar + outlet)
 │   │   ├── ComparisonLayout.tsx       #   Side-by-side comparison layout
 │   │   ├── DashboardLayout.tsx        #   Dashboard grid layout
@@ -170,7 +170,7 @@ src/
 | **Atoms** | 7 | Typography, code, tags, links, spinners |
 | **Molecules** | 18 | Form fields, nav items, stat cards, search bars |
 | **Organisms** | 42 | Editors, panels, modals, data tables, navigation |
-| **Templates** | 8 | Page layout shells (app shell, editor, dashboard) |
+| **Templates** | 7 | Page layout shells (app shell, editor, dashboard) |
 | **UI Primitives** | 40+ | shadcn/ui + Radix UI accessible base components |
 
 ---
