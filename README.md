@@ -39,7 +39,7 @@ npm run dev
 
 The design system follows **Atomic Design** methodology — Atoms → Molecules → Organisms → Templates — with design tokens defined as CSS custom properties in `src/index.css` and mapped through `tailwind.config.ts`.
 
-> **Note on token format:** Tokens are currently defined directly in CSS custom properties (HSL values) rather than a `design-tokens.json` file. A W3C DTCG–compatible JSON export for tooling interoperability (Figma Token Studio, Style Dictionary, etc.) is planned for a future phase. See [`docs/tokens.md`](docs/tokens.md) for the full token reference.
+> **Token formats:** The source of truth is CSS custom properties in `src/index.css`. A [`design-tokens.json`](design-tokens.json) file in [W3C DTCG format](https://design-tokens.github.io/community-group/format/) is also provided for tooling interoperability (Figma Token Studio, Style Dictionary, Specify, etc.). See [`docs/tokens.md`](docs/tokens.md) for the full reference.
 
 ```
 src/
@@ -272,6 +272,7 @@ IDE-inspired, clean, distraction-free aesthetic.
 | [`src/DESIGN_SYSTEM.md`](src/DESIGN_SYSTEM.md) | Complete design system specification — component inventory, token reference, usage rules |
 | [`src/index.css`](src/index.css) | CSS custom properties, font imports, three-theme definitions, base resets |
 | [`tailwind.config.ts`](tailwind.config.ts) | Tailwind CSS integration with all custom tokens, fonts, spacing, and animations |
+| [`design-tokens.json`](design-tokens.json) | W3C DTCG–format tokens for tooling interoperability (Figma, Style Dictionary) |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines, commit conventions, and component creation workflow |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history following [Keep a Changelog](https://keepachangelog.com/) format |
 | [`CLAUDE.md`](CLAUDE.md) | AI agent context file — auto-read by Claude Code, Cursor, and similar tools |
