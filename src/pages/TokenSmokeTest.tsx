@@ -62,19 +62,19 @@ export default function TokenSmokeTest() {
         </div>
       </section>
 
-      {/* Anatomy Field Test */}
+      {/* Category Palette Test */}
       <section className="space-y-3">
-        <h2 className="font-display text-lg font-medium">Anatomy Field Test</h2>
+        <h2 className="font-display text-lg font-medium">Category Palette Test</h2>
         <div className="space-y-2">
-          <div className="border-l-[3px] border-l-anatomy-role bg-anatomy-role/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-role">role</div>
-          <div className="border-l-[3px] border-l-anatomy-tone bg-anatomy-tone/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-tone">tone</div>
-          <div className="border-l-[3px] border-l-anatomy-context bg-anatomy-context/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-context">context</div>
-          <div className="border-l-[3px] border-l-anatomy-task bg-anatomy-task/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-task">task</div>
-          <div className="border-l-[3px] border-l-anatomy-reasoning bg-anatomy-reasoning/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-reasoning">reasoning</div>
-          <div className="border-l-[3px] border-l-anatomy-examples bg-anatomy-examples/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-examples">examples</div>
-          <div className="border-l-[3px] border-l-anatomy-output bg-anatomy-output/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-output">output</div>
-          <div className="border-l-[3px] border-l-anatomy-constraints bg-anatomy-constraints/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-constraints">constraints</div>
-          <div className="border-l-[3px] border-l-anatomy-tools bg-anatomy-tools/5 rounded-md px-4 py-2 font-mono text-sm text-anatomy-tools">tools</div>
+          <div className="border-l-[3px] border-l-category-teal bg-category-teal/5 rounded-md px-4 py-2 font-mono text-sm text-category-teal">teal</div>
+          <div className="border-l-[3px] border-l-category-amber bg-category-amber/5 rounded-md px-4 py-2 font-mono text-sm text-category-amber">amber</div>
+          <div className="border-l-[3px] border-l-category-emerald bg-category-emerald/5 rounded-md px-4 py-2 font-mono text-sm text-category-emerald">emerald</div>
+          <div className="border-l-[3px] border-l-category-orange bg-category-orange/5 rounded-md px-4 py-2 font-mono text-sm text-category-orange">orange</div>
+          <div className="border-l-[3px] border-l-category-violet bg-category-violet/5 rounded-md px-4 py-2 font-mono text-sm text-category-violet">violet</div>
+          <div className="border-l-[3px] border-l-category-rose bg-category-rose/5 rounded-md px-4 py-2 font-mono text-sm text-category-rose">rose</div>
+          <div className="border-l-[3px] border-l-category-blue bg-category-blue/5 rounded-md px-4 py-2 font-mono text-sm text-category-blue">blue</div>
+          <div className="border-l-[3px] border-l-category-red bg-category-red/5 rounded-md px-4 py-2 font-mono text-sm text-category-red">red</div>
+          <div className="border-l-[3px] border-l-category-gold bg-category-gold/5 rounded-md px-4 py-2 font-mono text-sm text-category-gold">gold</div>
         </div>
       </section>
 

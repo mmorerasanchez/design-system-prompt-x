@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* promptx Design System — All colors in HSL */
+/* Design System — All colors in HSL */
 
 @layer base {
   /* Dark theme (DEFAULT) */
@@ -64,16 +64,16 @@
     --info-bg: 215 50% 62%;
     --info-border: 215 50% 62%;
 
-    /* Anatomy field colors */
-    --anatomy-role: 185 55% 42%;
-    --anatomy-tone: 38 80% 50%;
-    --anatomy-context: 152 55% 40%;
-    --anatomy-task: 25 85% 52%;
-    --anatomy-reasoning: 262 55% 55%;
-    --anatomy-examples: 340 65% 55%;
-    --anatomy-output: 230 60% 58%;
-    --anatomy-constraints: 0 70% 55%;
-    --anatomy-tools: 48 85% 48%;
+    /* Categorical palette — 9 distinct hues for content tagging */
+    --category-teal: 185 55% 42%;
+    --category-amber: 38 80% 50%;
+    --category-emerald: 152 55% 40%;
+    --category-orange: 25 85% 52%;
+    --category-violet: 262 55% 55%;
+    --category-rose: 340 65% 55%;
+    --category-blue: 230 60% 58%;
+    --category-red: 0 70% 55%;
+    --category-gold: 48 85% 48%;
 
     /* Status colors */
     --status-draft: 45 93% 47%;

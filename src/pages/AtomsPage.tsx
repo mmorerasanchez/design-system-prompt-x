@@ -179,7 +179,7 @@ export default function AtomsPage() {
         <SubSection title="Variants">
           <div className="flex flex-wrap items-center gap-2">
             <Tag>default</Tag>
-            <Tag color="role">colored</Tag>
+            <Tag color="teal">colored</Tag>
             <Tag variant="removable" onRemove={() => {}}>removable</Tag>
             <Tag variant="selectable">selectable</Tag>
             <Tag variant="selectable" selected>selected</Tag>

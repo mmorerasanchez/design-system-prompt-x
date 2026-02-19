@@ -20,15 +20,15 @@ interface PromptFieldHeaderProps {
 }
 
 const fieldColorMap: Record<AnatomyField, string> = {
-  role: "bg-anatomy-role",
-  tone: "bg-anatomy-tone",
-  context: "bg-anatomy-context",
-  task: "bg-anatomy-task",
-  reasoning: "bg-anatomy-reasoning",
-  examples: "bg-anatomy-examples",
-  output: "bg-anatomy-output",
-  constraints: "bg-anatomy-constraints",
-  tools: "bg-anatomy-tools",
+  role: "bg-category-teal",
+  tone: "bg-category-amber",
+  context: "bg-category-emerald",
+  task: "bg-category-orange",
+  reasoning: "bg-category-violet",
+  examples: "bg-category-rose",
+  output: "bg-category-blue",
+  constraints: "bg-category-red",
+  tools: "bg-category-gold",
 };
 
 /**
