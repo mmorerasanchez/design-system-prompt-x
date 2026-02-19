@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { NavItem } from "@/components/molecules/NavItem";
+import { Logo } from "@/components/atoms";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -47,9 +48,10 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
     )}>
       {/* Header */}
       <div className={cn("flex h-header items-center border-b border-border px-3", collapsed ? "justify-center" : "justify-between")}>
+        <Logo size={collapsed ? 20 : 24} />
         {!collapsed && (
           <span className="font-display text-md font-semibold tracking-tight">
-            prompt<span className="text-accent">x</span>
+            Store
           </span>
         )}
         <Button variant="ghost" size="icon" onClick={onToggle} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} className="h-7 w-7">
@@ -137,7 +139,7 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
           {!collapsed && (
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-sm font-medium">Mariano</p>
-              <p className="truncate font-body text-2xs text-muted-foreground">hello@prompt-x.io</p>
+              <p className="truncate font-body text-2xs text-muted-foreground">user@example.com</p>
             </div>
           )}
         </div>

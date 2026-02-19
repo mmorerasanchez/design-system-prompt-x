@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heading, Text, Code } from "@/components/atoms";
+import { Heading, Text, Code, Logo } from "@/components/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Palette, Box, Layers, LayoutGrid, Layout, FileText, Star, ExternalLink, Terminal } from "lucide-react";
 
@@ -41,13 +41,14 @@ export default function OverviewPage() {
       {/* Hero */}
       <div className="space-y-5">
         <div className="flex items-center gap-3">
+          <Logo size={40} />
           <h1 className="font-display text-3xl font-bold tracking-tight">
-            prompt<span className="text-accent">x</span>
+            Design System
           </h1>
           <Badge variant="outline">v2.0.0</Badge>
         </div>
         <Text size="lg" variant="muted" className="max-w-prose">
-          Design system for prompt engineering tooling. Minimal, monochromatic, precisely crafted.
+          A minimal, monochromatic, precisely crafted design system. Ready to duplicate and extend.
         </Text>
         <div className="flex items-center gap-3">
           <Button onClick={() => window.open(REPO_URL, "_blank")}>

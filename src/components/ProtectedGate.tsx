@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Lock, ArrowRight, Mail } from "lucide-react";
+import { Logo } from "@/components/atoms";
 import {
   isPrototypeAuthenticated,
   authenticatePrototype,
@@ -42,8 +43,9 @@ export function ProtectedGate({ children }: ProtectedGateProps) {
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
             <Lock className="h-5 w-5 text-accent" />
           </div>
+          <Logo size={36} />
           <h1 className="font-display text-xl font-semibold tracking-tight">
-            prompt<span className="text-accent">x</span>
+            Interactive Prototype
           </h1>
           <Badge variant="outline">Interactive Prototype</Badge>
         </div>
@@ -51,7 +53,7 @@ export function ProtectedGate({ children }: ProtectedGateProps) {
         {/* Message */}
         <div className="rounded-lg border border-border bg-card p-4 space-y-3">
           <p className="font-body text-sm text-muted-foreground text-center">
-            This section contains the interactive prototype of prompt-x. Enter the access password to continue.
+            This section contains an interactive prototype. Enter the access password to continue.
           </p>
           <div className="flex items-center gap-2 rounded-md bg-surface px-3 py-2">
             <Mail className="h-4 w-4 text-accent shrink-0" />
