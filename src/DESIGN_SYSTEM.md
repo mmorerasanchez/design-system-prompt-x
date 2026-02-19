@@ -7,7 +7,7 @@
 
 ## 1. Executive Summary
 
-democrito is the design system powering prompt-x, a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 100+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+democrito is the design system powering prompt-x, a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 80+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -262,62 +262,27 @@ Each field uses a colored dot indicator. Cards use plain `bg-card` backgrounds w
 | TestCaseRow | custom | Ready | Test case with checkbox, input/expected, status, score |
 | ScoreBreakdown | custom | Ready | Score badge that opens a centered modal with weighted rubric |
 
-### Organisms (52)
+### Organisms (15 — showcase)
+
+> Additional prompt-x specific organisms exist in the codebase but are not part of the public design system showcase. They are used exclusively by the interactive prototype.
 
 | Name | Base | Status |
 |---|---|---|
-| Card | shadcn/ui Card | Ready |
-| DataTable | custom | Ready |
-| Dialog | shadcn/ui Dialog | Ready |
-| Sheet | shadcn/ui Sheet | Ready |
-| Toast | shadcn/ui Toast | Ready |
-| Alert | shadcn/ui Alert | Ready |
-| Tabs | shadcn/ui Tabs | Ready |
-| Accordion | shadcn/ui Accordion | Ready |
-| DropdownMenu | shadcn/ui DropdownMenu | Ready |
-| Popover | shadcn/ui Popover | Ready |
-| CommandPalette | shadcn/ui Command | Ready |
-| Sidebar | shadcn/ui Sidebar | Ready |
 | TopBar | custom | Ready |
-| AppShell | custom | Ready |
-| PromptCard | custom | Ready |
-| AnatomyFieldCard | custom | Ready |
-| PromptEditorPanel | custom | Ready |
-| CompiledPreview | custom | Ready |
-| StatusLifecycle | custom | Ready |
-| PlaygroundPanel | custom | Ready |
-| VariableManager | custom | Ready |
-| AIGenerationPanel | custom | Ready |
-| TemplatePicker | custom | Ready |
-| VersionTimeline | custom | Ready |
-| VersionComparison | custom | Ready |
+| SidebarNav | custom | Ready |
 | FilterBar | custom | Ready |
 | BulkActionsBar | custom | Ready |
-| EvaluationResults | custom | Ready |
-| TestDatasetManager | custom | Ready |
-| RunHistory | custom | Ready |
+| UserMenu | custom | Ready |
+| DataTable | custom | Ready |
+| DashboardStats | custom | Ready |
+| ActivityFeed | custom | Ready |
+| AuthForm | custom | Ready |
 | ImportDialog | custom | Ready |
 | ExportMenu | custom | Ready |
-| UserMenu | custom | Ready |
 | SettingsNav | custom | Ready |
 | APIKeyManager | custom | Ready |
 | IntegrationCard | custom | Ready |
 | OnboardingWizard | custom | Ready |
-| DashboardStats | custom | Ready |
-| CreatePromptDialog | custom | Ready |
-| PromptConfigFields | custom | Ready |
-| SidebarNav | custom | Ready |
-| CLEARScorePanel | custom | Ready |
-| ImprovedPromptPanel | custom | Ready |
-| EvalConfirmModal | custom | Ready |
-| EvaluationResultsView | custom | Ready |
-| TestRunnerModal | custom | Deprecated |
-| APIDocPanel | custom | Ready |
-| PresetCard | custom | Ready |
-| PresetDetailPanel | custom | Ready |
-| OrganizationManager | custom | Ready |
-| GlobalVariableManager | custom | Ready |
-| DataManager | custom | Ready |
 
 ### Templates (8)
 
@@ -625,6 +590,6 @@ All 4 entry points share the same evaluator workflow:
 
 ---
 
-*100+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
+*80+ components · 3 themes · 9 anatomy fields · 7 app pages · WCAG 2.1 AA*
 
-<!-- CHECKSUM: Atoms(22) + Molecules(18) + Organisms(52) + Templates(8) = 100 -->
+<!-- CHECKSUM: Atoms(22) + Molecules(18) + Organisms(15 showcase) + Templates(8) = 63 showcase -->

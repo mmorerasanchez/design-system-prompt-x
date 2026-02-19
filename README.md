@@ -50,7 +50,7 @@ src/
 ├── components/
 │   ├── atoms/                         # Smallest building blocks (7 components)
 │   ├── molecules/                     # Compositions of atoms (18 components)
-│   ├── organisms/                     # Major UI sections (42 components)
+│   ├── organisms/                     # Major UI sections (15 components)
 │   ├── templates/                     # Page layout shells (7 components)
 │   └── ui/                            # shadcn/ui primitives (40+ components)
 │
@@ -66,7 +66,7 @@ src/
 | --- | --- | --- |
 | **Atoms** | 7 | Typography, code, tags, links, spinners |
 | **Molecules** | 18 | Form fields, nav items, stat cards, search bars |
-| **Organisms** | 42 | Editors, panels, modals, data tables, navigation |
+| **Organisms** | 15 | Navigation, data tables, auth forms, settings, import/export |
 | **Templates** | 7 | Page layout shells (app shell, editor, dashboard) |
 | **UI Primitives** | 40+ | shadcn/ui + Radix UI accessible base components |
 

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] — 2026-02-19
+
+### Changed
+
+#### Organisms Showcase — Streamlined for Reusability
+- Reduced organism showcase from 42 → 15 components (4 categories)
+- Removed prompt-x specific organisms (Prompt Store, Prompt Editor, Playground & Testing, AI & Evaluation) — transferred to prompt-x application
+- Remaining categories: Navigation & Layout (5), Dashboard & Data (4), Settings & Config (4), Import & Export (2)
+- Removed password-protected overlay system from organisms page
+- Updated all documentation, README, CLAUDE.md, and DESIGN_SYSTEM.md to reflect new counts
+
+---
+
 ## [0.2.0] — 2026-02-19
 
 ### Added
@@ -27,13 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 #### Organisms Showcase (`/organisms`)
-- Grouped all 42 organisms into 8 categories: Navigation & Layout, Dashboard & Data, Prompt Store, Prompt Editor, Playground & Testing, AI & Evaluation, Import & Export, Settings & Config
-- Added clickable category jump-nav at page top with component counts
+- Grouped organisms into categories with clickable jump-nav and CategoryHeaders
 - Added `CategoryHeader` component with border-top dividers and mono count badges
-
-#### Documentation
-- `docs/components/organisms.md` — reorganized with 8-category structure matching the showcase page, full prop interfaces for all 42 organisms
-- `README.md` — clarified npm as primary package manager, added `design-tokens.json` to documentation table
 
 ---
 
@@ -76,7 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `VariableEditorRow` — variable key-value editor
 - `VariableHighlight` — inline variable highlight
 
-#### Organisms (42 components)
+#### Organisms (15 showcase + additional prototype-only components)
 - `AIGenerationPanel` — AI prompt generation interface
 - `APIDocPanel` — API documentation viewer
 - `APIKeyManager` — API key CRUD management
@@ -175,5 +183,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `LICENSE` — MIT license
 - `src/DESIGN_SYSTEM.md` — complete design system specification (v2.3)
 
+[0.3.0]: https://github.com/mmorerasanchez/democrito/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/mmorerasanchez/democrito/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/mmorerasanchez/democrito/releases/tag/v0.1.0
