@@ -91,12 +91,24 @@ function ProtectedOverlay() {
   );
 }
 
+function CategoryHeader({ id, title, description, count }: { id: string; title: string; description: string; count: number }) {
+  return (
+    <div id={id} className="scroll-mt-6 border-t border-border pt-8">
+      <div className="flex items-baseline gap-3">
+        <h2 className="font-display text-lg font-semibold tracking-tight">{title}</h2>
+        <span className="font-mono text-2xs text-muted-foreground">{count} components</span>
+      </div>
+      <p className="mt-0.5 font-body text-sm text-muted-foreground">{description}</p>
+    </div>
+  );
+}
+
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
   const isProtected = PROTECTED_SECTIONS.has(id);
   return (
     <section id={id} className="space-y-4">
       <div>
-        <h2 className="font-display text-lg font-medium tracking-tight">{title}</h2>
+        <h3 className="font-display text-base font-medium tracking-tight">{title}</h3>
         <p className="font-body text-sm text-muted-foreground">{description}</p>
         {composedOf && <p className="mt-1 font-mono text-2xs text-accent">Composed of: {composedOf}</p>}
       </div>
@@ -139,6 +151,17 @@ export default function OrganismsPage() {
     setTimeout(() => setHighlightedVar(null), 2000);
   }, []);
 
+  const categories = [
+    { id: "cat-navigation", label: "Navigation & Layout", count: 5, ids: ["topbar", "sidebar", "filterbar", "bulkactions", "usermenu"] },
+    { id: "cat-dashboard", label: "Dashboard & Data", count: 4, ids: ["datatable", "dashstats", "activityfeed", "authform"] },
+    { id: "cat-prompt-store", label: "Prompt Store", count: 3, ids: ["promptcard", "lifecycle", "templatepicker"] },
+    { id: "cat-editor", label: "Prompt Editor", count: 6, ids: ["anatomyfieldcard", "compiledpreview", "variablemanager", "prompteditorpanel", "versiontimeline", "versioncomparison"] },
+    { id: "cat-playground", label: "Playground & Testing", count: 4, ids: ["playgroundpanel", "runhistory", "testdatasetmanager", "evaluationresults"] },
+    { id: "cat-ai", label: "AI & Evaluation", count: 5, ids: ["aigenerationpanel", "clearscorepanel", "improvedpromptpanel", "evalconfirmmodal", "evaluationresultsview"] },
+    { id: "cat-settings", label: "Settings & Config", count: 4, ids: ["settingsnav", "apikeymanager", "integrationcard", "onboardingwizard"] },
+    { id: "cat-io", label: "Import & Export", count: 2, ids: ["importdialog", "exportmenu"] },
+  ];
+
   return (
     <div className="space-y-12">
       <div>
@@ -146,7 +169,27 @@ export default function OrganismsPage() {
         <p className="mt-1 font-body text-base text-muted-foreground">
           Complex components composed of molecules and atoms. These form the major UI sections.
         </p>
+        <p className="mt-0.5 font-mono text-xs text-foreground-subtle">42 components · 8 categories</p>
       </div>
+
+      {/* ── CATEGORY JUMP NAV ── */}
+      <nav className="flex flex-wrap gap-2">
+        {categories.map((cat) => (
+          <a
+            key={cat.id}
+            href={`#${cat.id}`}
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 font-display text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            {cat.label}
+            <span className="font-mono text-2xs text-muted-foreground">{cat.count}</span>
+          </a>
+        ))}
+      </nav>
+
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Navigation & Layout                              */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-navigation" title="Navigation & Layout" description="App chrome, menus, and toolbar components." count={5} />
 
       {/* ── TOP BAR ── */}
       <Section id="topbar" title="Top Bar / Header" description="56px sticky header with search command button." composedOf="SearchBar + Kbd">
@@ -170,6 +213,39 @@ export default function OrganismsPage() {
         </div>
         <CodeBlock>{`<SidebarNav collapsed={boolean} onToggle={fn} activeItem="library" />`}</CodeBlock>
       </Section>
+
+      {/* ── FILTER BAR ── */}
+      <Section id="filterbar" title="Filter Bar" description="Search + status chips + sort + view toggle for library filtering." composedOf="SearchBar + Badge chips + Select + Button group">
+        <div className="p-4">
+          <FilterBar search={filterSearch} onSearchChange={setFilterSearch} />
+        </div>
+        <CodeBlock>{`<FilterBar search={search} onSearchChange={setSearch} />`}</CodeBlock>
+      </Section>
+
+      {/* ── BULK ACTIONS BAR ── */}
+      <Section id="bulkactions" title="Bulk Actions Bar" description="Sticky bottom bar for multi-select actions. Slides in from bottom." composedOf="Badge count + Button group + dismiss">
+        <div className="relative h-24 bg-background flex items-end justify-center">
+          <BulkActionsBar
+            selectedCount={bulkCount}
+            onDismiss={() => setBulkCount(0)}
+            onDelete={() => {}}
+          />
+        </div>
+        <CodeBlock>{`<BulkActionsBar selectedCount={3} onDismiss={fn} onMove={fn} onTag={fn} onArchive={fn} onDelete={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ── USER MENU ── */}
+      <Section id="usermenu" title="User Menu" description="Dropdown-like user menu with profile info, navigation, and logout." composedOf="Avatar + Badge + Button list">
+        <div className="p-4">
+          <UserMenu name="Mariano Rivera" email="hello@prompt-x.io" plan="Pro" />
+        </div>
+        <CodeBlock>{`<UserMenu name="Mariano" email="hello@prompt-x.io" plan="Pro" onLogout={fn} />`}</CodeBlock>
+      </Section>
+
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Dashboard & Data                                  */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-dashboard" title="Dashboard & Data" description="Data display, metrics, authentication, and activity tracking." count={4} />
 
       {/* ── DATA TABLE ── */}
       <Section id="datatable" title="Data Table" description="Sortable columns, mono headers uppercase, hover with orange left border accent." composedOf="Table headers + sortable columns + rows + pagination">
@@ -198,6 +274,26 @@ export default function OrganismsPage() {
         <CodeBlock>{`<AuthForm mode="login | signup" onSubmit={fn} />`}</CodeBlock>
       </Section>
 
+      {/* ── DASHBOARD STATS ── */}
+      <Section id="dashstats" title="Dashboard Stats" description="4-column stat grid. Auto-fit min 200px columns." composedOf="StatCard × 4">
+        <div className="p-4">
+          <DashboardStats />
+        </div>
+        <CodeBlock>{`<DashboardStats />`}</CodeBlock>
+      </Section>
+
+      {/* ── ACTIVITY FEED ── */}
+      <Section id="activityfeed" title="Activity Feed" description="Scrollable list of activity items. Max-height 400px." composedOf="Avatar + Text + Code + timestamps">
+        <div className="p-4">
+          <ActivityFeed items={activityItems} />
+        </div>
+        <CodeBlock>{`<ActivityFeed items={[{ actor, initials, action, resource, time }]} />`}</CodeBlock>
+      </Section>
+
+      {/* CATEGORY: Prompt Store                                       */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-prompt-store" title="Prompt Store" description="Prompt browsing, lifecycle management, and template selection." count={3} />
+
       {/* ── PROMPT CARD ── */}
       <Section id="promptcard" title="Prompt Card" description="Interactive card with hover lift, status badge, preview, and metadata." composedOf="Card + Badge + Text (mono)">
         <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -221,41 +317,18 @@ export default function OrganismsPage() {
         <CodeBlock>{`<StatusLifecycleBar steps={[{ label: "Draft", status: "draft", completed: true, active: false }]} />`}</CodeBlock>
       </Section>
 
-      {/* ── FILTER BAR ── */}
-      <Section id="filterbar" title="Filter Bar" description="Search + status chips + sort + view toggle for library filtering." composedOf="SearchBar + Badge chips + Select + Button group">
+      {/* ── TEMPLATE PICKER ── */}
+      <Section id="templatepicker" title="Template Picker" description="Grid picker for selecting prompt templates with category badges and metadata." composedOf="Badge + Button + Card-like buttons">
         <div className="p-4">
-          <FilterBar search={filterSearch} onSearchChange={setFilterSearch} />
+          <TemplatePickerDemo />
         </div>
-        <CodeBlock>{`<FilterBar search={search} onSearchChange={setSearch} />`}</CodeBlock>
+        <CodeBlock>{`<TemplatePicker templates={[{ id, name, description, category, tokenEstimate, fields }]} selectedId="..." onSelect={fn} />`}</CodeBlock>
       </Section>
 
-      {/* ── DASHBOARD STATS ── */}
-      <Section id="dashstats" title="Dashboard Stats" description="4-column stat grid. Auto-fit min 200px columns." composedOf="StatCard × 4">
-        <div className="p-4">
-          <DashboardStats />
-        </div>
-        <CodeBlock>{`<DashboardStats />`}</CodeBlock>
-      </Section>
-
-      {/* ── ACTIVITY FEED ── */}
-      <Section id="activityfeed" title="Activity Feed" description="Scrollable list of activity items. Max-height 400px." composedOf="Avatar + Text + Code + timestamps">
-        <div className="p-4">
-          <ActivityFeed items={activityItems} />
-        </div>
-        <CodeBlock>{`<ActivityFeed items={[{ actor, initials, action, resource, time }]} />`}</CodeBlock>
-      </Section>
-
-      {/* ── BULK ACTIONS BAR ── */}
-      <Section id="bulkactions" title="Bulk Actions Bar" description="Sticky bottom bar for multi-select actions. Slides in from bottom." composedOf="Badge count + Button group + dismiss">
-        <div className="relative h-24 bg-background flex items-end justify-center">
-          <BulkActionsBar
-            selectedCount={bulkCount}
-            onDismiss={() => setBulkCount(0)}
-            onDelete={() => {}}
-          />
-        </div>
-        <CodeBlock>{`<BulkActionsBar selectedCount={3} onDismiss={fn} onMove={fn} onTag={fn} onArchive={fn} onDelete={fn} />`}</CodeBlock>
-      </Section>
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Prompt Editor                                      */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-editor" title="Prompt Editor" description="Anatomy fields, compiled output, variables, versioning, and diff views." count={6} />
 
       {/* ── ANATOMY FIELD CARD ── */}
       <Section id="anatomyfieldcard" title="Anatomy Field Card" description="Prompt anatomy field with color dot, title, content snippet, and token count. 4 variants: atomic, compact, expanded, inactive." composedOf="Color dot + font-display label + font-mono content + token count">
@@ -336,6 +409,11 @@ export default function OrganismsPage() {
         <CodeBlock>{`<PromptEditorPanel fields={[{ field: "role", content: "...", tokenCount: 312 }]} compiledOutput="..." totalTokens={742} />`}</CodeBlock>
       </Section>
 
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Playground & Testing                               */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-playground" title="Playground & Testing" description="Model testing, run tracking, test datasets, and result scoring." count={4} />
+
       {/* ── PLAYGROUND PANEL ── */}
       <Section id="playgroundpanel" title="Playground Panel" description="Test prompts against a model. Shows system prompt, user input, and model response." composedOf="Badge + TokenCounter + Textarea + Button + ThinkingDots">
         <div className="p-4">
@@ -367,6 +445,11 @@ export default function OrganismsPage() {
         <CodeBlock>{`<VersionTimeline versions={[{ id: "v3", label: "v3", status: "production", timestamp: "3 days ago", author: "Mariano", tokenDelta: -89, active: true }]} onSelect={fn} />`}</CodeBlock>
       </Section>
 
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: AI & Evaluation                                    */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-ai" title="AI & Evaluation" description="AI generation, CLEAR scoring, improved prompts, and evaluation workflows." count={5} />
+
       {/* ── AI GENERATION PANEL ── */}
       <Section id="aigenerationpanel" title="AI Generation Panel" description="AI-assisted prompt generation with instruction input, generate button, and output area." composedOf="Textarea + Button + Badge + AI pulse animation">
         <div className="p-4 max-w-xl">
@@ -381,13 +464,6 @@ export default function OrganismsPage() {
         <CodeBlock>{`<AIGenerationPanel instruction="..." generatedOutput="..." targetField="role" isGenerating={boolean} onGenerate={fn} onAccept={fn} />`}</CodeBlock>
       </Section>
 
-      {/* ── TEMPLATE PICKER ── */}
-      <Section id="templatepicker" title="Template Picker" description="Grid picker for selecting prompt templates with category badges and metadata." composedOf="Badge + Button + Card-like buttons">
-        <div className="p-4">
-          <TemplatePickerDemo />
-        </div>
-        <CodeBlock>{`<TemplatePicker templates={[{ id, name, description, category, tokenEstimate, fields }]} selectedId="..." onSelect={fn} />`}</CodeBlock>
-      </Section>
 
       {/* ── VERSION COMPARISON ── */}
       <Section id="versioncomparison" title="Version Comparison" description="Side-by-side diff view comparing two prompt versions with line-level highlighting." composedOf="Badge + DiffLine + font-mono pre">
@@ -456,6 +532,11 @@ export default function OrganismsPage() {
         <CodeBlock>{`<RunHistory runs={[{ id, runId, model, status, tokens, latencyMs, timestamp }]} onRunClick={fn} />`}</CodeBlock>
       </Section>
 
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Import & Export                                    */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-io" title="Import & Export" description="Content import and export in multiple formats." count={2} />
+
       {/* ── IMPORT DIALOG ── */}
       <Section id="importdialog" title="Import Dialog" description="Multi-format import with paste area and file drop zone." composedOf="Textarea + Button + format selector">
         <div className="p-4 max-w-lg">
@@ -472,13 +553,11 @@ export default function OrganismsPage() {
         <CodeBlock>{`<ExportMenu promptName="Customer Support Bot" onExport={(format) => {}} />`}</CodeBlock>
       </Section>
 
-      {/* ── USER MENU ── */}
-      <Section id="usermenu" title="User Menu" description="Dropdown-like user menu with profile info, navigation, and logout." composedOf="Avatar + Badge + Button list">
-        <div className="p-4">
-          <UserMenu name="Mariano Rivera" email="hello@prompt-x.io" plan="Pro" />
-        </div>
-        <CodeBlock>{`<UserMenu name="Mariano" email="hello@prompt-x.io" plan="Pro" onLogout={fn} />`}</CodeBlock>
-      </Section>
+
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Settings & Config                                  */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-settings" title="Settings & Config" description="API keys, integrations, onboarding, and settings navigation." count={4} />
 
       {/* ── SETTINGS NAV ── */}
       <Section id="settingsnav" title="Settings Nav" description="Horizontal tab navigation for settings pages. Wraps TabNav molecule." composedOf="TabNav">
