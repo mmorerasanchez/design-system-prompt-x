@@ -30,15 +30,15 @@ const REASONING_OPTIONS = [
 ] as const;
 
 const ANATOMY_FIELDS = [
-  { value: "role", label: "Role", color: "bg-anatomy-role" },
-  { value: "tone", label: "Tone", color: "bg-anatomy-tone" },
-  { value: "context", label: "Context", color: "bg-anatomy-context" },
-  { value: "task", label: "Task", color: "bg-anatomy-task" },
-  { value: "reasoning", label: "Reasoning", color: "bg-anatomy-reasoning" },
-  { value: "examples", label: "Examples", color: "bg-anatomy-examples" },
-  { value: "output", label: "Output", color: "bg-anatomy-output" },
-  { value: "constraints", label: "Constraints", color: "bg-anatomy-constraints" },
-  { value: "tools", label: "Tools", color: "bg-anatomy-tools" },
+  { value: "role", label: "Role", color: "bg-category-teal" },
+  { value: "tone", label: "Tone", color: "bg-category-amber" },
+  { value: "context", label: "Context", color: "bg-category-emerald" },
+  { value: "task", label: "Task", color: "bg-category-orange" },
+  { value: "reasoning", label: "Reasoning", color: "bg-category-violet" },
+  { value: "examples", label: "Examples", color: "bg-category-rose" },
+  { value: "output", label: "Output", color: "bg-category-blue" },
+  { value: "constraints", label: "Constraints", color: "bg-category-red" },
+  { value: "tools", label: "Tools", color: "bg-category-gold" },
 ] as const;
 
 export interface PromptConfigState {

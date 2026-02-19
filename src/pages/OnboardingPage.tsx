@@ -45,15 +45,15 @@ const REASONING_OPTIONS = [
 ] as const;
 
 const ANATOMY_FIELDS = [
-  { value: "role", label: "Role", color: "bg-anatomy-role", borderColor: "border-l-anatomy-role" },
-  { value: "tone", label: "Tone", color: "bg-anatomy-tone", borderColor: "border-l-anatomy-tone" },
-  { value: "context", label: "Context", color: "bg-anatomy-context", borderColor: "border-l-anatomy-context" },
-  { value: "task", label: "Task", color: "bg-anatomy-task", borderColor: "border-l-anatomy-task" },
-  { value: "reasoning", label: "Reasoning", color: "bg-anatomy-reasoning", borderColor: "border-l-anatomy-reasoning" },
-  { value: "examples", label: "Examples", color: "bg-anatomy-examples", borderColor: "border-l-anatomy-examples" },
-  { value: "output", label: "Output", color: "bg-anatomy-output", borderColor: "border-l-anatomy-output" },
-  { value: "constraints", label: "Constraints", color: "bg-anatomy-constraints", borderColor: "border-l-anatomy-constraints" },
-  { value: "tools", label: "Tools", color: "bg-anatomy-tools", borderColor: "border-l-anatomy-tools" },
+  { value: "role", label: "Role", color: "bg-category-teal", borderColor: "border-l-category-teal" },
+  { value: "tone", label: "Tone", color: "bg-category-amber", borderColor: "border-l-category-amber" },
+  { value: "context", label: "Context", color: "bg-category-emerald", borderColor: "border-l-category-emerald" },
+  { value: "task", label: "Task", color: "bg-category-orange", borderColor: "border-l-category-orange" },
+  { value: "reasoning", label: "Reasoning", color: "bg-category-violet", borderColor: "border-l-category-violet" },
+  { value: "examples", label: "Examples", color: "bg-category-rose", borderColor: "border-l-category-rose" },
+  { value: "output", label: "Output", color: "bg-category-blue", borderColor: "border-l-category-blue" },
+  { value: "constraints", label: "Constraints", color: "bg-category-red", borderColor: "border-l-category-red" },
+  { value: "tools", label: "Tools", color: "bg-category-gold", borderColor: "border-l-category-gold" },
 ] as const;
 
 const GENERATION_PHASES = ["Analyzing input", "Structuring prompt", "Optimizing clarity", "Scoring quality"];

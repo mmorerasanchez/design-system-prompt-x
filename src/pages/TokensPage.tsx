@@ -143,17 +143,17 @@ export default function TokensPage() {
           ]}
         />
         <ColorGroup
-          title="Anatomy Fields"
+          title="Category Palette"
           tokens={[
-            { token: "--anatomy-role", label: "anatomy-role" },
-            { token: "--anatomy-tone", label: "anatomy-tone" },
-            { token: "--anatomy-context", label: "anatomy-context" },
-            { token: "--anatomy-task", label: "anatomy-task" },
-            { token: "--anatomy-reasoning", label: "anatomy-reasoning" },
-            { token: "--anatomy-examples", label: "anatomy-examples" },
-            { token: "--anatomy-output", label: "anatomy-output" },
-            { token: "--anatomy-constraints", label: "anatomy-constraints" },
-            { token: "--anatomy-tools", label: "anatomy-tools" },
+            { token: "--category-teal", label: "category-teal" },
+            { token: "--category-amber", label: "category-amber" },
+            { token: "--category-emerald", label: "category-emerald" },
+            { token: "--category-orange", label: "category-orange" },
+            { token: "--category-violet", label: "category-violet" },
+            { token: "--category-rose", label: "category-rose" },
+            { token: "--category-blue", label: "category-blue" },
+            { token: "--category-red", label: "category-red" },
+            { token: "--category-gold", label: "category-gold" },
           ]}
         />
         <ColorGroup

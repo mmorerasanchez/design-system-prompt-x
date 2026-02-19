@@ -1,25 +1,34 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-type AnatomyColor = "role" | "tone" | "context" | "task" | "reasoning" | "examples" | "output" | "constraints" | "tools";
+type CategoryColor = "teal" | "amber" | "emerald" | "orange" | "violet" | "rose" | "blue" | "red" | "gold";
 
-const anatomyColorMap: Record<AnatomyColor, string> = {
-  role: "bg-anatomy-role/10 text-anatomy-role border-anatomy-role/30",
-  tone: "bg-anatomy-tone/10 text-anatomy-tone border-anatomy-tone/30",
-  context: "bg-anatomy-context/10 text-anatomy-context border-anatomy-context/30",
-  task: "bg-anatomy-task/10 text-anatomy-task border-anatomy-task/30",
-  reasoning: "bg-anatomy-reasoning/10 text-anatomy-reasoning border-anatomy-reasoning/30",
-  examples: "bg-anatomy-examples/10 text-anatomy-examples border-anatomy-examples/30",
-  output: "bg-anatomy-output/10 text-anatomy-output border-anatomy-output/30",
-  constraints: "bg-anatomy-constraints/10 text-anatomy-constraints border-anatomy-constraints/30",
-  tools: "bg-anatomy-tools/10 text-anatomy-tools border-anatomy-tools/30",
+/** @deprecated Use CategoryColor instead */
+type AnatomyColor = CategoryColor;
+
+const categoryColorMap: Record<CategoryColor, string> = {
+  teal: "bg-category-teal/10 text-category-teal border-category-teal/30",
+  amber: "bg-category-amber/10 text-category-amber border-category-amber/30",
+  emerald: "bg-category-emerald/10 text-category-emerald border-category-emerald/30",
+  orange: "bg-category-orange/10 text-category-orange border-category-orange/30",
+  violet: "bg-category-violet/10 text-category-violet border-category-violet/30",
+  rose: "bg-category-rose/10 text-category-rose border-category-rose/30",
+  blue: "bg-category-blue/10 text-category-blue border-category-blue/30",
+  red: "bg-category-red/10 text-category-red border-category-red/30",
+  gold: "bg-category-gold/10 text-category-gold border-category-gold/30",
+};
+
+/** Maps legacy anatomy field names to category colors */
+const anatomyToCategory: Record<string, CategoryColor> = {
+  role: "teal", tone: "amber", context: "emerald", task: "orange",
+  reasoning: "violet", examples: "rose", output: "blue", constraints: "red", tools: "gold",
 };
 
 interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: "default" | "removable" | "selectable";
   selected?: boolean;
   onRemove?: () => void;
-  color?: AnatomyColor;
+  color?: CategoryColor;
 }
 
 const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
@@ -30,7 +39,7 @@ const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
         className={cn(
           "inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 font-mono text-xs transition-colors",
           color
-            ? anatomyColorMap[color]
+            ? categoryColorMap[color]
             : selected
               ? "border-accent bg-card text-accent"
               : "border-border bg-muted text-foreground",
@@ -57,4 +66,5 @@ const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
 Tag.displayName = "Tag";
 
 export { Tag };
-export type { TagProps, AnatomyColor };
+export type { TagProps, CategoryColor, AnatomyColor };
+export { anatomyToCategory };
