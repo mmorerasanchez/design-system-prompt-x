@@ -8,7 +8,7 @@ const stats = [
   { label: "Design Tokens", count: "90+", description: "Colors, typography, spacing, radius, z-index, themes" },
   { label: "Atoms", count: "7", description: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
   { label: "Molecules", count: "18", description: "FormField, SearchBar, StatCard, TokenCounter, TabNav, etc." },
-  { label: "Organisms", count: "42", description: "TopBar, DataTable, PromptCard, AuthForm, FilterBar, etc." },
+  { label: "Organisms", count: "15", description: "TopBar, DataTable, AuthForm, FilterBar, UserMenu, etc." },
   { label: "Templates", count: "7", description: "AppShell, Editor, Library, Dashboard, Detail, Comparison" },
   { label: "UI Primitives", count: "48", description: "shadcn/ui base components — Button, Dialog, Table, etc." },
 ];
