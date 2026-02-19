@@ -6,7 +6,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4+-06B6D4?logo=tailwindcss&logoColor=white)
 ![shadcn/ui](https://img.shields.io/badge/shadcn/ui-latest-000000?logo=shadcnui&logoColor=white)
 
-**A general-purpose, themeable atomic design system** — the visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x), a prompt engineering platform. Built on React, Tailwind CSS, and Radix UI with structured tokens, accessible components, and three-theme support.
+**A general-purpose, themeable atomic design system** — the visual foundation of prompt-x, a prompt engineering platform. Built on React, Tailwind CSS, and Radix UI with structured tokens, accessible components, and three-theme support.
 
 Ship dashboards, editors, workspaces, and data-heavy tools with a consistent visual language that works for both humans and AI agents.
 
@@ -139,20 +139,6 @@ All tokens are defined as HSL in `src/index.css`. Hex approximations below for q
 | `/organisms` | Organisms | Organism component demos |
 | `/templates` | Templates | Page layout template previews |
 | `/pages` | Pages | Full page compositions |
-
-### Application Prototype (Password-Protected)
-
-| Route | Page | Description |
-| --- | --- | --- |
-| `/app` | Dashboard | Metrics, activity feed, quick actions |
-| `/app/library` | Library | Browse, search, filter content |
-| `/app/library/:id` | Detail | Version history, analytics, metadata |
-| `/app/library/:id/edit` | Editor | Split-pane editor |
-| `/app/ai-designer` | AI Designer | AI-powered generation interface |
-| `/app/settings` | Settings | API keys, integrations, preferences |
-| `/app/welcome` | Onboarding | First-run onboarding wizard |
-
-> Application pages are gated behind a prototype password. Contact `hola@atomic-products.com` for access.
 
 ---
 
