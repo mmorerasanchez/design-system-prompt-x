@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormField } from "@/components/molecules/FormField";
 import { Separator } from "@/components/ui/separator";
-import { Heading, Text } from "@/components/atoms";
+import { Heading, Text, Logo } from "@/components/atoms";
 import { useState } from "react";
 
 interface AuthFormProps {
@@ -24,9 +24,10 @@ export function AuthForm({ mode = "login", onSubmit, className }: AuthFormProps)
 
   return (
     <div className={cn("w-full max-w-[400px] rounded-lg border border-border bg-card p-6 space-y-6", className)}>
-      <div className="text-center space-y-1">
+      <div className="flex flex-col items-center space-y-1">
+        <Logo size={32} />
         <Heading level="h2" className="font-display text-lg font-semibold">
-          prompt<span className="text-accent">x</span>
+          Sign In
         </Heading>
         <Text variant="muted" size="sm">
           {mode === "login" ? "Sign in to your account" : "Create a new account"}

@@ -16,7 +16,7 @@ import {
   SelectGroup,
   SelectLabel,
 } from "@/components/ui/select";
-import { Heading, Text } from "@/components/atoms";
+import { Heading, Text, Logo } from "@/components/atoms";
 import { Copy, Check, Pencil, Save, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { WizardStep } from "@/components/organisms/OnboardingWizard";
@@ -188,10 +188,11 @@ export default function OnboardingPage() {
       <div className="w-full max-w-3xl space-y-6">
         {/* Header — no icon, just title */}
         <div className="text-center">
+          <Logo size={40} className="mx-auto" />
           <Heading level="h1">
-            prompt<span className="text-accent">x</span>
+            Getting Started
           </Heading>
-          <Text variant="muted" className="mt-1">Prompt engineering, perfected.</Text>
+          <Text variant="muted" className="mt-1">Configure your workspace.</Text>
         </div>
 
         <OnboardingWizard

@@ -237,9 +237,9 @@ export default function OrganismsPage() {
       {/* ── USER MENU ── */}
       <Section id="usermenu" title="User Menu" description="Dropdown-like user menu with profile info, navigation, and logout." composedOf="Avatar + Badge + Button list">
         <div className="p-4">
-          <UserMenu name="Mariano Rivera" email="hello@prompt-x.io" plan="Pro" />
+          <UserMenu name="Mariano Rivera" email="user@example.com" plan="Pro" />
         </div>
-        <CodeBlock>{`<UserMenu name="Mariano" email="hello@prompt-x.io" plan="Pro" onLogout={fn} />`}</CodeBlock>
+        <CodeBlock>{`<UserMenu name="Mariano" email="user@example.com" plan="Pro" onLogout={fn} />`}</CodeBlock>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════════ */}
