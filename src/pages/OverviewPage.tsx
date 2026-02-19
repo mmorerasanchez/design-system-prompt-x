@@ -27,7 +27,7 @@ const sections = [
   { name: "Tokens", path: "/tokens", icon: Palette, desc: "Colors, typography, spacing, radius, shadows, breakpoints" },
   { name: "Atoms", path: "/atoms", icon: Box, desc: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
   { name: "Molecules", path: "/molecules", icon: Layers, desc: "FormField, SearchBar, Cards, TabNav, Counters" },
-  { name: "Organisms", path: "/organisms", icon: LayoutGrid, desc: "TopBar, DataTable, PromptCard, AuthForm, FilterBar" },
+  { name: "Organisms", path: "/organisms", icon: LayoutGrid, desc: "TopBar, DataTable, Card, AuthForm, FilterBar" },
   { name: "Templates", path: "/templates", icon: Layout, desc: "AppShell, Layouts and Pages" },
   { name: "Pages", path: "/pages", icon: FileText, desc: "Dashboard Demo" },
 ];
