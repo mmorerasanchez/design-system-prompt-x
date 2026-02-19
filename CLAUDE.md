@@ -1,8 +1,14 @@
 # CLAUDE.md — AI Agent Context
 
 > This file is auto-read by AI coding agents (Claude Code, Cursor, Windsurf, etc.)
-> working on the **prompt-x** design system. It provides essential project context
+> working with this **Atomic Design System**. It provides essential project context
 > to produce consistent, on-system code from the first generation.
+
+> **⚠️ Themeable system.** This is a general-purpose, brandable design system. Before
+> using default token values, check `tailwind.config.ts` and `src/index.css` for any
+> custom theme overrides. The accent color, font families, radius, and surface palette
+> may differ from the defaults documented below. See [`docs/theming.md`](docs/theming.md)
+> for the full theming guide.
 
 ---
 
@@ -14,9 +20,9 @@ The component library follows **Atomic Design** methodology with five levels:
 |---|---|---|---|
 | **Atoms** | `src/components/atoms/` | Smallest building blocks — single-purpose, no child components | `Heading`, `Tag`, `Spinner`, `Code`, `Kbd`, `Link`, `Text` |
 | **Molecules** | `src/components/molecules/` | Compositions of 2+ atoms | `FormField`, `SearchBar`, `StatCard`, `TokenCounter`, `TabNav`, `EmptyState` |
-| **Organisms** | `src/components/organisms/` | Major UI sections, may include molecules | `TopBar`, `DataTable`, `PromptCard`, `FilterBar`, `DashboardStats`, `VersionTimeline` |
+| **Organisms** | `src/components/organisms/` | Major UI sections, may include molecules | `TopBar`, `DataTable`, `FilterBar`, `DashboardStats`, `VersionTimeline` |
 | **Templates** | `src/components/templates/` | Page layout shells — no business logic | `AppShell`, `EditorLayout`, `LibraryLayout`, `DetailLayout`, `DashboardLayout` |
-| **Pages** | `src/pages/` | Route-level components that compose templates + organisms | `DashboardPage`, `LibraryPage`, `PromptEditorPage`, `SettingsPage` |
+| **Pages** | `src/pages/` | Route-level components that compose templates + organisms | `DashboardPage`, `LibraryPage`, `SettingsPage` |
 
 **UI Primitives** (`src/components/ui/`) are shadcn/ui components — extend via CVA variants, never modify directly.
 
@@ -45,9 +51,9 @@ Layout-specific tokens: `--header-height: 3.5rem`, `--sidebar-width: 15rem`, `--
 
 ### Border Radius
 
-Based on `--radius: 0.75rem` (12px):
+Based on `--radius: 0.75rem` (12px) by default — may be overridden per project:
 
-| Class | Computed | Pixels |
+| Class | Computed | Pixels (default) |
 |---|---|---|
 | `rounded-sm` | `calc(var(--radius) - 8px)` | ~4px |
 | `rounded-md` | `calc(var(--radius) - 4px)` | ~8px |
@@ -59,17 +65,17 @@ Based on `--radius: 0.75rem` (12px):
 All colors are defined as CSS custom properties in HSL (without `hsl()` wrapper) in `src/index.css` and mapped in `tailwind.config.ts`. Three themes: **Dark** (`:root`), **Light** (`.light`), **Warm** (`.warm`).
 
 **Core surfaces** (3-layer hierarchy):
-- `--background` → page background (darkest in dark mode)
+- `--background` → page background (deepest layer)
 - `--surface` → panels, sidebars, headers
 - `--card` → cards, dialogs, elevated content
 
 **Text**: `--foreground`, `--muted-foreground`, `--foreground-subtle`, `--accent`
 
-**Accent**: `--accent` (terracotta orange), `--accent-muted`, `--accent-subtle`
+**Accent** (3-tier intensity): `--accent`, `--accent-muted`, `--accent-subtle`
 
 **Semantic**: `--success`, `--warning`, `--error`, `--info` (each with `-bg` and `-border` variants)
 
-**Anatomy fields** (9 prompt sections): `--anatomy-role`, `--anatomy-tone`, `--anatomy-context`, `--anatomy-task`, `--anatomy-reasoning`, `--anatomy-examples`, `--anatomy-output`, `--anatomy-constraints`, `--anatomy-tools`
+**Category palette** (9 distinct hues for content tagging): `--category-teal`, `--category-amber`, `--category-emerald`, `--category-orange`, `--category-violet`, `--category-rose`, `--category-blue`, `--category-red`, `--category-gold`
 
 **Status lifecycle**: `--status-draft`, `--status-testing`, `--status-production`, `--status-archived`
 
@@ -77,13 +83,13 @@ All colors are defined as CSS custom properties in HSL (without `hsl()` wrapper)
 
 ### Typography
 
-Three font families — each with a mandatory purpose:
+Three font families — each with a mandatory purpose (defaults shown; may be overridden):
 
-| Family | Class | Font | Use for |
+| Family | Class | Default Font | Use for |
 |---|---|---|---|
 | Display | `font-display` | Plus Jakarta Sans | Headings, labels, buttons |
 | Body | `font-body` | Satoshi | Body text, descriptions |
-| Mono | `font-mono` | JetBrains Mono | Data, code, prompts, user content |
+| Mono | `font-mono` | JetBrains Mono | Data, code, user content |
 
 Size scale defined in `tailwind.config.ts`:
 
@@ -108,9 +114,10 @@ Size scale defined in `tailwind.config.ts`:
 3. **TypeScript with proper prop types** — every component must define an explicit `interface` for its props with JSDoc descriptions.
 4. **Follow existing naming conventions** — PascalCase filenames, one component per file, barrel `index.ts` exports.
 5. **Use shadcn/ui primitives as the base** — extend via CVA variants in `ui/` components; compose them into atoms/molecules, never rebuild from scratch.
-6. **Prompts are code** — all user-editable or prompt-related content must use `font-mono`.
+6. **User-editable content uses `font-mono`** — all code, data values, and user-generated content must use the mono font family.
 7. **Three-theme compliance** — any new color token must be defined in all three themes (`:root`, `.light`, `.warm`) in `src/index.css`.
 8. **Semantic color only** — use `bg-card`, `text-muted-foreground`, `border-border` etc. Never write `bg-gray-800` or `text-white`.
+9. **Check for theme overrides** — before assuming default token values, verify the project's `tailwind.config.ts` and `index.css` for custom theme configuration.
 
 ---
 
@@ -120,6 +127,7 @@ Size scale defined in `tailwind.config.ts`:
 |---|---|
 | `src/index.css` | CSS custom properties — source of truth for all design tokens |
 | `tailwind.config.ts` | Tailwind mappings to CSS variables, font/size/color definitions |
+| `docs/theming.md` | How to customize the system for a specific brand or product |
 | `src/DESIGN_SYSTEM.md` | Full design system specification and component inventory |
 | `CONTRIBUTING.md` | Development workflow, commit conventions, component creation guide |
 | `CHANGELOG.md` | Version history (Keep a Changelog format) |
