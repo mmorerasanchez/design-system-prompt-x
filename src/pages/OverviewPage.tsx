@@ -16,7 +16,6 @@ const stats = [
 const principles = [
   { name: "Monochromatic + Accent", desc: "95% warm stone grays, 4% terracotta orange accent, 1% semantic colors." },
   { name: "3-Surface Hierarchy", desc: "Background → Surface → Card creates depth without complexity." },
-  { name: "Prompts Are Code", desc: "All user-editable content uses font-mono. Non-negotiable." },
   { name: "Typography as Hierarchy", desc: "Three font families convey meaning: Display, Body, Mono." },
   { name: "Progressive Disclosure", desc: "Start with the lightest variant, add complexity as needed." },
   { name: "Accessible by Default", desc: "WCAG 2.1 AA, 44×44px touch targets, keyboard navigation." },
