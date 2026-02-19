@@ -3,8 +3,8 @@
  * Change PROTOTYPE_PASSWORD to update the access password.
  */
 
-const PROTOTYPE_PASSWORD = "promptx";
-const STORAGE_KEY = "promptx-prototype-auth";
+const PROTOTYPE_PASSWORD = "democrito";
+const STORAGE_KEY = "democrito-prototype-auth";
 
 export function isPrototypeAuthenticated(): boolean {
   try {

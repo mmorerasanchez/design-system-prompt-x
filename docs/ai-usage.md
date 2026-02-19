@@ -1,6 +1,7 @@
-# Using prompt-x with AI Coding Tools
+# Using democrito with AI Coding Tools
 
 > How to get consistent, on-system results from AI code generators by providing the right context.
+> democrito is the visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x), a prompt engineering platform.
 
 ---
 
@@ -14,7 +15,7 @@ This guide covers setup and prompting strategies for four categories of tools.
 
 ## 1. Lovable
 
-Lovable is the primary development environment for prompt-x. It has full access to the codebase and can read component patterns directly.
+Lovable is the primary development environment for democrito. It has full access to the codebase and can read component patterns directly.
 
 ### Setup
 
@@ -55,7 +56,7 @@ These tools auto-read `CLAUDE.md` at the project root, which contains the full a
 
 ### Setup
 
-1. **Clone the repo** — `git clone https://github.com/mmorerasanchez/design-system-prompt-x.git`
+1. **Clone the repo** — `git clone https://github.com/mmorerasanchez/democrito.git`
 2. **Open in Cursor** — The `CLAUDE.md` file is automatically loaded as context.
 3. **For Claude Code** — Run `claude` in the project directory. It reads `CLAUDE.md` on startup.
 
@@ -161,7 +162,8 @@ interface VersionEntryProps {
 Copy-paste this block into any AI tool's context window for on-system results.
 
 ```
-=== prompt-x Design System — Token Reference ===
+=== democrito Design System — Token Reference ===
+(Visual foundation of prompt-x — a prompt engineering platform)
 
 ARCHITECTURE: Atomic Design (atoms → molecules → organisms → templates → pages)
 - atoms/: single-purpose, no child components (Heading, Tag, Spinner, Code, Kbd, Link, Text)

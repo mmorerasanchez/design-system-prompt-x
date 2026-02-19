@@ -19,7 +19,7 @@ interface PromptEditorPanelProps {
 
 /**
  * PromptEditorPanel — split panel with anatomy field cards on the left
- * and compiled preview on the right. The core editing surface of prompt-x.
+ * and compiled preview on the right. The core editing surface of the prompt-x application.
  */
 export function PromptEditorPanel({
   fields,

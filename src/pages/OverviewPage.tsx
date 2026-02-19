@@ -32,7 +32,7 @@ const sections = [
   { name: "Pages", path: "/pages", icon: FileText, desc: "Dashboard, Library, Editor, Settings, Prompt Detail" },
 ];
 
-const REPO_URL = "https://github.com/mmorerasanchez/design-system-prompt-x";
+const REPO_URL = "https://github.com/mmorerasanchez/democrito";
 
 export default function OverviewPage() {
   const navigate = useNavigate();
@@ -42,13 +42,13 @@ export default function OverviewPage() {
       <div className="space-y-5">
         <div className="flex items-center gap-3">
           <Logo size={40} />
-          <h1 className="font-display text-3xl font-bold tracking-tight">
-            Design System
+          <h1 className="font-mono text-3xl font-bold tracking-tight lowercase">
+            democrito
           </h1>
           <Badge variant="outline">v2.0.0</Badge>
         </div>
         <Text size="lg" variant="muted" className="max-w-prose">
-          A minimal, monochromatic, precisely crafted design system. Ready to duplicate and extend.
+          A minimal, monochromatic, precisely crafted design system — the visual foundation of prompt-x. Ready to duplicate and extend.
         </Text>
         <div className="flex items-center gap-3">
           <Button onClick={() => window.open(REPO_URL, "_blank")}>
@@ -128,7 +128,7 @@ export default function OverviewPage() {
                 <span>Terminal</span>
               </div>
               <p>git clone {REPO_URL}.git</p>
-              <p>cd design-system-prompt-x</p>
+              <p>cd democrito</p>
               <p>npm install</p>
               <p>npm run dev</p>
             </div>

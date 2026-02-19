@@ -57,7 +57,7 @@ export function DataManager({ className }: DataManagerProps) {
           <div className="flex flex-col items-center justify-center rounded-md border-2 border-dashed border-border bg-surface px-6 py-10 text-center transition-colors hover:border-accent/50">
             <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
             <p className="font-body text-sm text-foreground">Drop a <code className="rounded-sm border border-border bg-muted px-1.5 py-0.5 font-mono text-xs">.json</code> file here or click to browse</p>
-            <p className="mt-1 font-body text-xs text-muted-foreground">Supports prompt-x export format</p>
+            <p className="mt-1 font-body text-xs text-muted-foreground">Supports democrito export format</p>
           </div>
         </div>
       </div>
