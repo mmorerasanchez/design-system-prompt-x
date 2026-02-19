@@ -13,6 +13,7 @@
 | [Design Tokens](./tokens.md) | Complete tokens reference — colors, typography, spacing, radii, motion |
 | [Theming](./theming.md) | How to customize the system for your brand — palette, fonts, spacing, with full examples |
 | [AI Usage](./ai-usage.md) | How to use this design system with AI coding tools (Claude, Cursor, Copilot) |
+| [Migration](./migration.md) | How to consume tokens in a new project and migrate from MUI, Chakra, Bootstrap, or Tailwind UI |
 
 ## Component Reference
 
