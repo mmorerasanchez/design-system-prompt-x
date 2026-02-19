@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.0] — 2026-02-19
+
+### Added
+
+#### Documentation
+- `docs/getting-started.md` — quick start guide with prerequisites, scripts, project structure, and theming basics
+- `docs/migration.md` — migration guide for consuming tokens and migrating from MUI, Chakra, Bootstrap, and Tailwind UI
+- `design-tokens.json` — W3C DTCG–format design tokens for tooling interoperability (Figma Token Studio, Style Dictionary)
+- Updated `docs/README.md` index with links to Getting Started and Migration guides
+
+#### Repository Health
+- `.github/ISSUE_TEMPLATE/bug_report.md` — structured bug report template
+- `.github/ISSUE_TEMPLATE/feature_request.md` — feature request template
+- `.github/PULL_REQUEST_TEMPLATE.md` — PR checklist with token compliance and theme testing
+- `.github/CODEOWNERS` — ownership rules for tokens, components, and documentation
+- `.github/workflows/ci.yml` — CI pipeline (lint, typecheck, test) on push/PR to main
+
+### Changed
+
+#### Organisms Showcase (`/organisms`)
+- Grouped all 42 organisms into 8 categories: Navigation & Layout, Dashboard & Data, Prompt Store, Prompt Editor, Playground & Testing, AI & Evaluation, Import & Export, Settings & Config
+- Added clickable category jump-nav at page top with component counts
+- Added `CategoryHeader` component with border-top dividers and mono count badges
+
+#### Documentation
+- `docs/components/organisms.md` — reorganized with 8-category structure matching the showcase page, full prop interfaces for all 42 organisms
+- `README.md` — clarified npm as primary package manager, added `design-tokens.json` to documentation table
+
+---
+
 ## [0.1.0] — 2026-02-18
 
 ### Added
@@ -145,4 +175,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `LICENSE` — MIT license
 - `src/DESIGN_SYSTEM.md` — complete design system specification (v2.3)
 
+[0.2.0]: https://github.com/mmorerasanchez/design-system-prompt-x/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/mmorerasanchez/design-system-prompt-x/releases/tag/v0.1.0
