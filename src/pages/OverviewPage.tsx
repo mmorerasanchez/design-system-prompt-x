@@ -69,7 +69,7 @@ export default function OverviewPage() {
         <div key={s.label} className="rounded-md border border-border bg-card p-4 space-y-1">
             <p className="font-mono text-2xl font-bold text-accent">{s.count}</p>
             <p className="font-display text-sm font-medium">{s.label}</p>
-            <p className="font-body text-2xs text-muted-foreground">{s.description}</p>
+            <p className="font-body text-2xs text-muted-foreground line-clamp-2">{s.description}</p>
           </div>
         )}
       </div>
