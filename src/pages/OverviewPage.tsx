@@ -163,12 +163,12 @@ export default function OverviewPage() {
               <Star className="h-4 w-4" />
               Star on GitHub
             </Button>
-            <Button variant="outline" asChild>
-              <a href="https://www.linkedin.com/in/mmorerasanchez/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/mmorerasanchez/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline">
                 <ExternalLink className="h-4 w-4" />
                 Contact Creator
-              </a>
-            </Button>
+              </Button>
+            </a>
           </div>
         </div>
       </div>
