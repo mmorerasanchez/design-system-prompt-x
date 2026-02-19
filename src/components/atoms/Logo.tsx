@@ -21,23 +21,21 @@ export function Logo({ size = 28, className }: LogoProps) {
       className={cn("shrink-0", className)}
       aria-label="Logo"
     >
-      {/* Outlined circle (left) */}
-      <ellipse
-        cx="40"
-        cy="52"
-        rx="32"
-        ry="34"
-        stroke="currentColor"
-        strokeWidth="5"
+      {/* Outlined accent circle (left) */}
+      <circle
+        cx="38"
+        cy="54"
+        r="30"
+        stroke="hsl(var(--accent))"
+        strokeWidth="4.5"
         fill="none"
       />
-      {/* Filled accent circle (right, overlapping) */}
-      <ellipse
-        cx="62"
-        cy="46"
-        rx="30"
-        ry="32"
-        fill="hsl(var(--accent))"
+      {/* Filled foreground circle (right, overlapping) */}
+      <circle
+        cx="64"
+        cy="48"
+        r="32"
+        fill="currentColor"
       />
     </svg>
   );
