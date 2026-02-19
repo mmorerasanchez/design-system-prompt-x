@@ -8,7 +8,9 @@ interface LogoProps {
 
 /**
  * Logo — Brand mark with two overlapping organic circles.
- * One outlined in foreground, one filled with accent color.
+ * Accent-outlined circle (left) + foreground-filled circle (right).
+ * In dark mode (:root) the filled circle matches background, leaving only the accent arc.
+ * In light/warm modes, the filled circle uses foreground for contrast.
  */
 export function Logo({ size = 28, className }: LogoProps) {
   return (
@@ -21,6 +23,13 @@ export function Logo({ size = 28, className }: LogoProps) {
       className={cn("shrink-0", className)}
       aria-label="Logo"
     >
+      {/* Filled circle (right) — theme-adaptive via CSS class */}
+      <circle
+        cx="64"
+        cy="48"
+        r="32"
+        className="logo-fill"
+      />
       {/* Outlined accent circle (left) */}
       <circle
         cx="38"
@@ -29,13 +38,6 @@ export function Logo({ size = 28, className }: LogoProps) {
         stroke="hsl(var(--accent))"
         strokeWidth="4.5"
         fill="none"
-      />
-      {/* Filled foreground circle (right, overlapping) */}
-      <circle
-        cx="64"
-        cy="48"
-        r="32"
-        fill="currentColor"
       />
     </svg>
   );

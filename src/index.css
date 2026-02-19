@@ -262,6 +262,11 @@
   }
 }
 
+/* Logo fill — dark: hidden (matches bg), light/warm: foreground */
+:root .logo-fill { fill: hsl(var(--background)); }
+.light .logo-fill { fill: hsl(var(--foreground)); }
+.warm .logo-fill { fill: hsl(var(--foreground)); }
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
