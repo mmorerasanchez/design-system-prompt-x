@@ -5,31 +5,31 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Palette, Box, Layers, LayoutGrid, Layout, FileText, Star, ExternalLink, Terminal } from "lucide-react";
 
 const stats = [
-  { label: "Design Tokens", count: "90+", description: "Colors, typography, spacing, radius, z-index, themes" },
-  { label: "Atoms", count: "7", description: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
-  { label: "Molecules", count: "18", description: "FormField, SearchBar, StatCard, TokenCounter, TabNav, etc." },
-  { label: "Organisms", count: "15", description: "TopBar, DataTable, AuthForm, FilterBar, UserMenu, etc." },
-  { label: "Templates", count: "7", description: "AppShell, Editor, Library, Dashboard, Detail, Comparison" },
-  { label: "UI Primitives", count: "48", description: "shadcn/ui base components — Button, Dialog, Table, etc." },
-];
+{ label: "Design Tokens", count: "90+", description: "Colors, typography, spacing, radius, z-index, themes" },
+{ label: "Atoms", count: "7", description: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
+{ label: "Molecules", count: "18", description: "FormField, SearchBar, StatCard, TokenCounter, TabNav, etc." },
+{ label: "Organisms", count: "15", description: "TopBar, DataTable, AuthForm, FilterBar, UserMenu, etc." },
+{ label: "Templates", count: "7", description: "AppShell, Editor, Library, Dashboard, Detail, Comparison" },
+{ label: "UI Primitives", count: "48", description: "shadcn/ui base components — Button, Dialog, Table, etc." }];
+
 
 const principles = [
-  { name: "Monochromatic + Accent", desc: "95% warm stone grays, 4% terracotta orange accent, 1% semantic colors." },
-  { name: "3-Surface Hierarchy", desc: "Background → Surface → Card creates depth without complexity." },
-  { name: "Typography as Hierarchy", desc: "Three font families convey meaning: Display, Body, Mono." },
-  { name: "Progressive Disclosure", desc: "Start with the lightest variant, add complexity as needed." },
-  { name: "Accessible by Default", desc: "WCAG 2.1 AA, 44×44px touch targets, keyboard navigation." },
-  { name: "IDE-Inspired", desc: "Clean, distraction-free workspace for prompt engineering." },
-];
+{ name: "Monochromatic + Accent", desc: "95% warm stone grays, 4% terracotta orange accent, 1% semantic colors." },
+{ name: "3-Surface Hierarchy", desc: "Background → Surface → Card creates depth without complexity." },
+{ name: "Typography as Hierarchy", desc: "Three font families convey meaning: Display, Body, Mono." },
+{ name: "Progressive Disclosure", desc: "Start with the lightest variant, add complexity as needed." },
+{ name: "Accessible by Default", desc: "WCAG 2.1 AA, 44×44px touch targets, keyboard navigation." },
+{ name: "IDE-Inspired", desc: "Clean, distraction-free workspace for prompt engineering." }];
+
 
 const sections = [
-  { name: "Tokens", path: "/tokens", icon: Palette, desc: "Colors, Typography, Spacing, Radius, Shadows, Breakpoints" },
-  { name: "Atoms", path: "/atoms", icon: Box, desc: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
-  { name: "Molecules", path: "/molecules", icon: Layers, desc: "FormField, SearchBar, Cards, TabNav, Counters" },
-  { name: "Organisms", path: "/organisms", icon: LayoutGrid, desc: "TopBar, DataTable, Card, AuthForm, FilterBar" },
-  { name: "Templates", path: "/templates", icon: Layout, desc: "AppShell, Layouts and Pages" },
-  { name: "Pages", path: "/pages", icon: FileText, desc: "Dashboard Demo" },
-];
+{ name: "Tokens", path: "/tokens", icon: Palette, desc: "Colors, Typography, Spacing, Radius, Shadows, Breakpoints" },
+{ name: "Atoms", path: "/atoms", icon: Box, desc: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
+{ name: "Molecules", path: "/molecules", icon: Layers, desc: "FormField, SearchBar, Cards, TabNav, Counters" },
+{ name: "Organisms", path: "/organisms", icon: LayoutGrid, desc: "TopBar, DataTable, Card, AuthForm, FilterBar" },
+{ name: "Templates", path: "/templates", icon: Layout, desc: "AppShell, Layouts and Pages" },
+{ name: "Pages", path: "/pages", icon: FileText, desc: "Dashboard Demo" }];
+
 
 const REPO_URL = "https://github.com/mmorerasanchez/democrito";
 
@@ -65,25 +65,25 @@ export default function OverviewPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-md border border-border bg-card p-4 space-y-1">
+        {stats.map((s) =>
+        <div key={s.label} className="rounded-md border border-border bg-card p-4 space-y-1">
             <p className="font-mono text-2xl font-bold text-accent">{s.count}</p>
             <p className="font-display text-sm font-medium">{s.label}</p>
             <p className="font-body text-2xs text-muted-foreground">{s.description}</p>
           </div>
-        ))}
+        )}
       </div>
 
       {/* Explore */}
       <div>
         <Heading level="h2" className="mb-4">Explore</Heading>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {sections.map((s) => (
-            <Link
-              key={s.path}
-              to={s.path}
-              className="group flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-all duration-150 hover:-translate-y-px hover:shadow-md hover:border-accent/30"
-            >
+          {sections.map((s) =>
+          <Link
+            key={s.path}
+            to={s.path}
+            className="group flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-all duration-150 hover:-translate-y-px hover:shadow-md hover:border-accent/30">
+
               <div className="rounded-md bg-accent/10 p-2 text-accent">
                 <s.icon className="h-5 w-5" />
               </div>
@@ -93,7 +93,7 @@ export default function OverviewPage() {
               </div>
               <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity mt-0.5" />
             </Link>
-          ))}
+          )}
         </div>
       </div>
 
@@ -101,8 +101,8 @@ export default function OverviewPage() {
       <div>
         <Heading level="h2" className="mb-4">Design Principles</Heading>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {principles.map((p, i) => (
-            <div key={p.name} className="flex gap-3 rounded-md border border-border bg-card p-4">
+          {principles.map((p, i) =>
+          <div key={p.name} className="flex gap-3 rounded-md border border-border bg-card p-4">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-2xs font-bold text-accent">
                 {i + 1}
               </span>
@@ -111,7 +111,7 @@ export default function OverviewPage() {
                 <p className="font-body text-xs text-muted-foreground">{p.desc}</p>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
@@ -140,7 +140,7 @@ export default function OverviewPage() {
               <li>Copy <Code>tailwind.config.ts</Code> and <Code>index.css</Code> tokens into your project</li>
               <li>Never hardcode colors or sizes — always use semantic tokens</li>
               <li><Code>font-display</Code> for headings, <Code>font-body</Code> for text, <Code>font-mono</Code> for data</li>
-              <li>Use showcase pages as visual reference for implementation</li>
+              <li>Use showcase page as visual reference and prompt-x for implementation</li>
             </ul>
           </div>
 
@@ -171,6 +171,6 @@ export default function OverviewPage() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
