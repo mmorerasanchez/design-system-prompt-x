@@ -33,6 +33,8 @@ npm install
 npm run dev
 ```
 
+> **Package manager:** The project uses `npm` as the primary package manager. A `bun.lockb` file may be present from the Lovable build environment — it can be safely ignored. Always use `npm install` / `npm run dev` for local development.
+
 ---
 
 ## Architecture
