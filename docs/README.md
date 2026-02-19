@@ -11,6 +11,7 @@
 | [Getting Started](./getting-started.md) | Installation, dev setup, and first steps |
 | [Architecture](./architecture.md) | Atomic Design decisions and rationale |
 | [Design Tokens](./tokens.md) | Complete tokens reference — colors, typography, spacing, radii, motion |
+| [Theming](./theming.md) | How to customize the system for your brand — palette, fonts, spacing, with full examples |
 | [AI Usage](./ai-usage.md) | How to use this design system with AI coding tools (Claude, Cursor, Copilot) |
 
 ## Component Reference
