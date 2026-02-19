@@ -24,7 +24,7 @@ const principles = [
 ];
 
 const sections = [
-  { name: "Tokens", path: "/tokens", icon: Palette, desc: "Colors, typography, spacing, radius, shadows, breakpoints" },
+  { name: "Tokens", path: "/tokens", icon: Palette, desc: "Colors, Typography, Spacing, Radius, Shadows, Breakpoints" },
   { name: "Atoms", path: "/atoms", icon: Box, desc: "Heading, Text, Tag, Spinner, Code, Kbd, Link" },
   { name: "Molecules", path: "/molecules", icon: Layers, desc: "FormField, SearchBar, Cards, TabNav, Counters" },
   { name: "Organisms", path: "/organisms", icon: LayoutGrid, desc: "TopBar, DataTable, Card, AuthForm, FilterBar" },
