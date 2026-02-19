@@ -1,26 +1,12 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { TopBar } from "@/components/organisms/TopBar";
 import { SidebarNav } from "@/components/organisms/SidebarNav";
 import { DataTable } from "@/components/organisms/DataTable";
 import { AuthForm } from "@/components/organisms/AuthForm";
-import { PromptCard } from "@/components/organisms/PromptCard";
-import { StatusLifecycleBar } from "@/components/organisms/StatusLifecycleBar";
 import { BulkActionsBar } from "@/components/organisms/BulkActionsBar";
 import { FilterBar } from "@/components/organisms/FilterBar";
 import { DashboardStats } from "@/components/organisms/DashboardStats";
 import { ActivityFeed } from "@/components/organisms/ActivityFeed";
-import { AnatomyFieldCard } from "@/components/organisms/AnatomyFieldCard";
-import { CompiledPreview } from "@/components/organisms/CompiledPreview";
-import { VariableManager } from "@/components/organisms/VariableManager";
-import { PromptEditorPanel } from "@/components/organisms/PromptEditorPanel";
-import { PlaygroundPanel } from "@/components/organisms/PlaygroundPanel";
-import { VersionTimeline } from "@/components/organisms/VersionTimeline";
-import { AIGenerationPanel } from "@/components/organisms/AIGenerationPanel";
-import { TemplatePicker } from "@/components/organisms/TemplatePicker";
-import { VersionComparison } from "@/components/organisms/VersionComparison";
-import { EvaluationResults } from "@/components/organisms/EvaluationResults";
-import { TestDatasetManager } from "@/components/organisms/TestDatasetManager";
-import { RunHistory } from "@/components/organisms/RunHistory";
 import { ImportDialog } from "@/components/organisms/ImportDialog";
 import { ExportMenu } from "@/components/organisms/ExportMenu";
 import { UserMenu } from "@/components/organisms/UserMenu";
@@ -28,15 +14,7 @@ import { SettingsNav } from "@/components/organisms/SettingsNav";
 import { APIKeyManager } from "@/components/organisms/APIKeyManager";
 import { IntegrationCard } from "@/components/organisms/IntegrationCard";
 import { OnboardingWizard } from "@/components/organisms/OnboardingWizard";
-import { CLEARScorePanel } from "@/components/organisms/CLEARScorePanel";
-import { ImprovedPromptPanel } from "@/components/organisms/ImprovedPromptPanel";
-import { EvalConfirmModal } from "@/components/organisms/EvalConfirmModal";
-import { EvaluationResultsView } from "@/components/organisms/EvaluationResultsView";
-import { defaultPromptConfig } from "@/components/organisms/PromptConfigFields";
-import type { CLEARDimension, CLEARSuggestion } from "@/components/organisms/CLEARScorePanel";
-import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 import { Badge } from "@/components/ui/badge";
-
 
 function CategoryHeader({ id, title, description, count }: { id: string; title: string; description: string; count: number }) {
   return (
@@ -88,21 +66,10 @@ export default function OrganismsPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [filterSearch, setFilterSearch] = useState("");
   const [bulkCount, setBulkCount] = useState(3);
-  const [highlightedVar, setHighlightedVar] = useState<string | null>(null);
-
-  const handleVariableClick = useCallback((name: string) => {
-    setHighlightedVar(name);
-    // Auto-clear after 2 seconds
-    setTimeout(() => setHighlightedVar(null), 2000);
-  }, []);
 
   const categories = [
     { id: "cat-navigation", label: "Navigation & Layout", count: 5, ids: ["topbar", "sidebar", "filterbar", "bulkactions", "usermenu"] },
     { id: "cat-dashboard", label: "Dashboard & Data", count: 4, ids: ["datatable", "dashstats", "activityfeed", "authform"] },
-    { id: "cat-prompt-store", label: "Prompt Store", count: 3, ids: ["promptcard", "lifecycle", "templatepicker"] },
-    { id: "cat-editor", label: "Prompt Editor", count: 6, ids: ["anatomyfieldcard", "compiledpreview", "variablemanager", "prompteditorpanel", "versiontimeline", "versioncomparison"] },
-    { id: "cat-playground", label: "Playground & Testing", count: 4, ids: ["playgroundpanel", "runhistory", "testdatasetmanager", "evaluationresults"] },
-    { id: "cat-ai", label: "AI & Evaluation", count: 5, ids: ["aigenerationpanel", "clearscorepanel", "improvedpromptpanel", "evalconfirmmodal", "evaluationresultsview"] },
     { id: "cat-settings", label: "Settings & Config", count: 4, ids: ["settingsnav", "apikeymanager", "integrationcard", "onboardingwizard"] },
     { id: "cat-io", label: "Import & Export", count: 2, ids: ["importdialog", "exportmenu"] },
   ];
@@ -114,7 +81,7 @@ export default function OrganismsPage() {
         <p className="mt-1 font-body text-base text-muted-foreground">
           Complex components composed of molecules and atoms. These form the major UI sections.
         </p>
-        <p className="mt-0.5 font-mono text-xs text-foreground-subtle">42 components · 8 categories</p>
+        <p className="mt-0.5 font-mono text-xs text-foreground-subtle">15 components · 4 categories</p>
       </div>
 
       {/* ── CATEGORY JUMP NAV ── */}
@@ -235,270 +202,6 @@ export default function OrganismsPage() {
         <CodeBlock>{`<ActivityFeed items={[{ actor, initials, action, resource, time }]} />`}</CodeBlock>
       </Section>
 
-      {/* CATEGORY: Prompt Store                                       */}
-      {/* ═══════════════════════════════════════════════════════════ */}
-      <CategoryHeader id="cat-prompt-store" title="Prompt Store" description="Prompt browsing, lifecycle management, and template selection." count={3} />
-
-      {/* ── PROMPT CARD ── */}
-      <Section id="promptcard" title="Prompt Card" description="Interactive card with hover lift, status badge, preview, and metadata." composedOf="Card + Badge + Text (mono)">
-        <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-          <PromptCard title="Customer Support Bot" status="production" preview="You are a helpful customer support agent for {{company_name}}. Always be polite and professional." version="v3" updatedAgo="2h ago" tokens={2847} />
-          <PromptCard title="Code Review Assistant" status="testing" preview="Analyze the following code and provide constructive feedback on quality, performance, and maintainability." version="v1" updatedAgo="5h ago" tokens={1523} />
-          <PromptCard title="Marketing Copy Writer" status="draft" preview="Generate compelling marketing copy for {{product_name}} targeting {{audience}}." version="v2" updatedAgo="1d ago" tokens={890} selected />
-        </div>
-        <CodeBlock>{`<PromptCard title="..." status="draft" preview="..." version="v3" updatedAgo="2h" tokens={2847} selected />`}</CodeBlock>
-      </Section>
-
-      {/* ── STATUS LIFECYCLE ── */}
-      <Section id="lifecycle" title="Status Lifecycle Bar" description="Draft → Testing → Production → Archived pipeline with gate indicators." composedOf="Badge + CheckCircle + connectors">
-        <div className="p-4 overflow-x-auto">
-          <StatusLifecycleBar steps={[
-            { label: "Draft", status: "draft", completed: true },
-            { label: "Testing", status: "testing", completed: true },
-            { label: "Production", status: "production", active: true },
-            { label: "Archived", status: "archived" },
-          ]} />
-        </div>
-        <CodeBlock>{`<StatusLifecycleBar steps={[{ label: "Draft", status: "draft", completed: true, active: false }]} />`}</CodeBlock>
-      </Section>
-
-      {/* ── TEMPLATE PICKER ── */}
-      <Section id="templatepicker" title="Template Picker" description="Grid picker for selecting prompt templates with category badges and metadata." composedOf="Badge + Button + Card-like buttons">
-        <div className="p-4">
-          <TemplatePickerDemo />
-        </div>
-        <CodeBlock>{`<TemplatePicker templates={[{ id, name, description, category, tokenEstimate, fields }]} selectedId="..." onSelect={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════════ */}
-      {/* CATEGORY: Prompt Editor                                      */}
-      {/* ═══════════════════════════════════════════════════════════ */}
-      <CategoryHeader id="cat-editor" title="Prompt Editor" description="Anatomy fields, compiled output, variables, versioning, and diff views." count={6} />
-
-      {/* ── ANATOMY FIELD CARD ── */}
-      <Section id="anatomyfieldcard" title="Anatomy Field Card" description="Prompt anatomy field with color dot, title, content snippet, and token count. 4 variants: atomic, compact, expanded, inactive." composedOf="Color dot + font-display label + font-mono content + token count">
-        <div className="p-4 space-y-4">
-          <h3 className="font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">Variants</h3>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <AnatomyFieldCard
-              field="role"
-              variant="atomic"
-              tokenCount={0}
-            />
-            <AnatomyFieldCard
-              field="task"
-              variant="compact"
-              content="Analyze the provided code and return a structured review covering correctness, performance, and readability."
-              tokenCount={245}
-            />
-            <AnatomyFieldCard
-              field="context"
-              variant="expanded"
-              content={"You are operating within a CI/CD pipeline.\nThe user is a senior engineer.\nCode is primarily TypeScript + React."}
-              tokenCount={412}
-            />
-            <AnatomyFieldCard
-              field="output"
-              variant="inactive"
-              content="Return a JSON object with fields: summary, issues[], suggestions[]."
-              tokenCount={87}
-            />
-          </div>
-
-          <h3 className="font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground mt-6">All Fields</h3>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
-            {(["role", "tone", "context", "task", "reasoning", "examples", "output", "constraints", "tools"] as const).map((field) => (
-              <AnatomyFieldCard key={field} field={field} variant="atomic" />
-            ))}
-          </div>
-        </div>
-        <CodeBlock>{`<AnatomyFieldCard field="role | tone | context | task | reasoning | examples | output | constraints | tools" variant="atomic | compact | expanded | inactive" content="..." tokenCount={245} />`}</CodeBlock>
-      </Section>
-
-      {/* ── COMPILED PREVIEW ── */}
-      <Section id="compiledpreview" title="Compiled Preview" description="Read-only view of the fully compiled prompt with token usage indicator." composedOf="TokenCounter + font-mono pre block">
-        <div className="p-4">
-          <CompiledPreview
-            content={"You are a helpful customer support agent for {{company_name}}.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nThe customer may ask about:\n- Order status and tracking\n- Returns and refunds\n- Product specifications\n\nSend replies from {{support_email}} using a {{tone}} voice.\n\nRespond in JSON format with fields: response, sentiment, escalate."}
-            totalTokens={1842}
-            maxTokens={4096}
-            onVariableClick={handleVariableClick}
-          />
-        </div>
-        <CodeBlock>{`<CompiledPreview content="..." totalTokens={1842} maxTokens={4096} />`}</CodeBlock>
-      </Section>
-
-      {/* ── VARIABLE MANAGER ── */}
-      <Section id="variablemanager" title="Variable Manager" description="Manages template variables like {{company_name}} with name and default value pairs. Click a {{variable}} in the Compiled Preview above to highlight it here." composedOf="Input + Button + font-mono variable syntax">
-        <div className="p-4 max-w-lg">
-          <VariableManagerDemo highlightedVariable={highlightedVar} />
-        </div>
-        <CodeBlock>{`<VariableManager variables={[{ name: "company_name", defaultValue: "Acme Corp" }]} onChange={fn} highlightedVariable="company_name" />`}</CodeBlock>
-      </Section>
-
-      {/* ── PROMPT EDITOR PANEL ── */}
-      <Section id="prompteditorpanel" title="Prompt Editor Panel" description="Split panel with anatomy field cards on the left and compiled preview on the right." composedOf="AnatomyFieldCard[] + CompiledPreview">
-        <div className="p-4">
-          <PromptEditorPanel
-            fields={[
-              { field: "role", content: "You are a helpful customer support agent for {{company_name}}.", tokenCount: 312 },
-              { field: "tone", content: "Always be polite and professional. Use a friendly but concise tone.", tokenCount: 145 },
-              { field: "task", content: "Help the customer resolve their issue. Ask clarifying questions if needed.", tokenCount: 198 },
-              { field: "output", content: "Respond in JSON format with fields: response, sentiment, escalate.", tokenCount: 87 },
-            ]}
-            compiledOutput={"You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nHelp the customer resolve their issue. Ask clarifying questions if needed.\n\nRespond in JSON format with fields: response, sentiment, escalate."}
-            totalTokens={742}
-            maxTokens={4096}
-          />
-        </div>
-        <CodeBlock>{`<PromptEditorPanel fields={[{ field: "role", content: "...", tokenCount: 312 }]} compiledOutput="..." totalTokens={742} />`}</CodeBlock>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════════ */}
-      {/* CATEGORY: Playground & Testing                               */}
-      {/* ═══════════════════════════════════════════════════════════ */}
-      <CategoryHeader id="cat-playground" title="Playground & Testing" description="Model testing, run tracking, test datasets, and result scoring." count={4} />
-
-      {/* ── PLAYGROUND PANEL ── */}
-      <Section id="playgroundpanel" title="Playground Panel" description="Test prompts against a model. Shows system prompt, user input, and model response." composedOf="Badge + TokenCounter + Textarea + Button + ThinkingDots">
-        <div className="p-4">
-          <PlaygroundPanel
-            compiledPrompt={"You are a helpful customer support agent for Acme Corp.\nAlways be polite and professional."}
-            response={"Thank you for reaching out! I'd be happy to help you with your order. Could you please provide me with your order number so I can look into this for you?"}
-            model="claude-3.5-sonnet"
-            tokenCount={2134}
-            maxTokens={4096}
-            userInput="I need help with my order"
-          />
-        </div>
-        <CodeBlock>{`<PlaygroundPanel compiledPrompt="..." response="..." model="claude-3.5-sonnet" tokenCount={2134} isRunning={boolean} onRun={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ── VERSION TIMELINE ── */}
-      <Section id="versiontimeline" title="Version Timeline" description="Vertical timeline showing prompt version history with status badges and token deltas." composedOf="Badge + font-mono labels + timeline dots">
-        <div className="p-4 max-w-md">
-          <VersionTimeline
-            versions={[
-              { id: "v4", label: "v4", status: "draft", timestamp: "2 hours ago", author: "Mariano", tokenDelta: 145, active: true },
-              { id: "v3", label: "v3", status: "production", timestamp: "3 days ago", author: "Mariano", tokenDelta: -89 },
-              { id: "v2", label: "v2", status: "archived", timestamp: "1 week ago", author: "Jane", tokenDelta: 312 },
-              { id: "v1", label: "v1", status: "archived", timestamp: "2 weeks ago", author: "Mariano" },
-            ]}
-            onSelect={() => {}}
-          />
-        </div>
-        <CodeBlock>{`<VersionTimeline versions={[{ id: "v3", label: "v3", status: "production", timestamp: "3 days ago", author: "Mariano", tokenDelta: -89, active: true }]} onSelect={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════════ */}
-      {/* CATEGORY: AI & Evaluation                                    */}
-      {/* ═══════════════════════════════════════════════════════════ */}
-      <CategoryHeader id="cat-ai" title="AI & Evaluation" description="AI generation, CLEAR scoring, improved prompts, and evaluation workflows." count={5} />
-
-      {/* ── AI GENERATION PANEL ── */}
-      <Section id="aigenerationpanel" title="AI Generation Panel" description="AI-assisted prompt generation with instruction input, generate button, and output area." composedOf="Textarea + Button + Badge + AI pulse animation">
-        <div className="p-4 max-w-xl">
-          <AIGenerationPanel
-            instruction="Write a system prompt for a friendly customer support agent that handles returns"
-            generatedOutput={"You are a friendly and empathetic customer support agent specializing in returns and refunds.\n\nAlways greet the customer warmly and acknowledge their concern before proceeding.\n\nFollow the company return policy strictly but present options in a positive light.\n\nIf the return window has passed, offer alternatives such as store credit or exchanges."}
-            targetField="role"
-            onGenerate={() => {}}
-            onAccept={() => {}}
-          />
-        </div>
-        <CodeBlock>{`<AIGenerationPanel instruction="..." generatedOutput="..." targetField="role" isGenerating={boolean} onGenerate={fn} onAccept={fn} />`}</CodeBlock>
-      </Section>
-
-
-      {/* ── VERSION COMPARISON ── */}
-      <Section id="versioncomparison" title="Version Comparison" description="Side-by-side diff view comparing two prompt versions with line-level highlighting." composedOf="Badge + DiffLine + font-mono pre">
-        <div className="p-4">
-          <VersionComparison
-            versionA={{
-              label: "v2",
-              status: "archived",
-              tokenCount: 687,
-              content: "You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional.\n\nHelp the customer with their issue.\n\nRespond in plain text format.",
-            }}
-            versionB={{
-              label: "v3",
-              status: "production",
-              tokenCount: 742,
-              content: "You are a helpful customer support agent for Acme Corp.\n\nAlways be polite and professional. Use a friendly but concise tone.\n\nHelp the customer resolve their issue. Ask clarifying questions if needed.\n\nRespond in JSON format with fields: response, sentiment, escalate.",
-            }}
-          />
-        </div>
-        <CodeBlock>{`<VersionComparison versionA={{ label: "v2", status: "archived", content: "...", tokenCount: 687 }} versionB={{ label: "v3", status: "production", content: "...", tokenCount: 742 }} />`}</CodeBlock>
-      </Section>
-
-      {/* ── EVALUATION RESULTS ── */}
-      <Section id="evaluationresults" title="Evaluation Results" description="Score dashboard with overall score, pass/fail counts, and per-metric breakdowns." composedOf="Badge + Progress + font-mono scores">
-        <div className="p-4 max-w-xl">
-          <EvaluationResults
-            model="claude-3.5-sonnet"
-            overallScore={84}
-            totalTests={25}
-            passed={21}
-            failed={4}
-            timestamp="10m ago"
-            metrics={[
-              { name: "Accuracy", score: 92, maxScore: 100 },
-              { name: "Relevance", score: 88, maxScore: 100 },
-              { name: "Coherence", score: 79, maxScore: 100 },
-              { name: "Safety", score: 95, maxScore: 100 },
-              { name: "Latency", score: 67, maxScore: 100 },
-            ]}
-          />
-        </div>
-        <CodeBlock>{`<EvaluationResults model="claude-3.5-sonnet" overallScore={84} totalTests={25} passed={21} failed={4} metrics={[...]} />`}</CodeBlock>
-      </Section>
-
-      {/* ── TEST DATASET MANAGER ── */}
-      <Section id="testdatasetmanager" title="Test Dataset Manager" description="Manages test cases with bulk selection, run, and import actions." composedOf="TestCaseRow + Button + Badge">
-        <div className="p-4">
-          <TestDatasetManagerDemo />
-        </div>
-        <CodeBlock>{`<TestDatasetManager testCases={[...]} selectedIds={[]} onSelectChange={fn} onAdd={fn} onRunSelected={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ── RUN HISTORY ── */}
-      <Section id="runhistory" title="Run History" description="Scrollable list of playground/evaluation run entries with status and metrics." composedOf="RunHistoryItem + Badge">
-        <div className="p-4 max-w-2xl">
-          <RunHistory
-            runs={[
-              { id: "1", runId: "#1042", model: "claude-3.5-sonnet", status: "success", tokens: 1247, latencyMs: 820, timestamp: "2m ago" },
-              { id: "2", runId: "#1041", model: "gpt-4-turbo", status: "error", tokens: 0, latencyMs: 1500, timestamp: "5m ago" },
-              { id: "3", runId: "#1040", model: "claude-3.5-sonnet", status: "running", tokens: 340, timestamp: "8m ago" },
-              { id: "4", runId: "#1039", model: "gemini-1.5-pro", status: "pending", timestamp: "12m ago" },
-              { id: "5", runId: "#1038", model: "gpt-4-turbo", status: "success", tokens: 890, latencyMs: 650, timestamp: "20m ago" },
-            ]}
-          />
-        </div>
-        <CodeBlock>{`<RunHistory runs={[{ id, runId, model, status, tokens, latencyMs, timestamp }]} onRunClick={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════════ */}
-      {/* CATEGORY: Import & Export                                    */}
-      {/* ═══════════════════════════════════════════════════════════ */}
-      <CategoryHeader id="cat-io" title="Import & Export" description="Content import and export in multiple formats." count={2} />
-
-      {/* ── IMPORT DIALOG ── */}
-      <Section id="importdialog" title="Import Dialog" description="Multi-format import with paste area and file drop zone." composedOf="Textarea + Button + format selector">
-        <div className="p-4 max-w-lg">
-          <ImportDialog />
-        </div>
-        <CodeBlock>{`<ImportDialog onImport={(content, format) => {}} onCancel={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ── EXPORT MENU ── */}
-      <Section id="exportmenu" title="Export Menu" description="Format picker for exporting prompts in JSON, CSV, YAML, Markdown, or clipboard." composedOf="Button list + icons + descriptions">
-        <div className="p-4">
-          <ExportMenu promptName="Customer Support Bot" />
-        </div>
-        <CodeBlock>{`<ExportMenu promptName="Customer Support Bot" onExport={(format) => {}} />`}</CodeBlock>
-      </Section>
-
-
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* CATEGORY: Settings & Config                                  */}
       {/* ═══════════════════════════════════════════════════════════ */}
@@ -543,92 +246,28 @@ export default function OrganismsPage() {
         <CodeBlock>{`<OnboardingWizard steps={[{ id, title, description, completed }]} currentStep={0} onNext={fn} onSkip={fn} />`}</CodeBlock>
       </Section>
 
-      {/* ── CLEAR SCORE PANEL ── */}
-      <Section id="clearscorepanel" title="CLEAR Score Panel" description="Displays CLEAR framework evaluation results with overall score, dimension breakdown, strengths/improvements, and actionable suggestions." composedOf="Progress + Collapsible + Badge + Button">
-        <div className="p-4">
-          <CLEARScorePanel
-            overallScore={81}
-            dimensions={showcaseCLEARDimensions}
-            strengths={showcaseStrengths}
-            improvements={showcaseImprovements}
-            suggestions={showcaseSuggestions}
-          />
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* CATEGORY: Import & Export                                    */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <CategoryHeader id="cat-io" title="Import & Export" description="Content import and export in multiple formats." count={2} />
+
+      {/* ── IMPORT DIALOG ── */}
+      <Section id="importdialog" title="Import Dialog" description="Multi-format import with paste area and file drop zone." composedOf="Textarea + Button + format selector">
+        <div className="p-4 max-w-lg">
+          <ImportDialog />
         </div>
-        <CodeBlock>{`<CLEARScorePanel overallScore={81} dimensions={[...]} strengths={[...]} improvements={[...]} suggestions={[...]} onApplySuggestion={fn} />`}</CodeBlock>
+        <CodeBlock>{`<ImportDialog onImport={(content, format) => {}} onCancel={fn} />`}</CodeBlock>
       </Section>
 
-      {/* ── IMPROVED PROMPT PANEL ── */}
-      <Section id="improvedpromptpanel" title="Improved Prompt Panel" description="Displays AI-improved prompt with two views: Full Version (monospace, copyable) and Anatomy Fields (editable cards). Includes Save to Store with status selection." composedOf="TabNav + AnatomyFieldCard + Badge + Select + Button">
+      {/* ── EXPORT MENU ── */}
+      <Section id="exportmenu" title="Export Menu" description="Format picker for exporting prompts in JSON, CSV, YAML, Markdown, or clipboard." composedOf="Button list + icons + descriptions">
         <div className="p-4">
-          <ImprovedPromptPanel
-            improvedPrompt={showcaseImprovedPrompt}
-            anatomyFields={showcaseAnatomyFields}
-          />
+          <ExportMenu promptName="Customer Support Bot" />
         </div>
-        <CodeBlock>{`<ImprovedPromptPanel improvedPrompt="..." anatomyFields={[{ field, content, tokenCount }]} onReEvaluate={fn} onSaveToStore={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ── EVAL CONFIRM MODAL ── */}
-      <Section id="evalconfirmmodal" title="Eval Confirm Modal" description="Configuration summary dialog shown before running an evaluation. Displays model, platform, temperature, anatomy fields, and instruction preview." composedOf="Dialog + Badge + Button">
-        <div className="p-4">
-          <EvalConfirmModalDemo />
-        </div>
-        <CodeBlock>{`<EvalConfirmModal open={boolean} onOpenChange={fn} config={PromptConfigState} running={boolean} onConfirm={fn} />`}</CodeBlock>
-      </Section>
-
-      {/* ── EVALUATION RESULTS VIEW ── */}
-      <Section id="evaluationresultsview" title="Evaluation Results View" description="Full-page results layout: Improved Prompt (tabbed), KPI stats, and CLEAR Score Panel. Used after evaluation completes across all entry points." composedOf="ImprovedPromptPanel + StatCard + CLEARScorePanel + Button">
-        <div className="p-4">
-          <EvaluationResultsView onBack={() => {}} onReEvaluate={() => {}} />
-        </div>
-        <CodeBlock>{`<EvaluationResultsView onBack={fn} onReEvaluate={fn} />`}</CodeBlock>
+        <CodeBlock>{`<ExportMenu promptName="Customer Support Bot" onExport={(format) => {}} />`}</CodeBlock>
       </Section>
     </div>
   );
-}
-
-/** Demo wrapper for VariableManager with local state */
-function VariableManagerDemo({ highlightedVariable }: { highlightedVariable?: string | null }) {
-  const [vars, setVars] = useState([
-    { name: "company_name", defaultValue: "Acme Corp" },
-    { name: "support_email", defaultValue: "help@acme.com" },
-    { name: "tone", defaultValue: "professional" },
-  ]);
-  return <VariableManager variables={vars} onChange={setVars} highlightedVariable={highlightedVariable} />;
-}
-
-const sampleTemplates = [
-  { id: "support", name: "Customer Support", description: "Friendly support agent that handles inquiries, complaints, and returns with empathy.", category: "Support", tokenEstimate: 850, fields: ["role", "tone", "task", "output"] },
-  { id: "code-review", name: "Code Reviewer", description: "Thorough code reviewer focusing on correctness, performance, and maintainability.", category: "Engineering", tokenEstimate: 1200, fields: ["role", "context", "task", "constraints", "output"] },
-  { id: "copywriter", name: "Marketing Copywriter", description: "Creative copywriter for product descriptions, landing pages, and ad copy.", category: "Marketing", tokenEstimate: 680, fields: ["role", "tone", "examples", "output"] },
-  { id: "analyst", name: "Data Analyst", description: "Analytical assistant that interprets data, generates insights, and creates summaries.", category: "Analytics", tokenEstimate: 950, fields: ["role", "context", "task", "reasoning", "output"] },
-  { id: "tutor", name: "Learning Tutor", description: "Patient tutor that explains concepts step by step with examples and practice exercises.", category: "Education", tokenEstimate: 1100, fields: ["role", "tone", "reasoning", "examples", "output"] },
-  { id: "email", name: "Email Composer", description: "Professional email writer adapting tone for internal, client, and executive audiences.", category: "Communication", tokenEstimate: 520, fields: ["role", "tone", "task"] },
-];
-
-/** Demo wrapper for TemplatePicker with local state */
-function TemplatePickerDemo() {
-  const [selectedId, setSelectedId] = useState<string | null>("code-review");
-  return (
-    <TemplatePicker
-      templates={sampleTemplates}
-      selectedId={selectedId}
-      onSelect={(t) => setSelectedId(t.id)}
-    />
-  );
-}
-
-/** Demo wrapper for TestDatasetManager with local state */
-function TestDatasetManagerDemo() {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const testCases = [
-    { id: "1", name: "greeting", input: "Say hello to the user", expected: "Hello! How can I help?", status: "pass" as const, score: 95 },
-    { id: "2", name: "refusal", input: "Write malicious code", expected: "I cannot help with that", status: "fail" as const, score: 20 },
-    { id: "3", name: "summary", input: "Summarize this article about AI safety...", status: "pending" as const },
-    { id: "4", name: "translate", input: "Translate to French: Hello world", expected: "Bonjour le monde", status: "pass" as const, score: 88 },
-    { id: "5", name: "format", input: "Format this data as a table", expected: "| Col1 | Col2 |", status: "skipped" as const },
-  ];
-  return <TestDatasetManager testCases={testCases} selectedIds={selectedIds} onSelectChange={setSelectedIds} />;
 }
 
 /** Demo wrapper for SettingsNav with local state */
@@ -666,80 +305,5 @@ function OnboardingWizardDemo() {
       onStepClick={setStep}
       onNext={() => setStep(Math.min(step + 1, steps.length - 1))}
     />
-  );
-}
-
-// --- CLEAR Score showcase data ---
-const showcaseCLEARDimensions: CLEARDimension[] = [
-  { key: "C", label: "Clarity", description: "How unambiguous the instructions are", score: 88 },
-  { key: "L", label: "Leverage", description: "How well it uses model capabilities", score: 72 },
-  { key: "E", label: "Efficiency", description: "Token optimization, no redundancy", score: 91 },
-  { key: "A", label: "Adaptability", description: "Handles edge cases and variations", score: 68 },
-  { key: "R", label: "Robustness", description: "Resilience to adversarial inputs", score: 85 },
-];
-
-const showcaseStrengths = [
-  "Clear role definition establishes strong persona boundaries",
-  "Explicit output format prevents ambiguous responses",
-];
-
-const showcaseImprovements = [
-  "Add fallback instructions for unsupported languages",
-  "Consider adding few-shot examples for edge cases",
-];
-
-const showcaseSuggestions: CLEARSuggestion[] = [
-  { id: "s1", text: "Add a language detection step before responding.", dimension: "Adaptability" },
-  { id: "s2", text: "Include explicit token budget constraints.", dimension: "Efficiency" },
-];
-
-const showcaseImprovedPrompt = `You are an expert onboarding assistant for SaaS products.
-
-## Tone
-Friendly, professional, and encouraging.
-
-## Task
-Guide the user through initial setup:
-1. Connecting their workspace
-2. Inviting team members
-3. Creating their first project
-
-## Constraints
-- Never mention competitors
-- Handle adversarial inputs with a polite refusal`;
-
-const showcaseAnatomyFields: { field: AnatomyField; content: string; tokenCount: number }[] = [
-  { field: "role", content: "You are an expert onboarding assistant for SaaS products.", tokenCount: 52 },
-  { field: "tone", content: "Friendly, professional, and encouraging.", tokenCount: 34 },
-  { field: "task", content: "Guide the user through initial setup: connecting workspace, inviting team members, creating first project.", tokenCount: 124 },
-  { field: "constraints", content: "Never mention competitors. Handle adversarial inputs with a polite refusal.", tokenCount: 44 },
-];
-
-/** Demo wrapper for EvalConfirmModal */
-function EvalConfirmModalDemo() {
-  const [open, setOpen] = useState(false);
-  const config = {
-    ...defaultPromptConfig,
-    instruction: "You are a helpful customer support agent for {{company_name}}. Always respond politely and professionally.",
-    model: "claude-4-sonnet" as const,
-    platform: "Claude" as const,
-    anatomyFields: ["role", "tone", "task", "output"] as string[],
-  };
-  return (
-    <>
-      <button
-        onClick={() => setOpen(true)}
-        className="rounded-md border border-accent bg-accent/10 px-4 py-2 font-display text-sm font-medium text-accent hover:bg-accent/20 transition-colors"
-      >
-        Open Eval Confirm Modal
-      </button>
-      <EvalConfirmModal
-        open={open}
-        onOpenChange={setOpen}
-        config={config}
-        running={false}
-        onConfirm={() => setOpen(false)}
-      />
-    </>
   );
 }
