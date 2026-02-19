@@ -1,10 +1,11 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useCallback, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import { Kbd } from "@/components/atoms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/atoms";
-import { Lock, Mail, ArrowRight, Eye } from "lucide-react";
+import { Lock, Mail, ArrowRight, Eye, X } from "lucide-react";
 import {
   isPrototypeAuthenticated,
   authenticatePrototype,
@@ -202,7 +203,7 @@ export default function PagesPage() {
 
       {/* Full-page modal for prototype preview */}
       <Dialog open={!!activePage} onOpenChange={(open) => { if (!open) setActivePage(null); }}>
-        <DialogContent className="max-w-[95vw] w-full h-[90vh] p-0 gap-0 overflow-hidden flex flex-col">
+        <DialogContent className="max-w-[95vw] w-full h-[90vh] p-0 gap-0 overflow-hidden flex flex-col [&>button.absolute]:hidden">
           <DialogTitle className="sr-only">{activePage?.name ?? "Page Preview"}</DialogTitle>
 
           {/* Modal header bar */}
@@ -213,10 +214,18 @@ export default function PagesPage() {
                 <Badge variant="outline" size="sm">{activePage.template}</Badge>
                 <span className="font-mono text-xs text-muted-foreground">{activePage.route}</span>
               </div>
-              <Badge variant="secondary" size="sm" className="gap-1">
-                <Lock className="h-2.5 w-2.5" />
-                Prototype
-              </Badge>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" size="sm" className="gap-1">
+                  <Lock className="h-2.5 w-2.5" />
+                  Prototype
+                </Badge>
+                <DialogClose asChild>
+                  <Button variant="ghost" size="sm" className="h-7 gap-1.5 px-2 text-muted-foreground hover:text-foreground">
+                    <X className="h-3.5 w-3.5" />
+                    <Kbd>Esc</Kbd>
+                  </Button>
+                </DialogClose>
+              </div>
             </div>
           )}
 
