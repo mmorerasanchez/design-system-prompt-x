@@ -45,7 +45,7 @@ export default function OverviewPage() {
           <h1 className="font-mono text-3xl font-bold tracking-tight lowercase">
             democrito
           </h1>
-          <Badge variant="outline">v0.3.0</Badge>
+          <Badge variant="outline">v3</Badge>
         </div>
         <Text size="lg" variant="muted" className="max-w-prose">
           A minimal, monochromatic, precisely crafted design system — the visual foundation of prompt-x. Ready to duplicate and extend.
