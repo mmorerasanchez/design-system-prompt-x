@@ -48,7 +48,7 @@ export default function OverviewPage() {
           <Badge variant="outline">v3</Badge>
         </div>
         <Text size="lg" variant="muted" className="max-w-prose">
-          A minimal, monochromatic, precisely crafted design system — the visual foundation of prompt-x. Ready to duplicate and extend.
+          A minimal, monochromatic, hand-crafted atomic design system — the visual foundation of prompt-x. Ready to integrate in your app.
         </Text>
         <div className="flex items-center gap-3">
           <Button onClick={() => window.open(REPO_URL, "_blank")}>
