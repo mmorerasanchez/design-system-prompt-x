@@ -158,10 +158,16 @@ export default function OverviewPage() {
           </div>
 
           {/* Star CTA */}
-          <Button variant="secondary" className="w-full sm:w-auto" onClick={() => window.open(REPO_URL, "_blank")}>
-            <Star className="h-4 w-4" />
-            Star on GitHub
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button variant="secondary" onClick={() => window.open(REPO_URL, "_blank")}>
+              <Star className="h-4 w-4" />
+              Star on GitHub
+            </Button>
+            <Button variant="outline" onClick={() => window.open("https://www.linkedin.com/in/mmorerasanchez/", "_blank")}>
+              <ExternalLink className="h-4 w-4" />
+              Contact Creator
+            </Button>
+          </div>
         </div>
       </div>
     </div>
