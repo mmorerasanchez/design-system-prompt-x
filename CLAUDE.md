@@ -21,7 +21,7 @@ The component library follows **Atomic Design** methodology with five levels:
 |---|---|---|---|
 | **Atoms** | `src/components/atoms/` | Smallest building blocks — single-purpose, no child components | `Heading`, `Tag`, `Spinner`, `Code`, `Kbd`, `Link`, `Text` |
 | **Molecules** | `src/components/molecules/` | Compositions of 2+ atoms | `FormField`, `SearchBar`, `StatCard`, `TokenCounter`, `TabNav`, `EmptyState` |
-| **Organisms** | `src/components/organisms/` | Major UI sections, may include molecules | `TopBar`, `DataTable`, `FilterBar`, `DashboardStats`, `VersionTimeline` |
+| **Organisms** | `src/components/organisms/` | Major UI sections, may include molecules | `TopBar`, `DataTable`, `FilterBar`, `DashboardStats`, `AuthForm` |
 | **Templates** | `src/components/templates/` | Page layout shells — no business logic | `AppShell`, `EditorLayout`, `LibraryLayout`, `DetailLayout`, `DashboardLayout` |
 | **Pages** | `src/pages/` | Route-level components that compose templates + organisms | `DashboardPage`, `LibraryPage`, `SettingsPage` |
 
