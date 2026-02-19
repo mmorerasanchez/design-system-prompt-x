@@ -137,7 +137,7 @@ export function SidebarNav({ collapsed = false, onToggle, activeItem = "store", 
           {!collapsed && (
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-sm font-medium">Mariano</p>
-              <p className="truncate font-body text-2xs text-muted-foreground">mariano@promptx.io</p>
+              <p className="truncate font-body text-2xs text-muted-foreground">hello@prompt-x.io</p>
             </div>
           )}
         </div>

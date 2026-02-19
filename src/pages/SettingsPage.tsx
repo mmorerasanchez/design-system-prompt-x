@@ -111,7 +111,7 @@ export default function SettingsPage() {
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="email" className="font-body text-sm font-medium">Email</Label>
-                    <Input id="email" defaultValue="mariano@promptx.io" type="email" />
+                    <Input id="email" defaultValue="hello@prompt-x.io" type="email" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

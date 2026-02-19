@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/use-theme";
 import { ShowcaseLayout } from "@/components/ShowcaseLayout";
 import { AppShell } from "@/components/templates/AppShell";
+import { ProtectedGate } from "@/components/ProtectedGate";
 import OverviewPage from "@/pages/OverviewPage";
 import TokensPage from "@/pages/TokensPage";
 import AtomsPage from "@/pages/AtomsPage";
@@ -44,7 +45,7 @@ const App = () => (
               <Route path="/pages" element={<PagesPage />} />
             </Route>
             {/* App pages */}
-            <Route path="/app" element={<AppShell />}>
+            <Route path="/app" element={<ProtectedGate><AppShell /></ProtectedGate>}>
               <Route index element={<DashboardPage />} />
               <Route path="library" element={<LibraryPage />} />
               <Route path="library/:id" element={<PromptDetailPage />} />
@@ -52,7 +53,7 @@ const App = () => (
               <Route path="ai-designer" element={<AIDesignerPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
-            <Route path="/app/welcome" element={<OnboardingPage />} />
+            <Route path="/app/welcome" element={<ProtectedGate><OnboardingPage /></ProtectedGate>} />
             <Route path="/test/tokens" element={<TokenSmokeTest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
