@@ -1,6 +1,6 @@
 # Getting Started
 
-> Install, run, and start building with the **prompt-x** Atomic Design System in under 5 minutes.
+> Install, run, and start building with **democrito** — the atomic design system and visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x) — in under 5 minutes.
 
 ---
 
@@ -18,8 +18,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/mmorerasanchez/design-system-prompt-x.git
-cd design-system-prompt-x
+git clone https://github.com/mmorerasanchez/democrito.git
+cd democrito
 
 # Install dependencies
 npm install

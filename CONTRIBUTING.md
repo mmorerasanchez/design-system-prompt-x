@@ -1,6 +1,6 @@
-# Contributing to promptx Design System
+# Contributing to democrito
 
-Thank you for considering contributing to the **promptx** Atomic Design System! 🎉
+Thank you for considering contributing to **democrito** — the atomic design system and visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x)! 🎉
 
 Whether you're fixing a bug, proposing a new component, improving documentation, or suggesting a design token change — your contributions make this project better for everyone. We appreciate your time and effort.
 
@@ -12,8 +12,8 @@ Whether you're fixing a bug, proposing a new component, improving documentation,
 2. **Clone** your fork locally:
 
 ```bash
-git clone https://github.com/<your-username>/design-system-prompt-x.git
-cd design-system-prompt-x
+git clone https://github.com/<your-username>/democrito.git
+cd democrito
 ```
 
 3. **Install dependencies**:
@@ -193,6 +193,6 @@ If you experience or witness unacceptable behavior, please report it by opening 
 
 ## Questions?
 
-Open a [GitHub issue](https://github.com/mmorerasanchez/design-system-prompt-x/issues) or reach out on [LinkedIn](https://www.linkedin.com/in/mmorerasanchez/).
+Open a [GitHub issue](https://github.com/mmorerasanchez/democrito/issues) or reach out on [LinkedIn](https://www.linkedin.com/in/mmorerasanchez/).
 
-Thank you for helping make **promptx** better! 🧡
+Thank you for helping make **democrito** better! 🧡

@@ -1,6 +1,7 @@
 # Architecture
 
-> Why the prompt-x design system is structured the way it is, and how the pieces fit together.
+> Why the democrito design system is structured the way it is, and how the pieces fit together.
+> democrito is the visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x), a prompt engineering platform.
 
 ---
 
@@ -134,11 +135,11 @@ The `src/components/ui/` directory contains **shadcn/ui primitives** — the raw
 ### The contract
 
 1. **Never modify `ui/` components directly** — they are the upstream source. Customization happens through CSS variables and CVA variants defined within the files, not by rewriting their internals.
-2. **Atoms wrap or extend `ui/` components** — an atom like `Tag` may compose `Badge` from `ui/badge.tsx`, adding prompt-x-specific variants.
+2. **Atoms wrap or extend `ui/` components** — an atom like `Tag` may compose `Badge` from `ui/badge.tsx`, adding democrito-specific variants.
 3. **`ui/` components can be used directly** in molecules and organisms when no atom wrapper is needed (e.g., `Button`, `Input`, `Dialog`).
 
 ```
-shadcn/ui (ui/)          prompt-x atoms (atoms/)
+shadcn/ui (ui/)          democrito atoms (atoms/)
 ┌────────────┐           ┌────────────┐
 │ Badge      │──extends──▶ Tag        │
 │ Button     │           │ (used directly in molecules)

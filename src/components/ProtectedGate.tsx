@@ -102,7 +102,7 @@ export function ProtectedGate({ children }: ProtectedGateProps) {
         {/* Back link */}
         <p className="text-center">
           <a href="/" className="font-body text-xs text-muted-foreground hover:text-accent transition-colors">
-            ← Back to Design System
+            ← Back to democrito
           </a>
         </p>
       </div>

@@ -1,12 +1,13 @@
-# promptx Design System v2.3
+# democrito Design System v2.3
 
 > Single Source of Truth · Last updated: 2026-02-12
+> democrito is the visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x) — a prompt engineering platform.
 
 ---
 
 ## 1. Executive Summary
 
-promptx is a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 100+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
+democrito is the design system powering prompt-x, a prompt engineering platform built on the principle that **Prompts Are Code**. The design system uses monochromatic warm stone grays (95% of surface area), a terracotta orange accent (4%), and semantic colors (1%). It is IDE-inspired with a distraction-free workspace aesthetic, ships 100+ components across 5 atomic layers, supports 3 themes (dark default, light, warm), and meets WCAG 2.1 AA accessibility standards.
 
 ---
 
@@ -568,7 +569,7 @@ All form components (Input, Textarea, SelectTrigger) must align visually with st
 2. ~~**Build atoms**~~ ✅ All 22 atoms built and showcased
 3. ~~**Build molecules**~~ ✅ All 17 molecules + ScoreBreakdown built and showcased
 4. ~~**Build organisms**~~ ✅ All 36+ organisms built and showcased
-5. ~~**Build promptx patterns**~~ ✅ All pattern organisms built and showcased
+5. ~~**Build democrito patterns**~~ ✅ All pattern organisms built and showcased
 6. ~~**Build templates**~~ ✅ All 8 templates built and showcased
 7. ~~**Assemble pages**~~ ✅ Dashboard, Library, AI Designer, Detail, Editor, Settings, Onboarding
 

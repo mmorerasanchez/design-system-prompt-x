@@ -12,8 +12,8 @@ export function ShowcaseLayout() {
             <div className="flex items-center gap-3">
               <SidebarTrigger className="lg:hidden" />
               <Logo size={24} />
-              <h1 className="font-display text-lg font-semibold tracking-tight">
-                Design System
+              <h1 className="font-mono text-lg font-semibold tracking-tight lowercase">
+                democrito
               </h1>
               <span className="font-mono text-2xs text-muted-foreground">v2.0.0</span>
             </div>

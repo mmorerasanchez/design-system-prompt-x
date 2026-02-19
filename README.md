@@ -1,4 +1,4 @@
-# ⚛️ Atomic Design System
+# ⚛️ democrito
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript&logoColor=white)
@@ -6,11 +6,11 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4+-06B6D4?logo=tailwindcss&logoColor=white)
 ![shadcn/ui](https://img.shields.io/badge/shadcn/ui-latest-000000?logo=shadcnui&logoColor=white)
 
-**A general-purpose, themeable design system for AI-native applications** — built on React, Tailwind CSS, and Radix UI with structured tokens, accessible components, and three-theme support.
+**A general-purpose, themeable atomic design system** — the visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x), a prompt engineering platform. Built on React, Tailwind CSS, and Radix UI with structured tokens, accessible components, and three-theme support.
 
 Ship dashboards, editors, workspaces, and data-heavy tools with a consistent visual language that works for both humans and AI agents.
 
-[🌐 Live Demo](https://design-system-prompt-x.lovable.app/) · [📦 GitHub](https://github.com/mmorerasanchez/design-system-prompt-x)
+[🌐 Live Demo](https://design-system-prompt-x.lovable.app/) · [📦 GitHub](https://github.com/mmorerasanchez/democrito)
 
 ---
 
@@ -18,7 +18,7 @@ Ship dashboards, editors, workspaces, and data-heavy tools with a consistent vis
 
 AI-assisted development tools like Lovable, Cursor, v0, and Claude Code generate UI at incredible speed — but without a shared design system, every generated component looks different. Colors drift, typography is inconsistent, spacing feels random, and the product loses its identity.
 
-This design system solves that by providing a **single source of truth** for every visual decision: CSS custom properties as design tokens, pre-built accessible components following Atomic Design, a three-font typography hierarchy, and a monochromatic + accent color philosophy. Whether a human engineer or an AI agent is building the next feature, the output is consistent and professional.
+**democrito** solves that by providing a **single source of truth** for every visual decision: CSS custom properties as design tokens, pre-built accessible components following Atomic Design, a three-font typography hierarchy, and a monochromatic + accent color philosophy. Whether a human engineer or an AI agent is building the next feature, the output is consistent and professional.
 
 **Use it for:** prompt engineering tools, analytics dashboards, developer platforms, internal tools, AI chat interfaces, or any application where clarity and density matter.
 
@@ -27,8 +27,8 @@ This design system solves that by providing a **single source of truth** for eve
 ## Quick Start
 
 ```bash
-git clone https://github.com/mmorerasanchez/design-system-prompt-x.git
-cd design-system-prompt-x
+git clone https://github.com/mmorerasanchez/democrito.git
+cd democrito
 npm install
 npm run dev
 ```
@@ -49,63 +49,13 @@ src/
 │
 ├── components/
 │   ├── atoms/                         # Smallest building blocks (7 components)
-│   │   ├── Code.tsx                   #   Inline code with accent styling
-│   │   ├── Heading.tsx                #   H1–H4 with font-display
-│   │   ├── Kbd.tsx                    #   Keyboard shortcut badges
-│   │   ├── Link.tsx                   #   Styled anchor with accent underline
-│   │   ├── Spinner.tsx                #   Loading indicator
-│   │   ├── Tag.tsx                    #   Category color tags
-│   │   ├── Text.tsx                   #   Body text variants (muted, subtle)
-│   │   └── index.ts
-│   │
 │   ├── molecules/                     # Compositions of atoms (18 components)
-│   │   ├── ActivityFeedItem.tsx       #   Single activity entry
-│   │   ├── AvatarGroup.tsx            #   Stacked avatar display
-│   │   ├── BreadcrumbNav.tsx          #   Navigation breadcrumbs
-│   │   ├── DiffLine.tsx               #   Version diff line display
-│   │   ├── EmptyState.tsx             #   Empty content placeholder
-│   │   ├── FormField.tsx              #   Label + input composition
-│   │   ├── NavItem.tsx                #   Sidebar navigation item
-│   │   ├── ParameterControl.tsx       #   Slider parameter control
-│   │   ├── PromptFieldHeader.tsx      #   Category field section header
-│   │   ├── RunHistoryItem.tsx         #   Single run history entry
-│   │   ├── ScoreBreakdown.tsx         #   Score display breakdown
-│   │   ├── SearchBar.tsx              #   Search input with icon
-│   │   ├── StatCard.tsx               #   Dashboard metric card
-│   │   ├── TabNav.tsx                 #   Tab navigation bar
-│   │   ├── TestCaseRow.tsx            #   Test dataset row
-│   │   ├── TokenCounter.tsx           #   Token usage display
-│   │   ├── VariableEditorRow.tsx      #   Variable key-value editor
-│   │   ├── VariableHighlight.tsx      #   Inline variable highlight
-│   │   └── index.ts
-│   │
 │   ├── organisms/                     # Major UI sections (42 components)
-│   │   ├── See src/components/organisms/ for full listing
-│   │   └── index.ts
-│   │
 │   ├── templates/                     # Page layout shells (7 components)
-│   │   ├── AppShell.tsx               #   Root app layout (sidebar + topbar + outlet)
-│   │   ├── ComparisonLayout.tsx       #   Side-by-side comparison layout
-│   │   ├── DashboardLayout.tsx        #   Dashboard grid layout
-│   │   ├── DetailLayout.tsx           #   Detail view with right panel
-│   │   ├── EditorLayout.tsx           #   Split-pane editor layout
-│   │   ├── LibraryLayout.tsx          #   Library grid/list layout
-│   │   ├── TemplatePreview.tsx        #   Template wireframe preview
-│   │   └── index.ts
-│   │
 │   └── ui/                            # shadcn/ui primitives (40+ components)
-│       ├── button.tsx, input.tsx, card.tsx, badge.tsx, dialog.tsx,
-│       │   select.tsx, tabs.tsx, table.tsx, toast.tsx, tooltip.tsx,
-│       │   accordion.tsx, checkbox.tsx, popover.tsx, slider.tsx, ...
-│       └── (Radix UI based, extended via CVA variants)
 │
 ├── pages/                             # Route pages (showcase + prototype)
-│
 ├── hooks/                             # Custom React hooks
-│   ├── use-theme.tsx                  #   Theme provider (dark/light/warm)
-│   ├── use-mobile.tsx                 #   Mobile breakpoint detection
-│   └── use-typing-animation.ts        #   Typing animation effect
-│
 └── lib/
     └── utils.ts                       # Utility functions (cn, etc.)
 ```
@@ -208,14 +158,14 @@ All tokens are defined as HSL in `src/index.css`. Hex approximations below for q
 
 ## For AI Agents & Vibe Coders
 
-This design system is optimized to work with AI development tools. Paste or reference the relevant sections when prompting.
+democrito is optimized to work with AI development tools. Paste or reference the relevant sections when prompting.
 
 ### With Lovable
 
 Point your Lovable project to the live design system URL and reference it in prompts:
 
 ```
-Use the design system at https://design-system-prompt-x.lovable.app/
+Use democrito (the design system at https://design-system-prompt-x.lovable.app/)
 for all visual decisions. Key rules:
 - 3 fonts: Plus Jakarta Sans (font-display) for titles, Satoshi (font-body)
   for body text, JetBrains Mono (font-mono) for ALL data and code content
@@ -231,7 +181,7 @@ Reference `src/index.css` and `tailwind.config.ts` directly in your context:
 
 ```
 @src/index.css @tailwind.config.ts
-Build a new component following the design system.
+Build a new component following the democrito design system.
 Use CSS custom properties (--background, --surface, --card, --foreground).
 All user-editable content must use font-mono (JetBrains Mono).
 Button labels use font-display (Plus Jakarta Sans).

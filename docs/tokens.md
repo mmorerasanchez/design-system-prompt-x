@@ -1,6 +1,7 @@
 # Design Tokens Reference
 
-> Complete inventory of every design token in the **prompt-x** design system.
+> Complete inventory of every design token in the **democrito** design system.
+> democrito is the visual foundation of [prompt-x](https://github.com/mmorerasanchez/prompt-x).
 > This document is the reference for implementing the system without reading source code.
 
 ---
