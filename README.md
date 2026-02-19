@@ -39,6 +39,8 @@ npm run dev
 
 The design system follows **Atomic Design** methodology — Atoms → Molecules → Organisms → Templates — with design tokens defined as CSS custom properties in `src/index.css` and mapped through `tailwind.config.ts`.
 
+> **Note on token format:** Tokens are currently defined directly in CSS custom properties (HSL values) rather than a `design-tokens.json` file. A W3C DTCG–compatible JSON export for tooling interoperability (Figma Token Studio, Style Dictionary, etc.) is planned for a future phase. See [`docs/tokens.md`](docs/tokens.md) for the full token reference.
+
 ```
 src/
 ├── index.css                          # Design tokens (CSS custom properties), font imports, base resets
@@ -273,7 +275,8 @@ IDE-inspired, clean, distraction-free aesthetic.
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines, commit conventions, and component creation workflow |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history following [Keep a Changelog](https://keepachangelog.com/) format |
 | [`CLAUDE.md`](CLAUDE.md) | AI agent context file — auto-read by Claude Code, Cursor, and similar tools |
-| [`docs/README.md`](docs/README.md) | Documentation index with links to all guides and component references |
+| [`docs/`](docs/README.md) | Documentation hub — architecture, theming guide, AI usage, component references |
+| [`.editorconfig`](.editorconfig) | Editor formatting consistency (indent, line endings, charset) |
 
 ---
 
