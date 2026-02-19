@@ -37,59 +37,6 @@ import type { CLEARDimension, CLEARSuggestion } from "@/components/organisms/CLE
 import type { AnatomyField } from "@/components/organisms/AnatomyFieldCard";
 import { Badge } from "@/components/ui/badge";
 
-import { Lock, Mail } from "lucide-react";
-import { isPrototypeAuthenticated, authenticatePrototype, CONTACT_EMAIL } from "@/lib/prototype-auth";
-
-const PROTECTED_SECTIONS = new Set([
-  "promptcard", "lifecycle", "anatomyfieldcard", "compiledpreview", "variablemanager",
-  "prompteditorpanel", "playgroundpanel", "versiontimeline", "aigenerationpanel",
-  "templatepicker", "versioncomparison", "evaluationresults", "testdatasetmanager",
-  "runhistory", "clearscorepanel", "improvedpromptpanel", "evalconfirmmodal", "evaluationresultsview",
-]);
-
-function ProtectedOverlay() {
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [unlocked, setUnlocked] = useState(isPrototypeAuthenticated);
-
-  if (unlocked) return null;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (authenticatePrototype(password)) {
-      setUnlocked(true);
-    } else {
-      setError(true);
-    }
-  };
-
-  return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-background/80 backdrop-blur-md">
-      <div className="w-full max-w-xs space-y-3 px-4 text-center">
-        <Lock className="mx-auto h-5 w-5 text-accent" />
-        <p className="font-display text-sm font-medium">Protected Component</p>
-        <p className="font-body text-xs text-muted-foreground">
-          Contact{" "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent hover:underline">{CONTACT_EMAIL}</a>
-          {" "}to request access.
-        </p>
-        <form onSubmit={handleSubmit} className="flex gap-2">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => { setPassword(e.target.value); setError(false); }}
-            placeholder="Password"
-            className="flex-1 rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent"
-          />
-          <button type="submit" className="rounded-md bg-accent px-3 py-1.5 font-display text-xs font-medium text-accent-foreground hover:bg-accent/90 transition-colors">
-            Unlock
-          </button>
-        </form>
-        {error && <p className="font-body text-2xs text-destructive">Invalid password</p>}
-      </div>
-    </div>
-  );
-}
 
 function CategoryHeader({ id, title, description, count }: { id: string; title: string; description: string; count: number }) {
   return (
@@ -104,7 +51,6 @@ function CategoryHeader({ id, title, description, count }: { id: string; title: 
 }
 
 function Section({ id, title, description, composedOf, children }: { id: string; title: string; description: string; composedOf?: string; children: React.ReactNode }) {
-  const isProtected = PROTECTED_SECTIONS.has(id);
   return (
     <section id={id} className="space-y-4">
       <div>
@@ -113,7 +59,6 @@ function Section({ id, title, description, composedOf, children }: { id: string;
         {composedOf && <p className="mt-1 font-mono text-2xs text-accent">Composed of: {composedOf}</p>}
       </div>
       <div className="relative rounded-lg border border-border overflow-hidden">
-        {isProtected && <ProtectedOverlay />}
         {children}
       </div>
     </section>
