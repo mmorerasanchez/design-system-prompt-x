@@ -22,8 +22,8 @@ export function ThemeToggle() {
           onClick={() => setTheme(value)}
           aria-label={`Switch to ${label} theme`}
         >
-          <Icon className="mr-1 h-3 w-3" />
-          {label}
+          <Icon className="h-3 w-3 sm:mr-1" />
+          <span className="hidden sm:inline">{label}</span>
         </Button>
       ))}
     </div>
